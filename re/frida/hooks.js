@@ -129,10 +129,20 @@ function install() {
     // 7) cdn_speed_limit_dispatch —— 每任务 CDN 配额
     hook(0x2ed84e, 'cdn_speed_limit_dispatch', () => { console.log('[cdn] dispatch 进入'); return null; });
 
-    // 8) close cdn 决策入口（RVA 0x1aea38，核心块 0x1aeadc）
-    hook(0x1aea38, 'close_cdn_strategy', function (args) {
-        const th = this.context.ecx;
-        console.log(`[close-cdn] level=${th.readS32()} speed[edi+0x20]=${th.add(0x20).readS32()}`);
+    // 8) close cdn 决策块（RVA 0x1aea38 / 核心 0x1aeadc）
+    //    ⚠️ 这个函数的 ecx 是 level 本身（不是 this），真正的对象在 [ebp-0x30]；
+    //    这里直接读栈上算好的两个局部变量，避免猜栈布局：
+    //      [ebp-0xd8] = base, [ebp-0xd4] = cdn_speed
+    //    onEnter 时它们还没算完，所以挂在 0x1aeb6d（算完之后）。
+    hook(0x1aeb6d, 'close_cdn(decided)', function () {
+        const ebp = this.context.ebp;
+        const level = ebp.add(-0xec).readS32();
+        const base = ebp.add(-0xd8).readS32();
+        const cdnSpeed = ebp.add(-0xd4).readS32();
+        const measured = ebp.add(-0x30).readPointer().add(0x20).readS32();
+        console.log(`[close-cdn] level=${level} base=${base} ` +
+                    `cdn_speed=${cdnSpeed} (${(cdnSpeed / 1048576).toFixed(2)} MiB/s) ` +
+                    `gate=${level * base} measured=${measured}`);
         return null;
     });
 
