@@ -463,6 +463,13 @@ function diagnose() {
     var mods = listModules();
     log('已加载模块数：' + mods.length);
 
+    // ★ 一个 dll 都不数会骗人：官方版 kernel.dll 是 42MB，看大小就能确认是不是同一个东西
+    var kk = getModule(KERNEL);
+    if (kk) {
+        log('kernel.dll 版本 = ' + kk.base + ' 大小=' + (kk.size / 1048576).toFixed(1) + 'MB' +
+            '（官方 8.1.6.101 是 42.1MB）');
+    }
+
     var watch = ['BaiduNetdisk.exe', 'YunLogic.dll', 'Bull140U.dll', 'YunDls.dll',
                  'KernelCom.dll', 'channelpcsdk.dll', 'netbase.dll', 'kernel.dll',
                  'kernel_btsdk.dll', 'speedtest.dll'];
@@ -499,6 +506,11 @@ function diagnose() {
         log('最近加载的模块：' + tail.join(', '));
     } catch (e) { }
 
+    log('[i] 本进程是不是"下载进程"还不一定 —— 客户端是多进程的。');
+    log('    最可靠的做法：先在桌面开一个 cmd 跑');
+    log('        python re/frida/census.py');
+    log('    它会把每个百度进程里有没有 kernel.dll 列成一张表，直接告诉你该 attach 哪个 pid。');
+    log('');
     log('[i] 提示：kernel.dll 是"用到才加载"的（客户端按需 LoadLibrary）。');
     log('    - 如果连 YunDls.dll 都没有 → 客户端还没进到能下载的状态（登录/首屏）');
     log('    - 如果 YunDls.dll 有、kernel.dll 没有 → 点一个下载就会加载');

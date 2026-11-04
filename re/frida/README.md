@@ -9,6 +9,7 @@
 | `selftest.js` | 30 秒体检：位数/模块/能不能 hook/kernel.dll 是否加载 |
 | `dump_ps.py` | 不用 `frida-ps` 也能列进程，找 PID |
 | `verify_rva.py` | **离线**校验 hooks.js 里的 RVA 与字节签名是否对得上你的 kernel.dll |
+| `census.py` | **多进程普查**：列出每个百度进程里有哪些关键模块，直接告诉你该 attach 哪个 pid |
 | `README.md` | 本文件 |
 
 ---
@@ -167,6 +168,29 @@ frida -p 12345 -l hooks.js
 | 试用是不是 60 秒 | `[trial] 持续时间 ≈ N s` |
 | 后段为什么变慢 | `[gate] left_block` 逼近 0 而 `[threshold]` 仍是几 MB/s |
 | 谁在改下限 | `[ratio] new=…` |
+
+---
+
+## 4.4 先跑 census.py：找出 kernel.dll 到底在哪个进程
+
+百度网盘是多进程的，attach 错进程就会永远"等 kernel.dll"。这个脚本把每个百度进程
+挨个扫一遍，列成一张表：
+
+```bat
+python census.py
+```
+
+```
+pid     name                       kernel.dll   kernel_btsdk  YunDls  YunLogic  netbase  模块数
+27668   BaiduNetdisk.exe           0x5a3c0000   -             有      有        有       118
+4120    YunUtilityService.exe      -            -             -       -         -        22
+
+★ 下载内核在：pid=27668  BaiduNetdisk.exe
+   挂上去： python run.py attach --pid 27668
+```
+
+表里谁有 `kernel.dll`，就 attach 谁。全都没有再看 §4.5。
+详细的事实梳理见 `docs/08-复核-kernel加载事实.md`。
 
 ---
 
