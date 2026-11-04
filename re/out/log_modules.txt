@@ -1,0 +1,12 @@
+# 模块	行数（两份日志合计）
+serverProxy	177
+Kernel	76
+uTP	52
+netio	15
+Update	9
+Task	7
+upload	5
+network_detector	2
+filesystem	2
+network	1
+cronet	1

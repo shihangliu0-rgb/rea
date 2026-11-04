@@ -23,8 +23,10 @@
 
 ## 1. 日志解密（一键复现）
 
+> `python3 re/tools/dump_all.py` 会把两份日志解密到 `re/out/*.log.decoded`。
+
 ```python
-# re/decrypt_logs.py
+# 最小复现（正式版在 re/tools/dump_all.py）
 KEY = 0x8A
 for f in ("logs/BaiduKernel_20261028040309_641_1.log",
           "logs/BaiduKernel_20261119200054_937_1.log"):

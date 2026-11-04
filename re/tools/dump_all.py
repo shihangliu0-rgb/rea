@@ -6,7 +6,7 @@ import pefile
 from kb import Bin
 from rtti2 import classes
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # re/tools/ -> repo root
 OUT = os.path.join(ROOT, 're', 'out')
 os.makedirs(OUT, exist_ok=True)
 
@@ -55,6 +55,20 @@ def main():
         raw = open(os.path.join(ROOT, 'logs', f), 'rb').read()
         open(os.path.join(OUT, f + '.decoded'), 'wb').write(bytes(b ^ 0x8A for b in raw))
     print('logs decoded (XOR 0x8A)')
+
+    # 日志模块分布
+    import collections, re
+    mods = collections.Counter()
+    for f in ('BaiduKernel_20261028040309_641_1.log', 'BaiduKernel_20261119200054_937_1.log'):
+        for line in open(os.path.join(OUT, f + '.decoded'), 'r', errors='replace'):
+            m = re.search(r'\{(\w+)\}', line)
+            if m:
+                mods[m.group(1)] += 1
+    with open(os.path.join(OUT, 'log_modules.txt'), 'w') as fh:
+        fh.write('# 模块\t行数（两份日志合计）\n')
+        for k, v in mods.most_common():
+            fh.write(f'{k}\t{v}\n')
+    print('log_modules.txt ok:', len(mods), 'modules')
 
 if __name__ == '__main__':
     main()
