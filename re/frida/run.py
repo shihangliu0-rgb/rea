@@ -109,7 +109,15 @@ def find_exe(args):
 
 def run(frida, pid_or_name, source, args, resume_pid=None):
     session = frida.attach(pid_or_name)
-    script = session.create_script(source, runtime="v8")
+
+    # Frida 17 起默认就是 V8（也能跑 QJS 写法）；旧版本显式指定 v8 更稳。
+    # 这里做降级：v8 不可用就退回默认运行时。
+    try:
+        script = session.create_script(source, runtime="v8")
+    except Exception as e:
+        print("[i] v8 运行时不可用，改用默认运行时：%s" % e)
+        script = session.create_script(source)
+
     script.on("message", on_message)
 
     def on_detached(reason, *rest):
@@ -120,8 +128,13 @@ def run(frida, pid_or_name, source, args, resume_pid=None):
     print("[+] 脚本已注入")
 
     if resume_pid is not None:
-        frida.resume(resume_pid)
-        print("[+] 已 resume，客户端开始运行")
+        # Frida 17 的 device.spawn() 默认不再自动恢复主线程（--no-pause 已移除），
+        # 仍然需要显式 resume；这里做容错，已经跑起来就跳过。
+        try:
+            frida.resume(resume_pid)
+            print("[+] 已 resume，客户端开始运行")
+        except Exception as e:
+            print("[i] resume 跳过（可能已自动恢复）：%s" % e)
 
     print("[+] 开始输出（Ctrl-C 结束）")
 

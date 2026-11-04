@@ -8,6 +8,7 @@
 | `run.py` | **不用 `frida` 命令也能跑**，纯 Python API 启动/附加 |
 | `selftest.js` | 30 秒体检：位数/模块/能不能 hook/kernel.dll 是否加载 |
 | `dump_ps.py` | 不用 `frida-ps` 也能列进程，找 PID |
+| `verify_rva.py` | **离线**校验 hooks.js 里的 RVA 与字节签名是否对得上你的 kernel.dll |
 | `README.md` | 本文件 |
 
 ---
@@ -32,6 +33,30 @@ pip install frida frida-tools
 
 ---
 
+## 0.5 Frida 17 的破坏性变更（`TypeError: ... is not a function` 的根源）
+
+Frida 17 删掉了一批静态 `Module` API。旧脚本一跑就报 `not a function`：
+
+| 旧写法（≤16） | Frida 17 的写法 |
+|---|---|
+| `Module.findExportByName(null, 'open')` | `Module.findGlobalExportByName('open')` |
+| `Module.getExportByName(null, 'open')` | `Module.getGlobalExportByName('open')` |
+| `Module.findExportByName('kernel32.dll', 'x')` | `Process.getModuleByName('kernel32.dll').findExportByName('x')` |
+| `Module.getExportByName('kernel32.dll', 'x')` | `Process.getModuleByName('kernel32.dll').getExportByName('x')` |
+| `Module.findBaseAddress('x.dll')` / `getBaseAddress` | `Process.getModuleByName('x.dll').base` |
+
+另外几条也会咬人：
+
+- `Module.getSymbolByName(null, x)` → `Module.getGlobalExportByName(x)`
+- 静态枚举（`Module.enumerateExports` 等）已删除，要用 `Process.getModuleByName(...).enumerateExports()`
+- `frida -f` 的 `--no-pause` 已移除；`--runtime=v8` 不必再写（默认就是 V8）
+- 静态属性 `Module.load/ensureInitialized` 也没有了
+
+**本仓库的 `hooks.js` 已经全部改完**：所有符号查找都走 `findExport()` 兼容函数，
+16/17 都能跑，也不再使用箭头函数。
+
+---
+
 ## 1. 最快的用法（推荐）
 
 **以管理员身份**打开命令提示符（Frida 注入需要管理员权限；否则会被 UAC/杀软拦）：
@@ -42,7 +67,10 @@ cd /d <本仓库路径>\re\frida
 REM ① 先体检（版本/位数/进程）
 python run.py check
 
-REM ①.5 注入死活不通时，先用 selftest 判断是环境问题还是脚本问题
+REM ①.5 先离线确认"地址还对不对"（不需要 Frida、不需要开客户端）
+python verify_rva.py
+
+REM ①.6 注入死活不通时，用 selftest 判断是环境问题还是脚本问题
 python run.py attach --name BaiduNetdisk.exe --script selftest.js
 
 REM ② 关掉已经开着的百度网盘，然后让脚本自己拉起客户端
@@ -153,7 +181,10 @@ frida -p 12345 -l hooks.js
 | 注入成功但**一行 hook 都没打** | `kernel.dll` 还没加载。`attach` 模式下要么先开始一个下载，要么用 `spawn` |
 | `[!] 等不到 kernel.dll` | 同上：客户端起来了但 P2P 内核没被用到（比如还没开始下载） |
 | 客户端启动就退出 / 报 0xc0000005 | 说明被检测或注入时机不对。改用 `attach`（等界面出来再挂），并确认 `hooks.js` 里 `PATCH_CONSUME=false` |
-| `[JS-ERROR] SyntaxError: unexpected token '=>'` | 命令行没带 `--runtime=v8` |
+| `TypeError: Module.findExportByName is not a function` | Frida 17 删了这个 API。用本仓库最新 `hooks.js`（已改成兼容写法）；自己写的脚本按 §0.5 改 |
+| `[JS-ERROR] SyntaxError: unexpected token '=>'` | 换成最新 `hooks.js`（已全改 function 写法）；或命令行加 `--runtime=v8` |
+| `[!] 跳过 xxx：RVA 0x… 处字节不匹配` | 你的 kernel.dll 不是 8.1.6.101 那份。跑 `python verify_rva.py --dll <你的kernel.dll>` 确认，并按 docs/05 §3 重新定位 |
+| `android`/`java` 之类无关报错 | 与本脚本无关，忽略 |
 | 中文乱码 | Windows 控制台默认 GBK。先执行 `chcp 65001`，或用 `--out` 写文件再用编辑器看 |
 | 打印量大到卡住 | 只在下 `[trial]` 相关行：`python run.py attach --out a.txt`，之后再 `findstr /C:"[trial]"` |
 

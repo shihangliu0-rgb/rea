@@ -122,18 +122,18 @@ void Task::set_try_speedup_flag(bool on) {
 100e3008  je   0x100e39dd          ; on==false → 恢复分支
 100e3011  mov  eax,[esi+0x30]
 100e3017  mov  [esi+0x68],eax      ; 备份 rate
-100e301c  call 0x100db010          ; get_capacity() → [this+8]
+100e301c  call 0xdb010          ; get_capacity() → [this+8]
 100e3023  push eax
-100e3024  call 0x100db150          ; set_rate(...)
+100e3024  call 0xdb150          ; set_rate(...)
 ...                                ; ×4 组（+0x38 / +0x118 / +0xa8 / +0x188）
 100e309f  push 0x1f400000
-100e30a4  call 0x100db150          ; ★ 钉死
+100e30a4  call 0xdb150          ; ★ 钉死
 100e30b1  push 0x1f400000
-100e30b6  call 0x100db150
+100e30b6  call 0xdb150
 100e30be  push 0x1f400000
-100e30c3  call 0x100db150
+100e30c3  call 0xdb150
 100e30cb  push 0x1f400000
-100e30d0  call 0x100db150
+100e30d0  call 0xdb150
 100e30f2  push 0x1122dfb4          ; "try speedup start|cdn_sl=…"
 ```
 
@@ -141,7 +141,7 @@ void Task::set_try_speedup_flag(bool on) {
 
 `0x1F400000 = 524 288 000` B/s ≈ **500 MB/s**。这个常数在库里到处出现：
 
-- 令牌桶构造函数 `0x100db020`：`[+8]=0x1f400000`、`[+0x20]=0x1f400000` → **默认就是"不限"**
+- 令牌桶构造函数 `0xdb020`：`[+8]=0x1f400000`、`[+0x20]=0x1f400000` → **默认就是"不限"**
 - `calculate_target_speed` 的"关闭抖动"分支返回 `0x1F400000`
 - 本函数把它当作"解除限速"的哨兵值写进 rate
 

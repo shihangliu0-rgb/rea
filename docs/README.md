@@ -9,7 +9,7 @@
 `kernel.dll`（P2P SDK 3.0.20.237）里有一个 `SpeedLimitor` + `AccumulateTokenBucket`（令牌桶），
 `calculate_target_speed()` @RVA `0x2ddb90` 把「服务端下发的 `max_speed`」乘以「`restrict_ratio` + 随机抖动%」
 算出本 tick 的目标速率，再由 `0x2dd780` 这个 thunk **直接 `push` 给 `TokenBucket::set_rate()`**。
-真正"卡"住带宽的动作是 `TokenBucket::consume()` @`0x2db170`：桶里没令牌就不发 `request`，
+真正"卡"住带宽的动作是 `TokenBucket::consume()` @`0xdb170`：桶里没令牌就不发 `request`，
 BT/HTTP 的请求驱动模型于是自然少收数据。**限速完全在客户端执行，服务端只给数字。**
 
 **2. 具体限到多少？**（本次样本实测/取证值）
