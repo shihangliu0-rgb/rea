@@ -146,6 +146,33 @@ function install() {
         return null;
     });
 
+    // ===== 9) 收尾门控：request_block_count / "select this" 分支 =====
+    //   0x1afb70 里算出两条门限后，用 `don't close cdn` 与 task_download_rate 打日志。
+    //   这里挂两处，把"阈值随 rate 变大而变大"这件事直接打印出来。
+    hook(0x1afd38, 'block_gate(pre)', function () {
+        const esi = this.context.esi;
+        const left = esi.add(0xf0).readS32();       // 剩余快数 = 总数 - 已请求
+        const rate = esi.add(0xe4).readS32();
+        const ratio = esi.add(0xe0).readS32();
+        console.log(`[gate] left_block=${left} rate=${rate} ratio=${ratio}`);
+        return null;
+    });
+
+    hook(0x1affb3, 'download_threshold', function () {
+        const esi = this.context.esi;
+        const thr = esi.add(0xbc).readS32();        // calculate_target_speed 的返回值
+        console.log(`[threshold] download_threshold_speed=${thr} B/s ` +
+                    `(= rate × 1.3，rate 越大门槛越高)`);
+        return null;
+    });
+
+    // 10) restrict_ratio 的唯一外部写入口（vtable 槽 0x119c8d0）
+    //     0x27fee0 打 "old ratio=%1%|new ratio=%2%"，此处只打印入参
+    hook(0x27fee0, 'set_download_restrict_ratio', function (args) {
+        console.log(`[ratio] new=${args[0].toInt32()}%`);
+        return null;
+    });
+
     // 可选: 实验性解限（把 rate 无限放大）—— 仅用于验证"这个桶就是限速点"
     if (PATCH_CONSUME) {
         hook(0x2db170, 'bucket.consume(PATCH)', function (args) {
