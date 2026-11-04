@@ -170,6 +170,56 @@ frida -p 12345 -l hooks.js
 
 ---
 
+## 4.5 一直等待 kernel.dll —— 怎么办（最常见）
+
+`kernel.dll` **不是启动就加载的**。它是客户端"要用到 P2P 下载内核"时才按需
+`LoadLibrary` 的（解密日志显示，先有 `serverProxy`/`Kernel` 初始化，之后才有 `netio`/`uTP`/`Task`）。
+
+现在的 `hooks.js` 会自动诊断，你会看到：
+
+```
+[*] 3 秒了，kernel.dll 还没出现。先看一眼当前状态：
+---------- 诊断 ----------
+已加载模块数：118
+  [已加载] BaiduNetdisk.exe     base=... size=...
+  [已加载] YunLogic.dll         base=... size=4.1MB
+  [已加载] YunDls.dll           base=... size=2.4MB
+  [  --  ] kernel.dll
+  ...
+[i] YunDls.dll 已在 → 下载内核随时可能按需 LoadLibrary("kernel.dll")。
+    现在去客户端里点一个下载（任意文件），kernel.dll 会立刻加载。
+--------------------------
+```
+
+对照结论：
+
+| 诊断输出 | 含义 | 怎么做 |
+|---|---|---|
+| 连 `YunDls.dll` 都没有 | 客户端还停在登录/首屏，下载子系统没起来 | 登录进主界面 |
+| 有 `YunDls.dll`、没 `kernel.dll` | 正常。P2P 内核还没被用到 | **点一个下载**（文件要够大，≥5 MiB 才会走 P2P） |
+| `kernel.dll` 出现了但没打印 `[+] hook ...` | 观察者漏事件 | 等 2 秒，脚本有轮询兜底 |
+| `frida-ps` 里有**另一个** Baidu 进程 | 客户端是多进程，下载在别的 pid | `python run.py attach --pid <那个pid>` |
+| 用 `spawn` 起的进程一直不初始化 | VMProtect 对新进程敏感 | 改成先手动开客户端，再 `attach` |
+
+**推荐流程**（最省事，成功率最高）：
+
+```bat
+REM 1. 先手动打开百度网盘，登录进主界面
+REM 2. 挂上去
+python run.py attach
+
+REM 3. 看到 "[i] 已注册模块观察者" 之后，在客户端里点一个下载
+REM 4. kernel.dll 一加载就会自动打出 "[+] hook ..." 共 12 行
+```
+
+`spawn` 模式只在你要抓"启动瞬间的 set_param"时才需要；验试用/限速用 `attach` 就够。
+
+另外：如果你的 `frida` CLI 输出里夹着一堆
+`message: {'type': 'send', 'payload': {...}}`，那是脚本开了 `SEND_DUP`（为 `run.py` 落文件用）。
+把 `hooks.js` 顶部 `SEND_DUP` 改成 `false` 就干净了。
+
+---
+
 ## 5. 常见问题
 
 | 现象 | 原因 / 处理 |

@@ -68,7 +68,11 @@ def on_message(message, data):
             print("           " + line)
         return
     if message.get("type") == "send":
-        print(message.get("payload"))
+        payload = message.get("payload")
+        # hooks.js 若开了 SEND_DUP，这里去重：console.log 已经打过了
+        if isinstance(payload, dict) and payload.get("tag") == "log":
+            return
+        print(payload)
         return
     print("[msg] " + str(message))
 
@@ -88,9 +92,27 @@ def cmd_check(frida, args):
     procs = [p for p in dev.enumerate_processes() if "baidu" in p.name.lower()
              or "netdisk" in p.name.lower()]
     if procs:
-        print("已在运行的百度网盘进程：")
+        print("已在运行的百度进程：")
         for p in procs:
             print("   pid=%-6d %s" % (p.pid, p.name))
+        # 顺手看看第一个进程里有没有 kernel.dll
+        try:
+            session = frida.attach(procs[0].pid)
+            src = ("var m=Process.findModuleByName?Process.findModuleByName('kernel.dll'):null;"
+                   "send(m?m.base.toString():'kernel.dll 未加载');")
+            sc = session.create_script(src)
+            got = []
+            sc.on("message", lambda m, d: got.append(m.get("payload")))
+            sc.load()
+            import time as _t
+            for _ in range(20):
+                if got:
+                    break
+                _t.sleep(0.05)
+            print("   kernel.dll : %s" % (got[0] if got else "查询超时"))
+            session.detach()
+        except Exception as e:
+            print("   (无法查询 kernel.dll：%s)" % e)
     else:
         print("当前没有百度网盘进程在跑（spawn 模式没关系）")
 

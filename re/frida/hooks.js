@@ -109,10 +109,14 @@ function readHexAt(addr, nbytes) {
 // 1. 通用工具
 // ---------------------------------------------------------------------------
 
+// SEND_DUP=true 时额外走 send 通道（run.py 用得到；frida CLI 会因此多打印一行 message: {...}）
+var SEND_DUP = false;
+
 function log(msg) {
     console.log(msg);
-    // 同时走 send 通道，方便 run.py 把日志落文件
-    try { send({ tag: 'log', text: msg }); } catch (e) { }
+    if (SEND_DUP) {
+        try { send({ tag: 'log', text: msg }); } catch (e) { }
+    }
 }
 
 function base(name) {
@@ -250,7 +254,11 @@ function hook(rva, label, sig, onEnter, onLeave) {
 // 4. 业务 hook
 // ---------------------------------------------------------------------------
 
+var INSTALLED = false;
+
 function install() {
+    if (INSTALLED) return;
+    INSTALLED = true;
     neuterAntiDebug();
 
     var kb = base(KERNEL);
@@ -413,14 +421,89 @@ function waitKernel(cb, tries) {
     tries = tries || 0;
     if (getModule(KERNEL)) { cb(); return; }
     if (tries > 900) {
-        log('[!] 等了 3 分钟还是没看到 kernel.dll。');
-        log('    正常流程：客户端开始下载后 kernel.dll 才加载。请在客户端里点一个下载。');
+        log('[!] 等了 3 分钟还是没看到 kernel.dll —— 跑 diagnose() 看原因');
+        diagnose();
         return;
     }
     if (tries > 0 && tries % 50 === 0) {
-        log('[*] 仍在等 kernel.dll…（约 ' + (tries / 5).toFixed(0) + ' 秒）');
+        var secs = (tries / 5).toFixed(0);
+        log('[*] 仍在等 kernel.dll…（约 ' + secs + ' 秒）');
+        if (tries % 150 === 0) diagnose();   // 每 30 秒自动体检一次
     }
     setTimeout(function () { waitKernel(cb, tries + 1); }, 200);
+}
+
+// ---------------------------------------------------------------------------
+// 5.5 诊断：为什么 kernel.dll 没加载
+// ---------------------------------------------------------------------------
+
+function listModules() {
+    var out = [];
+    try {
+        // 只列 .dll/.exe，别把几百个堆块也打出来
+        var mods = Process.enumerateModules();
+        for (var i = 0; i < mods.length; i++) {
+            var nm = mods[i].name || '';
+            if (/\.(dll|exe)$/i.test(nm)) out.push(nm);
+        }
+    } catch (e) {
+        // 17 之后 enumerateModules 仍在，但保险起见退回逐个探测
+        var names = ['BaiduNetdisk.exe', 'YunLogic.dll', 'Bull140U.dll', 'YunDls.dll',
+                     'KernelCom.dll', 'channelpcsdk.dll', 'netbase.dll', 'kernel.dll',
+                     'kernel_btsdk.dll', 'speedtest.dll'];
+        for (var j = 0; j < names.length; j++) {
+            if (getModule(names[j])) out.push(names[j]);
+        }
+    }
+    return out;
+}
+
+function diagnose() {
+    log('---------- 诊断 ----------');
+    var mods = listModules();
+    log('已加载模块数：' + mods.length);
+
+    var watch = ['BaiduNetdisk.exe', 'YunLogic.dll', 'Bull140U.dll', 'YunDls.dll',
+                 'KernelCom.dll', 'channelpcsdk.dll', 'netbase.dll', 'kernel.dll',
+                 'kernel_btsdk.dll', 'speedtest.dll'];
+    for (var i = 0; i < watch.length; i++) {
+        var m = getModule(watch[i]);
+        log('  ' + (m ? '[已加载] ' : '[  --  ] ') + watch[i] +
+            (m ? ('  base=' + m.base + ' size=' + (m.size / 1048576).toFixed(1) + 'MB') : ''));
+    }
+
+    var hasLoader = !!getModule('YunDls.dll');
+    if (!hasLoader) {
+        log('[!] 连 YunDls.dll 都没加载 → 说明"下载内核"这块业务还没被初始化。');
+        log('    最可能的原因：客户端停在了登录/首屏，或者调用方不是被 Frida spawn 的这个进程。');
+    } else {
+        log('[i] YunDls.dll 已在 → 下载内核随时可能按需 LoadLibrary("kernel.dll")。');
+        log('    现在去客户端里点一个下载（任意文件），kernel.dll 会立刻加载。');
+    }
+
+    // 进程命令行（确认是不是同一个 exe）
+    try {
+        if (Process.commandLine) log('命令行：' + Process.commandLine);
+    } catch (e) { }
+
+    log('[i] 如果客户端是多进程结构，下载可能在另一个 pid 里：');
+    log('    frida-ps | findstr /i baidu     （或 python re/frida/dump_ps.py baidu）');
+
+    // 打印"最近加载的 15 个模块"——用来看初始化走到哪一步了
+    try {
+        var mods2 = Process.enumerateModules();
+        var tail = [];
+        for (var k = Math.max(0, mods2.length - 15); k < mods2.length; k++) {
+            tail.push(mods2[k].name);
+        }
+        log('最近加载的模块：' + tail.join(', '));
+    } catch (e) { }
+
+    log('[i] 提示：kernel.dll 是"用到才加载"的（客户端按需 LoadLibrary）。');
+    log('    - 如果连 YunDls.dll 都没有 → 客户端还没进到能下载的状态（登录/首屏）');
+    log('    - 如果 YunDls.dll 有、kernel.dll 没有 → 点一个下载就会加载');
+    log('    - 如果是 spawn 起的进程，VMProtect 可能干扰初始化 → 改用 attach');
+    log('--------------------------');
 }
 
 // ---------------------------------------------------------------------------
@@ -432,6 +515,49 @@ log('[i] 脚本开始运行，pid=' + Process.id + '，指针宽度=' + Process.
 // 反调试检查在启动瞬间就跑了，先立刻打一次（spawn 模式下 kernel.dll 还没出现）
 neuterAntiDebug();
 
-setImmediate(function () {
-    waitKernel(install);
-});
+// 首次诊断：3 秒后告诉用户当前加载了什么
+setTimeout(function () {
+    if (getModule(KERNEL)) return;
+    log('[*] 3 秒了，kernel.dll 还没出现。先看一眼当前状态：');
+    diagnose();
+}, 3000);
+
+// 优先用模块观察者（事件驱动，kernel.dll 一加载立刻挂）—— Frida 17 有，16 可能没有
+var watched = false;
+try {
+    if (Process.attachModuleObserver) {
+        Process.attachModuleObserver({
+            onAdded: function (m) {
+                var n = (m.name || '').toLowerCase();
+                if (n === KERNEL.toLowerCase()) {
+                    log('[+] kernel.dll 加载了 @ ' + m.base + '（模块观察者触发）');
+                    install();
+                } else if (n === 'yundls.dll') {
+                    log('[i] YunDls.dll 已加载 → 下载内核快要初始化了');
+                }
+            }
+        });
+        watched = true;
+        log('[i] 已注册模块观察者，等 kernel.dll 加载');
+    }
+} catch (e) {
+    log('[i] 模块观察者不可用（' + e + '），改用轮询');
+}
+
+if (!watched) {
+    setImmediate(function () {
+        waitKernel(install);
+    });
+}
+
+// 兜底：观察者模式下也定期查一次，防止漏事件（install 幂等，重复触发无副作用）
+if (watched) {
+    var iv = setInterval(function () {
+        if (INSTALLED) { clearInterval(iv); return; }
+        if (getModule(KERNEL)) {
+            log('[+] kernel.dll 已加载（轮询兜底发现）');
+            clearInterval(iv);
+            install();
+        }
+    }, 2000);
+}
