@@ -1,0 +1,6 @@
+# 逆向产物（可由 re/tools/ 一键再生）
+re/strings/
+re/out/*.txt
+re/__pycache__/
+__pycache__/
+*.pyc
