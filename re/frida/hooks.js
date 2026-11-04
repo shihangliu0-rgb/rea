@@ -254,6 +254,84 @@ function hook(rva, label, sig, onEnter, onLeave) {
 // 4. 业务 hook
 // ---------------------------------------------------------------------------
 
+
+// ★ 版本指纹：hooks.js 里的 RVA 只对 kernel.dll 3.0.20.237 有效
+//   （SizeOfImage = 0x2a3a000 = 42.23MB）。别的版本里这些 RVA 指向完全无关的指令，
+//   于是会逐个报 "字节不匹配"。这是最明确的"版本不对"信号 —— 别硬挂。
+var BUILD_OK = null;
+var EXPECT_SIZE = 0x2a3a000;   // 42.23 MB
+var EXPECT_VER = '3.0.20.237';
+var SIZE_TOLERANCE = 0x60000;  // 0.375MB，容忍编译差异
+
+function checkBuild(mod) {
+    if (!mod) return null;
+    var size = mod.size;
+    var mb = (size / 1048576).toFixed(2);
+    if (Math.abs(size - EXPECT_SIZE) > SIZE_TOLERANCE) {
+        log('');
+        log('!!!!!! 版本不匹配 !!!!!!');
+        log('  本脚本的 RVA 定在 kernel.dll ' + EXPECT_VER + ' 上（8.1.6.101）');
+        log('  期望 SizeOfImage = 0x' + EXPECT_SIZE.toString(16) + '  (' +
+            (EXPECT_SIZE / 1048576).toFixed(2) + 'MB)');
+        log('  实际 SizeOfImage = 0x' + size.toString(16) + '  (' + mb + 'MB)');
+        log('');
+        log('  → 13 个 RVA 全部错位，逐个报"字节不匹配"就是这个原因。');
+        log('  → 不要硬挂，会插到指令中间导致崩溃。正确做法：');
+        log('     A. 离线重新定位： python rescan.py --dll "<安装目录>\\kernel.dll"');
+        log('     B. 换回 8.1.6.101 的 kernel.dll 再分析');
+        log('     详见 docs/09-内核版本不匹配与重定位.md');
+        log('!!!!!!!!!!!!!!!!!!!!!!!');
+        log('');
+        BUILD_OK = false;
+    } else {
+        log('[+] 版本核对通过：SizeOfImage = 0x' + size.toString(16) + ' (' + mb + 'MB)');
+        BUILD_OK = true;
+    }
+    return BUILD_OK;
+}
+
+// ---------------------------------------------------------------------------
+// 4.9 多版本 RVA 表：不同内核版本的点位各存一份
+//     用法：拿到新版 RVA 后，在这里加一条 + 把 PROFILE 设成它的名字。
+//     rescan.py / locate.py 会打印可直接粘贴的表格。
+// ---------------------------------------------------------------------------
+var PROFILE = '3.0.20.237';
+
+var PROFILES = {
+    '3.0.20.237': {
+        note: '8.1.6.101 自带内核，SizeOfImage=0x2a3a000 (42.23MB)',
+        'set_param': 0x1225f0,
+        'update_max_speed': 0x2dd200,
+        'set_restrict_ratio': 0x2dcde0,
+        'calculate_target_speed': 0x2ddb90,
+        'bucket.set_rate': 0xdb150,
+        'bucket.consume': 0xdb170,
+        'cdn_speed_limit_dispatch': 0x2ed84e,
+        'close_cdn(decided)': 0x1aeb6d,
+        'set_try_speedup_flag': 0xe2fb0,
+        'block_gate(pre)': 0x1afd38,
+        'download_threshold': 0x1affb3,
+        'set_download_restrict_ratio': 0x27fee0
+    }
+    // 示例：你在 43.1MB 版本上跑 locate.py 得到的新表，填成
+    // 'x.y.z.w': { note: '43.1MB 版本', 'set_param': 0x..., ... }
+};
+
+var RVA = {};   // 生效的 RVA 表
+
+function applyProfile() {
+    var p = PROFILES[PROFILE];
+    if (!p) {
+        log('[!] 未知 PROFILE: ' + PROFILE + '，回退到 3.0.20.237');
+        p = PROFILES['3.0.20.237'];
+    }
+    for (var k in p) {
+        if (k === 'note') continue;
+        RVA[k] = p[k];
+    }
+    log('[i] 使用 RVA 表: ' + PROFILE + (p.note ? '（' + p.note + '）' : ''));
+}
+
 var INSTALLED = false;
 
 function install() {
@@ -261,12 +339,16 @@ function install() {
     INSTALLED = true;
     neuterAntiDebug();
 
+    var mod = getModule(KERNEL);
+    checkBuild(mod);
+    applyProfile();
+
     var kb = base(KERNEL);
     var ok = 0, bad = 0;
     function mark(r) { if (r) ok++; else bad++; }
 
     // 1) set_param(type, value)  __stdcall，服务端下发的一切参数（147 类）
-    mark(hook(0x1225f0, 'set_param', '55 89 e5 53 57 56 83 ec 2c',
+    mark(hook(RVA['set_param'], 'set_param', '55 89 e5 53 57 56 83 ec 2c',
         function (args) {
             var type = args[0].toInt32();
             var val = cstr(args[1]);
@@ -275,7 +357,7 @@ function install() {
         }, null));
 
     // 2) SpeedLimitor::update_max_speed(uint64)   this = ecx
-    mark(hook(0x2dd200, 'update_max_speed', '55 89 e5 53 57 56 83 e4 f8',
+    mark(hook(RVA['update_max_speed'], 'update_max_speed', '55 89 e5 53 57 56 83 e4 f8',
         function (args) {
             var th = this.thisPtr;
             if (!th) return;
@@ -285,7 +367,7 @@ function install() {
         }, null));
 
     // 3) SpeedLimitor::set_restrict_ratio(int)   this = ecx
-    mark(hook(0x2dcde0, 'set_restrict_ratio', '55 89 e5 53 57 56 81 ec',
+    mark(hook(RVA['set_restrict_ratio'], 'set_restrict_ratio', '55 89 e5 53 57 56 81 ec',
         function (args) {
             var th = this.thisPtr;
             if (!th) return;
@@ -294,7 +376,7 @@ function install() {
 
     // 4) calculate_target_speed() —— 返回值就是本 tick 的目标速率
     //    该函数有 `and esp,0xfffffff8`，栈被重对齐，不能用 ecx 取 this
-    mark(hook(0x2ddb90, 'calculate_target_speed', '55 89 e5 53 57 56 83 e4 f8',
+    mark(hook(RVA['calculate_target_speed'], 'calculate_target_speed', '55 89 e5 53 57 56 83 e4 f8',
         null, function (retval) {
             var v = retval.toUInt32();
             if (v === 0x1F400000) {
@@ -306,7 +388,7 @@ function install() {
 
     // 5) TokenBucket::set_rate(uint32) —— 每个通道的实际配额
     //    ⚠️ 正确 RVA 是 0xdb150（0x118cb44 vtable: [set_rate, dtor, consume]）
-    mark(hook(0xdb150, 'bucket.set_rate', '8b 44 24 04 85 c0',
+    mark(hook(RVA['bucket.set_rate'], 'bucket.set_rate', '8b 44 24 04 85 c0',
         function (args) {
             var th = this.thisPtr;
             if (!th) return;
@@ -316,7 +398,7 @@ function install() {
 
     // 6) TokenBucket::consume() —— 真正扣令牌，返回 0 表示本 tick 不发请求
     //    ⚠️ 正确 RVA 是 0xdb170
-    mark(hook(0xdb170, 'bucket.consume', '53 57 56 89 ce',
+    mark(hook(RVA['bucket.consume'], 'bucket.consume', '53 57 56 89 ce',
         function () {
             // 记录 this，onLeave 时用来判断是不是真桶
             this.maybeBucket = this.thisPtr;
@@ -327,12 +409,12 @@ function install() {
         }));
 
     // 7) cdn_speed_limit_dispatch —— 每任务 CDN 配额
-    mark(hook(0x2ed84e, 'cdn_speed_limit_dispatch', '8b 0b e8',
+    mark(hook(RVA['cdn_speed_limit_dispatch'], 'cdn_speed_limit_dispatch', '8b 0b e8',
         function () { if (!QUIET) log('[cdn] dispatch 进入'); }, null));
 
     // 8) close cdn 决策块内部（0x1aea38 体内 0x1aeb6d，此时 base/cdn_speed 已算好）
     //    注意这里 ecx 是 level 而不是 this，对象在 [ebp-0x30]
-    mark(hook(0x1aeb6d, 'close_cdn(decided)', '8b 7d d0 0f af ce',
+    mark(hook(RVA['close_cdn(decided)'], 'close_cdn(decided)', '8b 7d d0 0f af ce',
         function () {
             var ebp = this.context.ebp;
             var level = ebp.add(-0xec).readS32();
@@ -348,7 +430,7 @@ function install() {
     //  on=true  → 4 个令牌桶全部 set_rate(0x1F400000)   ← 这就是"提速"
     //  on=false → 从快照整块还原                        ← 这就是"台阶式掉回去"
     var trialStart = null;
-    mark(hook(0xe2fb0, 'set_try_speedup_flag', '55 89 e5 53 57 56 81 ec',
+    mark(hook(RVA['set_try_speedup_flag'], 'set_try_speedup_flag', '55 89 e5 53 57 56 81 ec',
         function (args) {
             var on = args[0].toInt32() & 0xff;
             var th = this.thisPtr;
@@ -373,7 +455,7 @@ function install() {
         }, null));
 
     // ===== 10) 收尾门控：门限 ∝ rate（06 篇的核心证据）=====
-    mark(hook(0x1afd38, 'block_gate(pre)', '29 d8 89 86 f0 00 00 00',
+    mark(hook(RVA['block_gate(pre)'], 'block_gate(pre)', '29 d8 89 86 f0 00 00 00',
         function () {
             var esi = this.context.esi;
             log('[gate] left_block=' + esi.add(0xf0).readS32() +
@@ -381,7 +463,7 @@ function install() {
                 ' ratio=' + esi.add(0xe0).readS32());
         }, null));
 
-    mark(hook(0x1affb3, 'download_threshold', 'f2 0f 59 0d',
+    mark(hook(RVA['download_threshold'], 'download_threshold', 'f2 0f 59 0d',
         function () {
             var esi = this.context.esi;
             log('[threshold] download_threshold_speed=' + esi.add(0xbc).readS32() +
@@ -389,7 +471,7 @@ function install() {
         }, null));
 
     // ===== 11) restrict_ratio 的唯一外部写入口（vtable 槽 0x119c8d0）=====
-    mark(hook(0x27fee0, 'set_download_restrict_ratio', '55 89 e5 53 57 56 81 ec',
+    mark(hook(RVA['set_download_restrict_ratio'], 'set_download_restrict_ratio', '55 89 e5 53 57 56 81 ec',
         function (args) {
             log('[ratio] new=' + args[0].toInt32() + '%');
         }, null));
@@ -397,7 +479,7 @@ function install() {
     // 可选：实验性解限（把 rate 顶到 500MB/s）
     if (PATCH_RATE) {
         log('[!] PATCH_RATE=true —— 正在修改令牌桶速率（仅用于验证机制）');
-        mark(hook(0xdb170, 'bucket.consume(PATCH)', '53 57 56 89 ce',
+        mark(hook(RVA['bucket.consume'], 'bucket.consume(PATCH)', '53 57 56 89 ce',
             function () {
                 var th = this.thisPtr;
                 if (!isTokenBucket(th, kb)) return;
@@ -408,8 +490,14 @@ function install() {
 
     log('========== 安装完成：成功 ' + ok + ' 个，跳过 ' + bad + ' 个 ==========');
     if (ok === 0) {
-        log('[!] 一个都没挂上。检查：1) kernel.dll 是否已加载（先开始一个下载）');
-        log('                      2) 客户端版本是否 8.1.6.101');
+        if (BUILD_OK === false) {
+            log('[!] 一个都没挂上 —— 原因已确定：kernel.dll 版本不同（见上面"版本不匹配"块）');
+            log('    → python rescan.py --dll "<安装目录>\\kernel.dll" 重新定位，');
+            log('      或换回 8.1.6.101 的 kernel.dll（3.0.20.237）。');
+        } else {
+            log('[!] 一个都没挂上。检查：1) kernel.dll 是否已加载（先开始一个下载）');
+            log('                      2) 客户端版本是否 8.1.6.101');
+        }
     }
 }
 

@@ -10,6 +10,8 @@
 | `dump_ps.py` | 不用 `frida-ps` 也能列进程，找 PID |
 | `verify_rva.py` | **离线**校验 hooks.js 里的 RVA 与字节签名是否对得上你的 kernel.dll |
 | `census.py` | **多进程普查**：列出每个百度进程里有哪些关键模块，直接告诉你该 attach 哪个 pid |
+| `rescan.py` | **离线重定位**：在新版本 kernel.dll 上重新找 13 个点位，并读 FileVersion/SizeOfImage 做版本指纹 |
+| `locate.py` | **活体重定位**：在运行进程里 Memory.scan，输出可粘贴的 `PROFILES` 条目 |
 | `README.md` | 本文件 |
 
 ---
@@ -168,6 +170,41 @@ frida -p 12345 -l hooks.js
 | 试用是不是 60 秒 | `[trial] 持续时间 ≈ N s` |
 | 后段为什么变慢 | `[gate] left_block` 逼近 0 而 `[threshold]` 仍是几 MB/s |
 | 谁在改下限 | `[ratio] new=…` |
+
+---
+
+## 4.3 版本不匹配：13 条全报"字节不匹配"
+
+```
+[!] 跳过 set_param：RVA 0x1225f0 处字节不匹配 期望=55 89 e5 … 实际=50 e8 ca 3c fb ff …
+========== 安装完成：成功 0 个，跳过 13 个 ==========
+```
+
+**不是脚本写错，是 `kernel.dll` 版本不同**。`hooks.js` 的 RVA 定在
+3.0.20.237（`SizeOfImage = 0x2a3a000` = 42.23MB）上；你机器上是 43.1MB 的那一版，
+`.text` 长度不同 → 每个函数 RVA 都变了。
+
+先看第一行版本指纹输出，它会直接告诉你是不是这个问题：
+
+```
+[+] 版本核对通过：SizeOfImage = 0x2a3a000 (42.23MB)
+```
+
+或者：
+
+```
+!!!!!! 版本不匹配 !!!!!!
+  实际 SizeOfImage = 0x2b10000  (43.10MB)
+  → 13 个 RVA 全部错位 …
+```
+
+三条路（详见 `docs/09-内核版本不匹配与重定位.md`）：
+
+| 路线 | 命令 | 说明 |
+|---|---|---|
+| A 离线重定位 | `python rescan.py --dll "<安装目录>\kernel.dll"` | 静态扫，不碰进程 |
+| B 活体扫描 | `python locate.py --pid 27568` | 直接输出可粘贴的 `PROFILES` 条目 |
+| C 换回旧版 | 装 8.1.6.101 | docs 01–07 全部基于这一版，最省成本 |
 
 ---
 

@@ -62,16 +62,36 @@ def rva2off(secs, rva):
     return None
 
 
-def parse_hooks(js_path):
-    """从 hooks.js 里抓 hook(0xRVA, 'label', 'sig', ...)"""
+def parse_profiles(js_path):
+    """从 hooks.js 里抓 PROFILES 表：{ 'tag': { 'name': 0xRVA, ... } }"""
     src = open(js_path, encoding="utf-8").read()
-    pat = re.compile(r"""hook\(\s*(0x[0-9a-fA-F]+)\s*,\s*'([^']+)'\s*,\s*(?:'([^']*)'|null)""")
+    m = re.search(r"var\s+PROFILES\s*=\s*\{(.*?)\n\};", src, re.S)
+    if not m:
+        return {}
+    body = m.group(1)
+    profiles = {}
+    for pm in re.finditer(r"'(\d[^']*)'\s*:\s*\{(.*?)\}", body, re.S):
+        tag, inner = pm.group(1), pm.group(2)
+        table = {}
+        for km in re.finditer(r"'([^']+)'\s*:\s*(0x[0-9a-fA-F]+)", inner):
+            table[km.group(1)] = int(km.group(2), 16)
+        profiles[tag] = table
+    return profiles
+
+
+def parse_hooks(js_path):
+    """从 hooks.js 里抓 hook(RVA['label'], 'label', 'sig', ...) 的 label+sig（RVA 从 PROFILES 取）"""
+    src = open(js_path, encoding="utf-8").read()
+    pat = re.compile(r"""hook\(\s*RVA\[\s*'([^']+)'\s*\]\s*,\s*'([^']+)'\s*,\s*(?:'([^']*)'|null)""")
     out = []
     for m in pat.finditer(src):
-        rva = int(m.group(1), 16)
         label = m.group(2)
         sig = m.group(3)
-        out.append((rva, label, sig))
+        out.append((label, sig))
+    # 兼容旧写法 hook(0xRVA, 'label', 'sig')
+    pat_old = re.compile(r"""hook\(\s*(0x[0-9a-fA-F]+)\s*,\s*'([^']+)'\s*,\s*(?:'([^']*)'|null)""")
+    for m in pat_old.finditer(src):
+        out.append((m.group(2), m.group(3), int(m.group(1), 16)))
     return out
 
 
@@ -81,6 +101,8 @@ def main():
     ap.add_argument("--js", default=os.path.join(HERE, "hooks.js"))
     ap.add_argument("--add", action="append", default=[],
                     metavar="RVA:HEXBYTES", help="额外校验一个点，如 0x1afd38:29d88986")
+    ap.add_argument("--profile", default=None,
+                    help="校验 hooks.js 里哪个 PROFILES 表（默认取第一个）")
     args = ap.parse_args()
 
     if not os.path.exists(args.dll):
@@ -92,7 +114,35 @@ def main():
     print("节区     : %s" % ", ".join("%s(0x%x)" % (n, v) for n, v, _, _ in secs))
     print("-" * 78)
 
+    profiles = parse_profiles(args.js)
     hooks = parse_hooks(args.js)
+
+    # 把 label 映射到选定 profile 的 RVA
+    if profiles:
+        tag = args.profile or sorted(profiles)[0]
+        table = profiles.get(tag)
+        if table is None:
+            raise SystemExit("hooks.js 里没有 PROFILE %r，可选：%s"
+                             % (tag, ", ".join(sorted(profiles))))
+        print("RVA 表   : %s（%d 个点位）" % (tag, len(table)))
+        print("-" * 78)
+        mapped = []
+        for item in hooks:
+            if len(item) == 3:          # 旧写法自带 RVA
+                label, sig, rva = item
+            else:
+                label, sig = item
+                rva = table.get(label)
+                if rva is None:
+                    # 允许 'bucket.consume(PATCH)' 这种给同一地址加后缀的变体
+                    base_label = label.split('(')[0]
+                    rva = table.get(base_label)
+                    if rva is None:
+                        print("  %-9s %-30s MISS  该表里没有这个 label" % ("-", label))
+                        continue
+            mapped.append((rva, label, sig))
+        hooks = mapped
+
     for extra in args.add:
         rva_s, hex_s = extra.split(":")
         hooks.append((int(rva_s, 16), "(命令行附加)", " ".join(
