@@ -21,6 +21,7 @@ re/frida/locate.py —— 在**运行中的进程**里重新定位 hooks.js 需�
 注意：本脚本只**报告**地址，不做 hook，不会影响客户端运行。
 """
 import argparse
+import json
 import sys
 import time
 
@@ -47,9 +48,9 @@ POINTS = [
 
 AGENT = r"""
 (function () {
-  var cfg = %s;          // [{name, rva, pat, desc}]
-  var modName = %s;      // 'kernel.dll'
-  var limit = %d;
+  var cfg = __CFG__;        // [{name, rva, pat, desc}]
+  var modName = __MODULE__; // 'kernel.dll'
+  var limit = __LIMIT__;
 
   var mod = null;
   try { mod = Process.findModuleByName(modName); } catch (e) {}
@@ -65,30 +66,55 @@ AGENT = r"""
   send(info);
 
   var start = mod.base;
-  var end = mod.base.add(mod.size);
+  var modSize = mod.size;
   var out = [];
 
   for (var i = 0; i < cfg.length; i++) {
     var p = cfg[i];
-    var bytes = [];
-    var toks = p.pat.split(' ');
-    for (var k = 0; k < toks.length; k++) bytes.push(parseInt(toks[k], 16));
-
     var hits = [];
     var cur = start;
+    var scanned = 0;
+    var stuck = false;
+    var nextBeat = 8 * 1024 * 1024;
     while (hits.length < limit) {
-      var m = Memory.scanSync(cur, end.sub(cur).toInt32(), p.pat)[0];
-      if (!m) break;
-      hits.push(m.address);
-      cur = m.address.add(1);
-      if (cur.compare(end) >= 0) break;
+      var remain = modSize - scanned;
+      if (remain <= 0) break;
+      var found;
+      try {
+        found = Memory.scanSync(cur, remain, p.pat);
+      } catch (e) {
+        stuck = true;
+        break;
+      }
+      if (!found || found.length === 0) break;
+      for (var q = 0; q < found.length && hits.length < limit; q++) {
+        hits.push(found[q].address);
+      }
+      var last = found[found.length - 1].address;
+      var advanced = last.sub(start).toInt32() + 1;
+      if (advanced <= scanned) { stuck = true; break; }   // 防御：绝不能让循环原地打转
+      scanned = advanced;
+      cur = start.add(scanned);
+      if (scanned >= nextBeat) {
+        send({ type: 'progress', name: p.name, rva: scanned, size: modSize });
+        nextBeat += 8 * 1024 * 1024;
+      }
+      if (scanned >= modSize) break;
     }
     var rvas = [];
     for (var j = 0; j < hits.length; j++) {
-      rvas.push(hits[j].sub(mod.base).toInt32());
+      var before = '';
+      try {
+        var back = hits[j].sub(8);
+        if (back.compare(mod.base) >= 0) {
+          before = hexdump(back, { length: 8, header: false, ansi: false });
+          before = before.split('\n')[0].replace(/^[0-9a-f]+\s+/, '').trim();
+        }
+      } catch (e) { before = '?'; }
+      rvas.push({ rva: hits[j].sub(mod.base).toInt32(), before: before });
     }
-    out.push({ name: p.name, old: p.rva, hits: rvas, desc: p.desc });
-    send({ type: 'point', name: p.name, old: p.rva, hits: rvas });
+    send({ type: 'point', name: p.name, old: p.rva, hits: rvas,
+           desc: p.desc, stuck: stuck });
   }
   send({ type: 'done' });
 })();
@@ -125,7 +151,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pid", type=int, default=None)
     ap.add_argument("--module", default="kernel.dll")
-    ap.add_argument("--limit", type=int, default=8, help="每个点位最多列几个候选")
+    ap.add_argument("--show", type=int, default=8, help="每个点位最多显示几个候选")
+    ap.add_argument("--limit", type=int, default=400,
+                    help="每个点位最多收集多少命中（短签名会命中很多处，默认 400）")
     args = ap.parse_args()
 
     dev = frida.get_local_device()
@@ -151,7 +179,8 @@ def main():
     def on_msg(message, data):
         if message.get("type") != "send":
             if message.get("type") == "error":
-                print("[!] 脚本错误:", message.get("description"))
+                print("[!] 脚本错误:", message.get("description"), flush=True)
+                state["done"] = True      # 出错就别再等了
             return
         p = message.get("payload") or {}
         t = p.get("type")
@@ -171,27 +200,55 @@ def main():
             print("  " + ", ".join(p["have"][:60]))
         elif t == "done":
             state["done"] = True
+        elif t == "progress":
+            print("  … 正在扫 0x%x / 0x%x" % (p["rva"], p["size"]), flush=True)
         elif t == "point":
             hits = p["hits"]
             results[p["name"]] = {"old": p["old"], "hits": hits}
-            print("%-28s 旧=0x%-8x 命中=%d" % (p["name"], p["old"], len(hits)))
+            print("%-28s 旧=0x%-8x 命中=%d%s"
+                  % (p["name"], p["old"], len(hits),
+                     "  (扫描被拒绝)" if p.get("stuck") else ""), flush=True)
             if not hits:
                 print("%-28s   ✗ 这条特征在新版本里也没了" % "")
-                return
-            hits_sorted = sorted(hits, key=lambda r: abs(r - p["old"]))
-            for r in hits_sorted[:args.limit]:
-                mark = "  ← 最接近旧 RVA" if r == hits_sorted[0] else ""
-                print("%-28s   0x%-8x%s" % ("", r, mark))
+            hits_sorted = sorted(hits, key=lambda h: abs(h["rva"] - p["old"]))
+            for i, h in enumerate(hits_sorted[:args.show]):
+                mark = "  ← 最接近旧 RVA" if i == 0 else ""
+                print("%-28s   0x%-8x  前8字节: %s%s"
+                      % ("", h["rva"], (h.get("before") or "?")[:32], mark))
 
-    script = session.create_script(AGENT % (cfg, args.module, args.limit))
+    body = (AGENT.replace('__CFG__', json.dumps(cfg, ensure_ascii=False))
+                 .replace('__MODULE__', json.dumps(args.module))
+                 .replace('__LIMIT__', str(int(args.limit))))
+    # 自检：生成出来的 JS 必须是合法 JS（上一次就是这里没检查 → ReferenceError）
+    try:
+        import subprocess
+        subprocess.run(['node', '--check', '-'], input=body.encode('utf-8'),
+                       check=True, capture_output=True)
+    except FileNotFoundError:
+        pass          # 没装 node 就跳过，不影响运行
+    except subprocess.CalledProcessError as e:
+        sys.exit("生成的 JS 语法错误（这不该发生，请把下面内容反馈）：\n%s\n%s"
+                 % (e.stderr.decode('utf-8', 'replace')[:800], body[:800]))
+
+    script = session.create_script(body)
     script.on("message", on_msg)
-    script.load()
+    try:
+        script.load()
+    except Exception as e:
+        sys.exit("[!] 注入失败：%s" % e)
+    print("[i] 脚本已注入，开始扫描（每个点位都要扫一遍 43MB，约 10-60 秒）", flush=True)
 
     # 等 done（on_msg 里已经逐条打印）
     waited = 0.0
-    while not state["done"] and waited < 90:
-        time.sleep(0.1)
-        waited += 0.1
+    try:
+        while not state["done"] and waited < 90:
+            time.sleep(0.1)
+            waited += 0.1
+            if abs(waited - round(waited)) < 1e-9 and int(waited) % 10 == 0 and int(waited) > 0:
+                print("  …已等 %ds / 90s（模块越大约慢，正常）" % int(waited), flush=True)
+    except KeyboardInterrupt:
+        print("\n[!] 用户中断")
+        state["done"] = True
     try:
         session.detach()
     except Exception:
@@ -204,12 +261,7 @@ def main():
     # ── 生成可直接粘贴的 PROFILES 条目 ─────────────────────────────
     head = state["head"] or {}
     size = head.get("size", 0)
-    ver = "unknown"
     path = head.get("path", "")
-    if path:
-        import os as _os
-        ver = _os.path.basename((path or "").strip()) or "unknown"
-
     print()
     print("=" * 78)
     print("把下面这段粘进 hooks.js 的 PROFILES，并把 PROFILE 改成这个 key：")
@@ -222,7 +274,7 @@ def main():
         if not r or not r["hits"]:
             print("        // '%s': ???  —— 未命中，需手工（%s）" % (name, desc))
             continue
-        best = sorted(r["hits"], key=lambda x: abs(x - old))[0]
+        best = sorted(r["hits"], key=lambda h: abs(h["rva"] - old))[0]["rva"]
         warn = "" if len(r["hits"]) == 1 else "   // %d 个候选，请人工确认" % len(r["hits"])
         print("        '%s': 0x%x,%s" % (name, best, warn))
     print("    }")

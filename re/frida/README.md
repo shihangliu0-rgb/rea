@@ -12,6 +12,7 @@
 | `census.py` | **多进程普查**：列出每个百度进程里有哪些关键模块，直接告诉你该 attach 哪个 pid |
 | `rescan.py` | **离线重定位**：在新版本 kernel.dll 上重新找 13 个点位，并读 FileVersion/SizeOfImage 做版本指纹 |
 | `locate.py` | **活体重定位**：在运行进程里 Memory.scan，输出可粘贴的 `PROFILES` 条目 |
+| `tests/smoke.py` | **提交前自检**：node --check + 用假 Frida API 真跑 locate 的 agent + 假 frida import 测 Python + verify_rva 正负例 |
 | `README.md` | 本文件 |
 
 ---
@@ -170,6 +171,24 @@ frida -p 12345 -l hooks.js
 | 试用是不是 60 秒 | `[trial] 持续时间 ≈ N s` |
 | 后段为什么变慢 | `[gate] left_block` 逼近 0 而 `[threshold]` 仍是几 MB/s |
 | 谁在改下限 | `[ratio] new=…` |
+
+---
+
+## 4.2 改完脚本先跑自检（30 秒）
+
+```bat
+python re\frida\tests\smoke.py
+```
+
+它做四件事，其中第 2 件是**必须的**：
+
+1. `node --check` 所有 js
+2. 把 `locate.py` 生成的 agent JS 抽出来，用**假 Frida API 在 Node 里真跑一遍**
+   —— 之前 `ReferenceError: 'kernel' is not defined` 就是漏了这一步
+3. 用假 `frida` 模块 import `locate.py` / `census.py`，确认 Python 侧不炸
+4. 跑 `verify_rva.py` 正例（`bin/kernel.dll` 全 OK）+ 负例（`kernel_o.dll` 全 BAD）
+
+全部通过才算可以提交。
 
 ---
 
