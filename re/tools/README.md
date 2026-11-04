@@ -44,3 +44,26 @@ for i in b.dis_func(0x2dc910): print(f'{i.address:08x} {i.mnemonic} {i.op_str}')
 2. **字符串常量池被合并**：多个 `.cpp` 的日志格式串挨着存放，
    所以 `who_logs()` 命中的函数不一定是"定义该行日志"的函数，
    需要结合该函数里其它字符串与相邻调用一起判断（报告里对每一条结论都注明了依据）。
+
+## 新增（第二轮）
+
+| 脚本 | 作用 | 产物 |
+|---|---|---|
+| `logsites.py` | **从日志宏帧恢复函数名 + 源码行号**（本仓库最关键的工具） | `re/out/funcnames_<dll>.txt` / `logsites_<dll>.json` |
+| `funcmap.py` | 把恢复出的日志点归并到真实函数起点，输出 CSV | `re/out/funcmap_kernel.dll.csv` |
+| `logmap.py` | 扫描某地址区间的"字符串引用点"，用于给无符号代码区做语义测绘 | `re/out/logmap_limiter.txt` |
+| `extract_rsrc.py` | 解析 `.rsrc`，把内嵌 PE（btsdk / cronet / speedtest）导出 | `re/out/embedded/`（已 gitignore，22 MB） |
+
+### `logsites.py` 的原理（值得单独记一笔）
+
+`kernel.dll` 的每条日志都会在栈上拼一个 frame：
+
+```asm
+mov dword ptr [eax], 9                   ; type = 9
+mov dword ptr [eax+0x1c], 0x11259ef8     ; func = "calculate_target_speed"
+mov dword ptr [eax+0x20], 0x7e           ; line = 126
+```
+
+所以"相邻两条写 `[reg+0x1c]` / `[reg+0x20]` 的 `mov`"就是一条 `(函数名, 行号)` 记录。
+扫完全 `.text`（18 MB）约 20 秒，能从 **0 个符号**恢复出 **1531 个函数名（719 个唯一名）**。
+这比单纯靠字符串 xref 靠谱得多，因为函数名和行号是编译器从源码写死的。
