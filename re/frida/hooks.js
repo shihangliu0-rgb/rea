@@ -42,13 +42,21 @@ function cstr(p) {
     } catch (e) { return null; }
 }
 
-// 反调试：把常见检测点打成恒假
+// 反调试：只把返回值打成 0（用 onLeave + retval.replace，避免函数签名不匹配导致的栈损坏）
 function neuterAntiDebug() {
+    const done = neuterAntiDebug.done || (neuterAntiDebug.done = {});
     ['IsDebuggerPresent', 'CheckRemoteDebuggerPresent'].forEach(fn => {
+        if (done[fn]) return;
         const a = Module.findExportByName('kernel32.dll', fn);
-        if (a) {
-            Interceptor.replace(a, new NativeCallback(function () { return 0; }, 'int', ['pointer', 'pointer']));
+        if (!a || a.isNull()) return;
+        try {
+            Interceptor.attach(a, {
+                onLeave: function (retval) { retval.replace(0); }
+            });
+            done[fn] = true;
             console.log('[+] 已屏蔽 ' + fn);
+        } catch (e) {
+            console.log('[!] 屏蔽 ' + fn + ' 失败: ' + e);
         }
     });
 }
@@ -229,4 +237,9 @@ function waitKernel(cb, tries) {
     setTimeout(() => waitKernel(cb, tries + 1), 200);
 }
 
-setImmediate(() => waitKernel(install));
+// spawn 模式下 kernel.dll 要过一会儿才加载；但反调试检查在启动瞬间就会跑，
+// 所以先立刻打一次，等 kernel.dll 出现后再补一次。
+setImmediate(() => {
+    neuterAntiDebug();
+    waitKernel(install);
+});
