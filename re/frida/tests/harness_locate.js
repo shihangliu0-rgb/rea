@@ -11,8 +11,8 @@ const put = (off, pat) => {
 };
 put(0x123456, '55 89 e5 53 57 56 83 ec 2c');
 put(0x200000, '55 89 e5 53 57 56 83 ec 2c');   // set_param 两个候选
-put(0x3000000, '8b 44 24 04 85 c0');
-put(0x28000000, '53 57 56 89 ce');
+put(0x2a00000, '8b 44 24 04 85 c0');
+put(0x2b00000, '53 57 56 89 ce');
 
 function Ptr(v) {
   if (!(this instanceof Ptr)) return new Ptr(v);
@@ -38,8 +38,14 @@ global.Process = {
   },
   enumerateModules() { return modules; },
 };
+// ★ 模拟真机：Frida 的 Memory.scanSync 对超大的 range 会抛异常
+//   （用户实测：整段 43MB 一次扫 → 每页都被拒 → 命中全 0）
+const MAX_RANGE = 1 * 1024 * 1024;
 global.Memory = {
   scanSync(addr, size, pat) {
+    if (size > MAX_RANGE) {
+      throw new Error('invalid argument');
+    }
     const needle = Buffer.from(pat.split(' ').map(x => parseInt(x, 16)));
     const start = addr.v - MODBASE;
     const end = Math.min(MODSIZE, start + (size >>> 0));
@@ -64,6 +70,8 @@ console.log('head      :', head ? head.name + ' size=0x' + head.size.toString(16
 console.log('point 数量:', pts.length);
 console.log('done      :', done);
 console.log('progress  :', prog, '次心跳');
+const refused = pts.filter(p => p.refuse > 0).length;
+console.log('被拒页数   :', refused, '个点位有被拒（应为 0）');
 for (const p of pts) {
   const near = p.hits.length
     ? p.hits.map(h => Math.abs(h.rva - p.old)).reduce((a, b) => Math.min(a, b), Infinity)
@@ -80,5 +88,9 @@ if (pts.length !== 12) { console.log('!! point 数量应为 12'); fail++; }
 if (sp.hits.length !== 2) { console.log('!! set_param 候选数应为 2'); fail++; }
 if (!sp.hits[0].before) { console.log('!! before 字节没带上'); fail++; }
 if (head.size !== MODSIZE) { console.log('!! size 不对'); fail++; }
+if (refused > 0) { console.log('!! 有页被拒绝，扫描分页逻辑没生效'); fail++; }
+if (sp.hits.length !== 2) { console.log('!! set_param 候选数应为 2'); fail++; }
+const rate = pts.find(p => p.name === 'bucket.set_rate');
+if (!rate.hits.length) { console.log('!! bucket.set_rate 应该找到 1 个'); fail++; }
 console.log(fail === 0 ? '\nHARNESS PASS' : '\nHARNESS FAIL x' + fail);
 process.exit(fail === 0 ? 0 : 1);

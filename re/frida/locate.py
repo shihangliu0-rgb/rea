@@ -67,54 +67,50 @@ AGENT = r"""
 
   var start = mod.base;
   var modSize = mod.size;
-  var out = [];
+  var PAGE = 0x10000;              // 64KB 一页：Frida 的 range 上限很小，不能一次扫 43MB
 
   for (var i = 0; i < cfg.length; i++) {
     var p = cfg[i];
     var hits = [];
-    var cur = start;
-    var scanned = 0;
-    var stuck = false;
+    var refuse = 0;                // 被拒绝的页数
+    var scannedBytes = 0;
     var nextBeat = 8 * 1024 * 1024;
-    while (hits.length < limit) {
-      var remain = modSize - scanned;
-      if (remain <= 0) break;
+
+    for (var off = 0; off < modSize && hits.length < limit; off += PAGE) {
+      var len = Math.min(PAGE, modSize - off);
+      var base0 = start.add(off);
       var found;
       try {
-        found = Memory.scanSync(cur, remain, p.pat);
+        found = Memory.scanSync(base0, len, p.pat);
       } catch (e) {
-        stuck = true;
-        break;
+        refuse++;
+        scannedBytes += len;
+        continue;
       }
-      if (!found || found.length === 0) break;
-      for (var q = 0; q < found.length && hits.length < limit; q++) {
-        hits.push(found[q].address);
+      if (found && found.length) {
+        for (var q = 0; q < found.length && hits.length < limit; q++) {
+          var rva = found[q].address.sub(mod.base).toInt32();
+          var before = '';
+          try {
+            var back = found[q].address.sub(8);
+            if (back.compare(mod.base) >= 0) {
+              before = hexdump(back, { length: 8, header: false, ansi: false });
+              before = before.split('\n')[0].replace(/^[0-9a-f]+\s+/, '').trim();
+            }
+          } catch (e2) { before = '?'; }
+          hits.push({ rva: rva, before: before });
+        }
       }
-      var last = found[found.length - 1].address;
-      var advanced = last.sub(start).toInt32() + 1;
-      if (advanced <= scanned) { stuck = true; break; }   // 防御：绝不能让循环原地打转
-      scanned = advanced;
-      cur = start.add(scanned);
-      if (scanned >= nextBeat) {
-        send({ type: 'progress', name: p.name, rva: scanned, size: modSize });
+      scannedBytes += len;
+      if (scannedBytes >= nextBeat) {
+        send({ type: 'progress', name: p.name, rva: scannedBytes, size: modSize });
         nextBeat += 8 * 1024 * 1024;
       }
-      if (scanned >= modSize) break;
     }
-    var rvas = [];
-    for (var j = 0; j < hits.length; j++) {
-      var before = '';
-      try {
-        var back = hits[j].sub(8);
-        if (back.compare(mod.base) >= 0) {
-          before = hexdump(back, { length: 8, header: false, ansi: false });
-          before = before.split('\n')[0].replace(/^[0-9a-f]+\s+/, '').trim();
-        }
-      } catch (e) { before = '?'; }
-      rvas.push({ rva: hits[j].sub(mod.base).toInt32(), before: before });
-    }
-    send({ type: 'point', name: p.name, old: p.rva, hits: rvas,
-           desc: p.desc, stuck: stuck });
+
+    send({ type: 'point', name: p.name, old: p.rva, hits: hits,
+           desc: p.desc, refuse: refuse,
+           pages: Math.ceil(modSize / PAGE) });
   }
   send({ type: 'done' });
 })();
@@ -258,6 +254,20 @@ def main():
         print("\n[!] 一条也没扫到 —— 这个进程里的 kernel.dll 可能被加壳/加密，或模块名不对。")
         return 2
 
+    total_refuse = sum(r.get("refuse", 0) for r in results.values())
+    if total_refuse and all((not r["hits"]) for r in results.values()):
+        print()
+        print("!" * 78)
+        print("扫描基本全被拒绝（%d 次）—— 这不是「特征没了」，是**脚本读不了这块内存**。" % total_refuse)
+        print("常见原因：")
+        print("  1) 这个 kernel.dll 被保护（VMProtect/Themida/页属性 PGUARD）")
+        print("  2) 客户端是 32 位但宿主进程有反注入（attach 成功但 Memory.scan 被拦）")
+        print("  3) 权限不足 —— 用管理员身份运行 cmd 再试")
+        print("下一步：换**离线**路线，不碰进程：")
+        print('  python rescan.py --dll "D:\\Wang_Pan\\BaiduNetdisk\\kernel.dll"')
+        print("!" * 78)
+        return 3
+
     # ── 生成可直接粘贴的 PROFILES 条目 ─────────────────────────────
     head = state["head"] or {}
     size = head.get("size", 0)
@@ -272,7 +282,8 @@ def main():
     for name, old, pat, desc in POINTS:
         r = results.get(name)
         if not r or not r["hits"]:
-            print("        // '%s': ???  —— 未命中，需手工（%s）" % (name, desc))
+            why = "内存读不了" if (r and r.get("refuse")) else "未命中"
+            print("        // '%s': ???  —— %s，需手工（%s）" % (name, why, desc))
             continue
         best = sorted(r["hits"], key=lambda h: abs(h["rva"] - old))[0]["rva"]
         warn = "" if len(r["hits"]) == 1 else "   // %d 个候选，请人工确认" % len(r["hits"])

@@ -231,7 +231,7 @@ def scan(dll, verbose=True):
 
     # ── 生成 patch 片段 ───────────────────────────────────────────────
     print("\n" + "=" * 96)
-    print("可直接替换到 hooks.js 的片段（请先逐条用 verify_rva.py 复核）：")
+    print("可粘进 hooks.js 的 PROFILES 条目（⚠ 短签名是启发式，必须逐条复核）：")
     print("=" * 96)
     miss = 0
     for name, old_rva, rva, desc in lines:
@@ -239,8 +239,7 @@ def scan(dll, verbose=True):
             miss += 1
             print("// %s : 未能自动定位，需手工  %s" % (name, desc))
             continue
-        print("hook(0x%x, '%s', '...') // 旧 0x%x" % (rva, name, old_rva))
-        lines_ok = True
+        print("    '%s': 0x%x," % (name, rva))
 
     print("\n合计：定位 %d / %d，未命中 %d"
           % (len(lines) - miss, len(lines), miss))

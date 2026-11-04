@@ -222,7 +222,7 @@ python re\frida\tests\smoke.py
 | 路线 | 命令 | 说明 |
 |---|---|---|
 | A 离线重定位 | `python rescan.py --dll "<安装目录>\kernel.dll"` | 静态扫，不碰进程 |
-| B 活体扫描 | `python locate.py --pid 27568` | 直接输出可粘贴的 `PROFILES` 条目 |
+| B 活体扫描 | `python locate.py --pid 27568` | 直接输出可粘贴的 `PROFILES` 条目（分页 64KB 扫，不怕大模块） |
 | C 换回旧版 | 装 8.1.6.101 | docs 01–07 全部基于这一版，最省成本 |
 
 ---
