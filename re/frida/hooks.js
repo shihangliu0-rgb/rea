@@ -146,6 +146,44 @@ function install() {
         return null;
     });
 
+    // ===== 8.5) 试用速提（SVIP trial）=====
+    //  on=true  → 4 个令牌桶全部 set_rate(0x1F400000)   ← 这就是"提速"
+    //  on=false → 从快照整块还原                        ← 这就是"台阶式掉回去"
+    hook(0xe2fb0, 'set_try_speedup_flag', function (args) {
+        const on = args[0].toInt32() & 0xff;
+        const th = this.context.ecx;
+        const state = th.add(0x1c0).readU8();
+        console.log(`[trial] on=${on} state_before=${state}`);
+        if (on) {
+            // 打印 4 个桶在提速前后的 rate（0x20）与容量（0x8）
+            [0x00, 0x38, 0xe0, 0x150].forEach(off => {
+                const bucket = th.add(off);
+                console.log(`          bucket+0x${off.toString(16)}: ` +
+                            `rate=${bucket.add(0x20).readU32()} ` +
+                            `cap=${bucket.add(8).readU32()}`);
+            });
+        }
+        return null;
+    });
+
+    //  自己算一个"这次试用持续了多久"：进入 on=1 时记时间，回 on=0 时算差值
+    (function () {
+        let t0 = null;
+        const b = base(KERNEL);
+        if (!b) return;
+        Interceptor.attach(b.add(0xe2fb0), {
+            onEnter: function () {
+                // __thiscall: 第一个栈参数在 [esp+4]；进来时 Frida 还没 push 任何东西
+                const on = this.context.esp.add(4).readU8();
+                if (on && t0 === null) { t0 = Date.now(); }
+                else if (!on && t0 !== null) {
+                    console.log(`[trial] 持续时间 ≈ ${((Date.now() - t0) / 1000).toFixed(1)} s`);
+                    t0 = null;
+                }
+            }
+        });
+    })();
+
     // ===== 9) 收尾门控：request_block_count / "select this" 分支 =====
     //   0x1afb70 里算出两条门限后，用 `don't close cdn` 与 task_download_rate 打日志。
     //   这里挂两处，把"阈值随 rate 变大而变大"这件事直接打印出来。
