@@ -6,6 +6,8 @@
 |---|---|
 | `hooks.js` | 全部 hook 点（14 个），纯 JS，Frida 脚本 |
 | `run.py` | **不用 `frida` 命令也能跑**，纯 Python API 启动/附加 |
+| `selftest.js` | 30 秒体检：位数/模块/能不能 hook/kernel.dll 是否加载 |
+| `dump_ps.py` | 不用 `frida-ps` 也能列进程，找 PID |
 | `README.md` | 本文件 |
 
 ---
@@ -37,8 +39,11 @@ pip install frida frida-tools
 ```bat
 cd /d <本仓库路径>\re\frida
 
-REM ① 先体检
+REM ① 先体检（版本/位数/进程）
 python run.py check
+
+REM ①.5 注入死活不通时，先用 selftest 判断是环境问题还是脚本问题
+python run.py attach --name BaiduNetdisk.exe --script selftest.js
 
 REM ② 关掉已经开着的百度网盘，然后让脚本自己拉起客户端
 python run.py spawn

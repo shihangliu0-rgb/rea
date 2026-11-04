@@ -77,6 +77,9 @@ def cmd_check(frida, args):
     print("frida python 版本 :", frida.__version__)
     print("CPU 架构          :", os.environ.get("PROCESSOR_ARCHITECTURE", "?"))
     print("hooks.js          :", "OK" if os.path.exists(SCRIPT) else "缺失！" + SCRIPT)
+    for extra in ("run.py", "selftest.js", "dump_ps.py"):
+        p = os.path.join(HERE, extra)
+        print("%-18s" % (extra + " :"), "OK" if os.path.exists(p) else "缺失")
     try:
         dev = frida.get_local_device()
         print("本地设备          :", dev)
@@ -144,6 +147,8 @@ def main():
     ap.add_argument("--name", default="BaiduNetdisk.exe", help="attach 模式下的进程名")
     ap.add_argument("--pid", type=int, default=None, help="attach 模式下的 PID")
     ap.add_argument("--out", default=None, help="同时把输出写进这个文件")
+    ap.add_argument("--script", default=None,
+                    help="换成别的 Frida 脚本（默认 hooks.js，可用 selftest.js 体检）")
     args = ap.parse_args()
 
     frida = load_frida()
@@ -163,9 +168,13 @@ def main():
 
         sys.stdout = Tee(open(args.out, "w", encoding="utf-8"))
 
-    if not os.path.exists(SCRIPT):
-        die("找不到 hooks.js：" + SCRIPT)
-    source = open(SCRIPT, "r", encoding="utf-8").read()
+    script_path = args.script or SCRIPT
+    if not os.path.isabs(script_path):
+        script_path = os.path.join(HERE, script_path)
+    if not os.path.exists(script_path):
+        die("找不到脚本：" + script_path)
+    source = open(script_path, "r", encoding="utf-8").read()
+    print("[*] 脚本：", script_path)
 
     if args.mode == "check":
         cmd_check(frida, args)
