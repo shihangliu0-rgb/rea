@@ -38,16 +38,32 @@ Ptr.prototype.compare = function (o) { return this.v === o.v ? 0 : (this.v < o.v
 Ptr.prototype.isNull = function () { return this.v === 0; };
 Ptr.prototype.readPointer = function () { return new Ptr(0); };
 Ptr.prototype.readU8 = function () { return 0; };
-Ptr.prototype.writeU32 = function () { return this; };
+Ptr.prototype.writeU32 = function (v) {
+  MEM['0x' + this.v.toString(16)] = v >>> 0;
+  if (this.v >= LIM_ADDR && this.v < LIM_ADDR + 0x400) {
+    LIMOBJ[this.v - LIM_ADDR] = v >>> 0;
+  }
+  return this;
+};
 // 桶对象：+0x20 = rate，+8 = cap（这是 kernel.dll 里 TokenBucket 的真实布局）
 const BUCKET_ADDR = 0x30a00000;
 Ptr.prototype.readU32 = function () {
+  const k = '0x' + this.v.toString(16);
+  if (MEM[k] !== undefined) return MEM[k] >>> 0;
   if (this.v >= BUCKET_ADDR && this.v < BUCKET_ADDR + 0x100) {
     if (this.v === BUCKET_ADDR + 0x20) return BUCKET.rate;
     if (this.v === BUCKET_ADDR + 8) return BUCKET.cap;
   }
+  if (this.v >= LIM_ADDR && this.v < LIM_ADDR + 0x400) {
+    const off = this.v - LIM_ADDR;
+    if (LIMOBJ[off] !== undefined) return LIMOBJ[off] >>> 0;
+  }
   return 0;
 };
+// 限速器对象（0x19fab0 的 this）：+0xb0 限流值, +0xb4 开关, +0xb8 其它, +0x78 内嵌桶
+const LIM_ADDR = 0x31a00000;
+const LIMOBJ = { 0xb0: 16384, 0xb4: 0, 0xb8: 7 };
+const MEM = {};   // '0x地址' -> value，供 writeU32/readU32 用
 const SIGBYTES = {};
 SIGBYTES[RVA_RATE] = '8b 44 24 04 85 c0';
 SIGBYTES[RVA_CONS] = '53 57 56 89 ce';
@@ -55,6 +71,9 @@ SIGBYTES[0xdd320] = '8b 44 24 04 85 c0';
 SIGBYTES[0xdd340] = '53 57 56 89 ce';
 SIGBYTES[0xdb150] = '8b 44 24 04 85 c0';
 SIGBYTES[0xdb170] = '53 57 56 89 ce';
+SIGBYTES[0x19fab0] = '55 89 e5 53 57 56 81 ec cc 00 00 00';
+SIGBYTES[0x19fd30] = '89 c8 8b 4c 24 04 89 88 b4 00 00 00';
+SIGBYTES[0x19fd70] = '8b 44 24 04 89 81 b8 00 00 00 c2 04';
 Ptr.prototype.readByteArray = function (len) {
   const want = (len === undefined) ? 8 : len;
   const hex = SIGBYTES[this.v - MODBASE];
@@ -117,7 +136,9 @@ function capture(fn) {
 
 if (err) { origLog('   FAIL eval 抛异常: ' + err.stack); fail++; }
 
-check(attached.length === 2, '挂了 2 个点（set_rate + consume）');
+check(attached.length === (IS242 ? 5 : 2),
+      '挂了 ' + (IS242 ? 5 : 2) + ' 个点（242 多挂限速器 3 个 / 237 只有 2 个）' +
+      ' [实际 ' + attached.map(a => '0x' + a.rva.toString(16)).join(',') + ']');
 const rateHook = attached.find(a => a.rva === RVA_RATE);
 const consHook = attached.find(a => a.rva === RVA_CONS);
 check(!!rateHook, 'set_rate 地址 = ' + RVA_RATE.toString(16));
@@ -197,10 +218,59 @@ check(/set_rate\s+rate=16384/.test(ch), 'chains() 里能看到 set_rate rate=163
 // ── 格式：不能出现 0x0x ──────────────────────────────────────────────────
 check(!/0x0x/.test(out + w + ch), '地址格式正确（没有 0x0x）');
 
+// 限速器层：apply / set_enabled / set_x_b8
+const LIMPTR = new Ptr(LIM_ADDR);
+if (!IS242) {
+  // 237 没有限速器表（不猜地址）；只验证"没有这一层时不会炸"
+  const l237 = capture(() => report());
+  check(/没有命中/.test(l237) || /3.5 限速器/.test(l237), '237：没有限速器表时 report() 不炸');
+  origLog(fail === 0 ? 'HARNESS PASS' : 'HARNESS FAIL x' + fail);
+  process.exit(fail === 0 ? 0 : 1);
+}
+const applyHook = attached.find(a => a.rva === 0x19fab0);
+const enHook = attached.find(a => a.rva === 0x19fd30);
+const b8Hook = attached.find(a => a.rva === 0x19fd70);
+check(!!applyHook && !!enHook && !!b8Hook, '限速器 3 个虚函数都挂上了');
+
+function fireApply(n) {
+  for (let i = 0; i < n; i++) {
+    NEXT_STACK = [MODBASE + 0x2fc866, MODBASE + 0x310b3e];
+    applyHook.cb.onEnter.call({
+      context: { ecx: LIMPTR },
+      returnAddress: new Ptr(MODBASE + 0x2fc866),
+    }, []);
+  }
+}
+function fireSetEnabled(on, caller) {
+  NEXT_STACK = [MODBASE + caller];
+  enHook.cb.onEnter.call({
+    context: { ecx: LIMPTR },
+    returnAddress: new Ptr(MODBASE + caller),
+  }, [new Ptr(on)]);
+}
+// 限流器：开关=关，目标值 16384（就是用户机器上的状态）
+LIMOBJ[0xb4] = 0; LIMOBJ[0xb0] = 16384; LIMOBJ[0xb8] = 7;
+fireApply(5);
+fireSetEnabled(0, 0x254df1);
+const lout = capture(() => report());
+check(/3.5 限速器/.test(lout), 'report() 有"3.5 限速器"这一节');
+check(/apply 共被调用 5 次/.test(lout), '限速器 apply 计数 = 5');
+check(/限流值\(\+0xb0\)=16384/.test(lout), '读到限速器的 +0xb0 = 16384');
+check(/开关\(\+0xb4\)=0/.test(lout), '读到限速器的 +0xb4 = 0（限流关闭）');
+check(/开关=0\s+对象=/.test(lout), '记录了限流开关被拨动');
+check(/是\*\*桶的构造默认值\*\*/.test(lout), '开关关闭时给出"16384 是构造默认值"的结论');
+
+// 打开开关的情形：结论应改成"直接压 +0xb0"
+LIMOBJ[0xb4] = 1; LIMOBJ[0xb0] = 16384;
+fireApply(2);
+const lout2 = capture(() => report());
+check(/开关\(\+0xb4\)=1/.test(lout2), '开关打开时也能读到');
+check(/直接压这个限速器的 \+0xb0/.test(lout2), '开关打开时给出"压 +0xb0"的结论');
+
 // ── boost() ──────────────────────────────────────────────────────────────
 const bmsg = capture(() => boost());
 check(/BOOST 已打开/.test(bmsg), 'boost() 能打开');
-check(attached.length === 2, 'boost() 没有重新 attach（仍是 2 个 hook，避开 e9 跳板坑）');
+check(attached.length === (IS242 ? 5 : 2), 'boost() 没有重新 attach（hook 数不变，避开 e9 跳板坑）');
 
 // 打开后再来 2 次 set_rate(16384)：入参应被改写成 0x1F400000
 BUCKET.rate = 16384; BUCKET.cap = 16384;
@@ -208,12 +278,17 @@ fireSetRate(16384, 0x2e82c7, 2, [MODBASE + 0x19fcec], 1201);
 fireConsume(3, 0xdd1e0, 1201);
 const bout = capture(() => report());
 check(/\[BOOST 打开\]/.test(bout), 'report() 显示 BOOST 状态');
-check(/已改写 set_rate 入参 2 次/.test(bout), '统计到改写入参 2 次');
-check(/已重写桶 3 次/.test(bout), '每次 consume 前重写桶（3 次）');
+check(/set_rate 入参 2 次/.test(bout), '统计到改写入参 2 次');
+check(/重写桶 3 次/.test(bout), '每次 consume 前重写桶（3 次）');
 check(/524288000/.test(bout), '改写后的速率 524288000 出现在报告里');
+// boost 打开期间 apply 会写限速器的 +0xb0
+fireApply(2);
+check(LIMOBJ[0xb0] === 0x1F400000, 'boost() 把限速器的 +0xb0 写成了 0x1F400000');
+const bout2 = capture(() => report());
+check(/已改写限速器 [1-9]/.test(bout2), 'report() 统计到限速器被改写');
 const boff = capture(() => boost(false));
 check(/BOOST 已关闭/.test(boff), 'boost(false) 能关');
-check(attached.length === 2, 'boost(false) 也没有重新 attach');
+check(attached.length === (IS242 ? 5 : 2), 'boost(false) 也没有重新 attach');
 
 // ── reset() ──────────────────────────────────────────────────────────────
 const r = capture(() => { reset(); report(); });

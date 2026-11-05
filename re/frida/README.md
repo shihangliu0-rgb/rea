@@ -358,7 +358,25 @@ chains()          # 原始样本（带线程号、时序）
 boost()           # 强制提速（默认关，唯一写内存的入口，不会重新 attach）
 ```
 
-详见 `docs/11-242点位复核与调用栈追踪.md`。
+### 找到决策者了
+
+真机 `report()` 的调用者排行第一名 `0x19fcf1` = `0x19fcec` 的 `E8` 调用点，
+所在函数 **`kernel.dll+0x19fab0`**：
+
+```
+0x19fae2  cmp [edx+0xb4], 0        ← +0xb4 限流开关
+0x19fce6  push [edx+0xb0]          ← +0xb0 限速值（字节/秒）
+0x19fcec  call TokenBucket::set_rate
+```
+
+它**没有 E8 调用者 → 是虚函数**。这就是之前静态 xref 追不到上游的原因：
+只扫 `E8` 会漏掉 `call [reg+off]`。
+
+`probe2.js` 现在已经挂上这一族三个虚函数（`0x19fab0` / `0x19fd30` / `0x19fd70`），
+`report()` 里多了一节"3.5 限速器"，直接给出每个限速器的 `+0xb0` / `+0xb4`。
+`boost()` 现在会写 `+0xb0`（仍然不重新 attach）。
+
+详见 `docs/11-242点位复核与调用栈追踪.md` 与 `docs/12-限速决策器定位.md`。
 
 > `boost()` 里那两处写入（`+0x20` = rate、`+8` = cap）是从 `set_rate` 的反汇编确定的：
 > `mov [ecx+0x20],eax` / `mov [ecx+8],max(eax,0x4000)`。效果**尚未上真机验证**。

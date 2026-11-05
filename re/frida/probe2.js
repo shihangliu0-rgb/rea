@@ -46,6 +46,42 @@ var TABLES = {
     0x2a3a000: { 'set_rate': 0xdb150, 'consume': 0xdb170 }    // 3.0.20.237
 };
 
+/*
+ * 限速器这一层（"谁在限制我"的真正决策者）。
+ *
+ * 怎么找到的：运行时调用链 + 静态反汇编互证。
+ *   运行时 set_rate 的返回地址是 0x19fcf1 → 静态确认它是 0x19fcec 的 E8 调用点，
+ *   所在函数 0x19fab0。这个函数：
+ *       0x19fae2  cmp [edx+0xb4], 0      ← +0xb4 = 限流开关
+ *       0x19fae9  je 0x19fce3
+ *       0x19fce3  lea ecx,[edx+0x78]     ← 内嵌的 TokenBucket
+ *       0x19fce6  push [edx+0xb0]        ← +0xb0 = 限速值（字节/秒）
+ *       0x19fcec  call TokenBucket::set_rate
+ *   它自己**没有任何 E8 调用者** → 是虚函数（只通过 vtable 调）。
+ *   这解释了为什么之前"静态 xref 追不到上游"：只扫 E8 会漏掉虚调用。
+ *
+ * 同族的两个小方法（也是虚函数）：
+ *   0x19fd30  mov [eax+0xb4],ecx ; test ecx,ecx ; je → 开关关闭时立刻把 +0xb0 下发
+ *   0x19fd70  mov [ecx+0xb8],eax
+ *
+ * 注：+0xb0 在**整个文件里没有任何立即数写入**（16384/122880/1006860 一次都没有），
+ *     所以它是运行时算出来的（服务端/配置 × 会员系数 × 限速比例）。
+ */
+var LIM = {
+    0x2b25000: {                       // 3.0.20.242（已用样本公证）
+        'apply': 0x19fab0,             // 虚函数：把速率下发给令牌桶
+        'set_enabled': 0x19fd30,       // 虚函数：+0xb4 限流开关
+        'set_x_b8': 0x19fd70           // 虚函数：+0xb8
+    }
+    // 0x2a3a000（237）暂缺：没有 237 样本，不猜地址（猜就是上一版翻车的原因）
+};
+
+var LIM_SIGS = {
+    'apply': '55 89 e5 53 57 56 81 ec cc 00 00 00',
+    'set_enabled': '89 c8 8b 4c 24 04 89 88 b4 00 00 00',
+    'set_x_b8': '8b 44 24 04 89 81 b8 00 00 00 c2 04'
+};
+
 var SIGS = {
     'set_rate': '8b 44 24 04 85 c0',
     'consume': '53 57 56 89 ce'
@@ -63,12 +99,18 @@ var S = {
     consume:  { total: 0, byCaller: {}, byThread: {}, samples: [], chains: {} }
 };
 var BUCKETS = {};          // '0x地址' -> { rate: n, cap: n, consume: n, set: n }
+
+// 限速器层（0x19fab0 这一族）
+var LIMITERS = {};         // '0x对象地址' -> { want, enabled, b8, gate, applies, callers{} }
+var LIM_TOTAL = 0;         // apply 被调用次数
+var LIM_FLAG_CALLS = [];   // set_enabled 的调用记录（谁在开关限流）
+var BUCKET_TO_LIM = {};    // '0x桶' -> 限速器对象
 var RATE_OVERFLOW = 0;     // 超过 MAX_RATES 的次数
 
 // ── 强制提速开关（默认关）─────────────────────────────────────────────
 var BOOST = false;
 var BOOST_SENTINEL = 0x1F400000;   // 524288000 B/s = 500 MiB/s
-var BOOST_STAT = { setRate: 0, bucketWrites: 0, err: 0 };
+var BOOST_STAT = { setRate: 0, bucketWrites: 0, limiters: 0, err: 0 };
 
 function log(m) { console.log(m); }
 
@@ -331,6 +373,104 @@ function attachAll() {
         log('[+] hook consume  @ ' + aConsume + ' (kernel.dll+0x' + RVA['consume'].toString(16) + ')');
     }
 
+    // ── 限速器层（只有 242 有表）──
+    var lim = LIM[sz];
+    if (lim) {
+        // 虚函数：把速率下发给令牌桶
+        var aApply = kb.base.add(lim['apply']);
+        if (!bytesOk(aApply, LIM_SIGS['apply'])) {
+            log('[!] 限速器 apply 签名不匹配 @ ' + aApply + '，跳过');
+        } else {
+            Interceptor.attach(aApply, {
+                onEnter: function () {
+                    LIM_TOTAL++;
+                    var self = thisOf(this);
+                    if (!self || self.isNull()) return;
+                    var key = String(self);
+                    var L = LIMITERS[key] || (LIMITERS[key] = {
+                        want: -1, enabled: -1, b8: -1, gate: 0, applies: 0, callers: {}
+                    });
+                    L.applies++;
+                    try { L.b8 = self.add(0xb8).readU32(); } catch (e) { }
+                    // —— 强制提速：直接把限速器的目标值也抬上去 ——
+                    if (BOOST) {
+                        try {
+                            self.add(0xb0).writeU32(BOOST_SENTINEL);
+                            BOOST_STAT.limiters = (BOOST_STAT.limiters || 0) + 1;
+                        } catch (e3) { BOOST_STAT.err++; }
+                    }
+                    try {
+                        L.enabled = self.add(0xb4).readU32();
+                        // +0xb0 一直读（开关关闭时它可能是旧值/0，这本身就是证据）
+                        L.want = self.add(0xb0).readU32();
+                        if (L.enabled) {
+                            BUCKET_TO_LIM[String(self.add(0x78))] = key;
+                        }
+                    } catch (e) { }
+                }
+            });
+            log('[+] hook 限速器 apply   @ ' + aApply +
+                ' (kernel.dll+0x' + lim['apply'].toString(16) + ')');
+        }
+
+        // 限流开关被谁拨动
+        var aEn = kb.base.add(lim['set_enabled']);
+        if (!bytesOk(aEn, LIM_SIGS['set_enabled'])) {
+            log('[!] 限速器 set_enabled 签名不匹配 @ ' + aEn + '，跳过');
+        } else {
+            Interceptor.attach(aEn, {
+                onEnter: function (args) {
+                    var self = thisOf(this);
+                    if (!self || self.isNull()) return;
+                    var key = String(self);
+                    var L = LIMITERS[key] || (LIMITERS[key] = {
+                        want: -1, enabled: -1, b8: -1, gate: 0, applies: 0, callers: {}
+                    });
+                    var on = 0;
+                    try { on = args[0].toUInt32(); } catch (e) { }
+                    L.enabled = on;
+                    if (LIM_FLAG_CALLS.length < 60) {
+                        LIM_FLAG_CALLS.push({
+                            when: Date.now(), on: on, obj: key,
+                            caller: rvaKey(this.returnAddress),
+                            chain: stackHere(this.context, KERNEL + '+0x' +
+                                             hexNoPrefix(aEn.sub(kb.base)))
+                        });
+                    }
+                }
+            });
+            log('[+] hook 限速开关   @ ' + aEn +
+                ' (kernel.dll+0x' + lim['set_enabled'].toString(16) + ')');
+        }
+
+        // +0xb8 的写入点（虚函数，242 上就是 0x19fd70）
+        var aB8 = kb.base.add(lim['set_x_b8']);
+        if (!bytesOk(aB8, LIM_SIGS['set_x_b8'])) {
+            log('[!] 限速器 set_x_b8 签名不匹配 @ ' + aB8 + '，跳过');
+        } else {
+            Interceptor.attach(aB8, {
+                onEnter: function (args) {
+                    var self = thisOf(this);
+                    if (!self || self.isNull()) return;
+                    var key = String(self);
+                    var L = LIMITERS[key] || (LIMITERS[key] = {
+                        want: -1, enabled: -1, b8: -1, gate: 0, applies: 0, callers: {}
+                    });
+                    var v = 0;
+                    try { v = args[0].toUInt32(); } catch (e) { }
+                    L.b8 = v;
+                    // 语义还没确认（不猜），只记录谁写的、写了多少
+                    var ck = rvaKey(this.returnAddress);
+                    L.callers[ck] = (L.callers[ck] || 0) + 1;
+                }
+            });
+            log('[+] hook set_x_b8     @ ' + aB8 +
+                ' (kernel.dll+0x' + lim['set_x_b8'].toString(16) + ')');
+        }
+    } else {
+        log('[i] 该版本没有限速器表（只有 242 有），跳过这一层');
+    }
+
     log('');
     log('    现在去点一个下载，等 10~30 秒，然后敲：report()');
     log('');
@@ -360,8 +500,9 @@ function report() {
     }
     log('  set_rate 共 ' + sr.total + ' 次，consume 共 ' + cs.total + ' 次');
     if (BOOST) {
-        log('  [BOOST 打开] 已改写 set_rate 入参 ' + BOOST_STAT.setRate +
-            ' 次，已重写桶 ' + BOOST_STAT.bucketWrites + ' 次' +
+        log('  [BOOST 打开] 已改写限速器 ' + (BOOST_STAT.limiters || 0) +
+            ' 次，set_rate 入参 ' + BOOST_STAT.setRate +
+            ' 次，重写桶 ' + BOOST_STAT.bucketWrites + ' 次' +
             (BOOST_STAT.err ? '，失败 ' + BOOST_STAT.err + ' 次' : ''));
     }
     log('  线程：' + Object.keys(sr.byThread).length + ' 个调用过 set_rate');
@@ -420,6 +561,61 @@ function report() {
                     log('        ' + (q === 0 ? '← ' : '  ') + ch[q]);
                 }
             }
+        }
+    }
+
+    // ── 3.5 限速器真相（真正的决策者）──
+    log('');
+    log('---------- 3.5 限速器（0x19fab0 这一族）----------');
+    var limKeys = Object.keys(LIMITERS);
+    if (!LIM_TOTAL && !LIM_FLAG_CALLS.length) {
+        log('  没有命中。可能：① 这个版本没挂这一层 ② 这次下载没走这条路');
+    } else {
+        log('  apply 共被调用 ' + LIM_TOTAL + ' 次，涉及 ' + limKeys.length + ' 个限速器对象');
+        var limOn = 0, limOff = 0;
+        var rows = [];
+        for (var lk in LIMITERS) {
+            var L = LIMITERS[lk];
+            if (L.enabled === 1) limOn++; else if (L.enabled === 0) limOff++;
+            rows.push([lk, L]);
+        }
+        rows.sort(function (x, y) { return y[1].applies - x[1].applies; });
+        log('  开关状态：开 ' + limOn + ' 个 / 关 ' + limOff + ' 个');
+        for (var rr = 0; rr < rows.length && rr < 10; rr++) {
+            var o = rows[rr][1];
+            log('  ' + rows[rr][0] + '  限流值(+0xb0)=' + padR(o.want, 11) +
+                ' 开关(+0xb4)=' + padR(o.enabled, 3) +
+                ' +0xb8=' + padR(o.b8, 8) + ' apply=' + o.applies);
+            if (o.want > 0 && o.want < 0x4000) {
+                log('      ⚠ 这个值 < 0x4000，令牌桶会把它抬到 16384 地板');
+            }
+        }
+        if (LIM_FLAG_CALLS.length) {
+            log('');
+            log('  限流开关被拨动的记录（前 ' + LIM_FLAG_CALLS.length + ' 次）：');
+            for (var fc = 0; fc < LIM_FLAG_CALLS.length && fc < 6; fc++) {
+                var C = LIM_FLAG_CALLS[fc];
+                log('    开关=' + C.on + '  对象=' + C.obj + '  调用者=' + C.caller);
+                if (C.chain.length) {
+                    log('      链: ' + C.chain.slice(0, 5).join(' → '));
+                }
+            }
+        }
+        // 结论提示
+        var floored = 0;
+        for (var bk2 in BUCKETS) {
+            if (BUCKETS[bk2].rate === 0x4000) floored++;
+        }
+        log('');
+        if (floored && limOn === 0) {
+            log('  ⚠ 结论：有 ' + floored + ' 个桶停在 16384 地板，而限速器开关是"关"的。');
+            log('    说明这 16384 不是限速器下发的 → 是**桶的构造默认值**（没被设过）。');
+            log('    真正压速度的是那些 rate=122880 / 524288000 的桶：');
+            log('    它们是**共享桶**（rate 很大但 consume 次数极高），瓶颈在令牌补充速率。');
+            log('    想提速就对该桶开 boost()。');
+        } else if (floored && limOn > 0) {
+            log('  ⚠ 结论：有 ' + floored + ' 个桶停在 16384 地板，且有 ' + limOn +
+                ' 个限速器开着。用 boost() 直接压这个限速器的 +0xb0。');
         }
     }
 
@@ -538,8 +734,10 @@ function boost(on) {
     BOOST = !!on;
     log('');
     if (BOOST) {
-        log('[!] BOOST 已打开：set_rate 入参 → 0x1F400000 (524288000 B/s)');
-        log('    并且每次 consume 前把桶的 +0x20(rate) / +8(cap) 重写一遍。');
+        log('[!] BOOST 已打开：');
+        log('    ① 限速器的 +0xb0（限流值）直接写成 0x1F400000');
+        log('    ② set_rate 入参 → 0x1F400000 (524288000 B/s)');
+        log('    ③ 每次 consume 前把桶的 +0x20(rate) / +8(cap) 重写一遍');
         log('    ⚠ 这一层尚未在真机验证。打开后重新点下载，再看速度；');
         log('      30 秒后敲 report() —— 如果 rate 已经很大但 consume 次数不变，');
         log('      说明瓶颈在"每 tick 请求数"，不在令牌桶。');
@@ -558,6 +756,10 @@ function reset() {
         consume:  { total: 0, byCaller: {}, byThread: {}, samples: [], chains: {} }
     };
     BUCKETS = {};
+    LIMITERS = {};
+    LIM_TOTAL = 0;
+    LIM_FLAG_CALLS = [];
+    BUCKET_TO_LIM = {};
     RATE_OVERFLOW = 0;
     log('[+] 已清零');
 }
