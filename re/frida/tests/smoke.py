@@ -126,6 +126,21 @@ else:
     (ok if r.returncode == 0 else bad)("PATCH_RATE=true（应 12/12，无 e9 冲突）\n%s" % tail)
 
 
+# ── 2.6 probe.js 调用栈统计器 ────────────────────────────────────────────
+step("2.6 probe.js 调用栈统计")
+if not shutil_which("node"):
+    print("   SKIP 没装 node")
+else:
+    for js, harness, tag in (("probe.js", "harness_probe.js", "probe.js"),
+                             ("probe2.js", "harness_probe2.js", "probe2.js")):
+        src_js = os.path.join(FRIDA_DIR, js)
+        harness_p = os.path.join(HERE, harness)
+        for size, label in ((0x2B25000, "242"), (0x2A3A000, "237")):
+            r = run(["node", harness_p, src_js, hex(size)])
+            tail = "\n".join(r.stdout.strip().splitlines()[-3:])
+            (ok if r.returncode == 0 else bad)("%s @ %s  %s" % (tag, label, tail))
+
+
 # ── 3. Python 侧：用假 frida 模块 import ──────────────────────────────────
 step("3. Python 脚本可 import（假 frida）")
 class FakeMod:
@@ -238,6 +253,23 @@ else:
         if mm:
             o, b, mi = map(int, mm.groups())
             (ok if b >= 12 else bad)("负例 kernel_o.dll：OK=%d BAD=%d（应全 BAD）" % (o, b))
+
+
+# ── 5. 静态点位审计工具 ───────────────────────────────────────────────────
+step("5. audit_points.py 静态点位审计")
+audit_py = os.path.join(REPO, "re", "tools", "audit_points.py")
+if not os.path.exists(dll):
+    print("   SKIP 没有 bin/kernel.dll")
+else:
+    r = run([sys.executable, audit_py, dll])
+    txt = r.stdout
+    (ok if r.returncode == 0 else bad)("audit_points.py 跑通（%d 行输出）" %
+                                       len(txt.splitlines()))
+    # 必须如实给出"函数中间"的判定，不能把路过当成调用
+    (ok if "bucket.consume" in txt and "函数内部" in txt else bad)(
+        "能区分「函数入口」与「函数内部」")
+    (ok if "0x1f400000" in txt.lower() or "0x1F400000" in txt else bad)(
+        "统计到 set_rate 的立即数入参（含 0x1F400000）")
 
 
 # ── 汇总 ─────────────────────────────────────────────────────────────────

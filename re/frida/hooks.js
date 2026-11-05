@@ -20,6 +20,17 @@
  * 默认只读不改；PATCH_RATE=true 才会写内存（仅用于验证"令牌桶就是限速点"）。
  */
 
+// ptr(x) 是 Frida 的全局函数；有的运行时/沙箱里没有，这里做个兜底
+var ptr = (typeof globalThis.ptr === 'function') ? globalThis.ptr : function (x) {
+    // 退化实现：只要能被 hook 参数替换逻辑接受即可
+    if (typeof x === 'number') {
+        return { toUInt32: function () { return x >>> 0; },
+                 toInt32: function () { return x | 0; },
+                 toString: function () { return '0x' + (x >>> 0).toString(16); } };
+    }
+    return x;
+};
+
 var KERNEL = 'kernel.dll';
 var KERNEL32 = 'kernel32.dll';
 
@@ -497,14 +508,54 @@ function install() {
 
     // 5) TokenBucket::set_rate(uint32) —— 每个通道的实际配额
     //    ⚠️ 正确 RVA 是 0xdb150（0x118cb44 vtable: [set_rate, dtor, consume]）
+    //
+    //    PATCH_RATE 必须挂在这里，不能只挂在 consume：
+    //    set_rate 里的 `mov [ecx+0x20], eax` 会把 rate 覆盖回去。实测日志就是
+    //        122880  →  104857600  →  122880   （被覆盖）
+    //    所以在 consume 里写是徒劳的，得从源头拦截。
     mark(hook(RVA['bucket.set_rate'], 'bucket.set_rate', '8b 44 24 04 85 c0',
         function (args) {
             bump('bucket.set_rate');
             var th = this.thisPtr;
             if (!th) return;
             if (!isTokenBucket(th, kb)) return;      // 只认真桶，过滤误中
-            log('[bucket] rate=' + args[0].toUInt32() + ' B/s cap=' + th.add(8).readU32());
-        }, null));
+
+            var want = args[0].toUInt32();
+
+            if (PATCH_RATE) {
+                // 直接改参数：set_rate(v) 会写入 v 和 max(v, 0x4000)，
+                // 所以这里把它换成 0x1F400000（不限速哨兵）
+                try {
+                    args[0] = ptr(0x1F400000);
+                } catch (e) {
+                    // 老版本 Frida 不允许改 args，退回"调用后再写一次"
+                    args[0] = args[0];
+                }
+                if (!PATCHED_ONCE) {
+                    PATCHED_ONCE = true;
+                    log('[!] PATCH_RATE 已生效：set_rate 的入参被改成 0x1F400000 (524288000 B/s)');
+                    log('    （原来下发的是 ' + want + ' B/s —— 这就是限速值）');
+                }
+                if (!QUIET) {
+                    log('[bucket] rate=' + want + ' → 已改成 524288000 B/s');
+                }
+                return;
+            }
+
+            log('[bucket] rate=' + want + ' B/s cap=' + th.add(8).readU32());
+        },
+        // 没开 PATCH 时不做 onLeave；开了就在函数返回后再兜底写一次，
+        // 防止某些调用路径绕过入参修改
+        function () {
+            if (!PATCH_RATE) return;
+            var th = this.thisPtr;
+            if (!th) return;
+            if (!isTokenBucket(th, kb)) return;
+            try {
+                th.add(0x20).writeU32(0x1F400000);
+                th.add(8).writeU32(0x1F400000);
+            } catch (e) { }
+        }));
 
     // 6) TokenBucket::consume() —— 真正扣令牌，返回 0 表示本 tick 不发请求
     //    ⚠️ 正确 RVA 是 0xdb170

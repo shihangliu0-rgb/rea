@@ -40,6 +40,7 @@ BT/HTTP 的请求驱动模型于是自然少收数据。**限速完全在客户�
 | [04-下载速度全链路.md](04-下载速度全链路.md) | 建任务 → 取链 → 造 peer → 连 peer → 分片 → 速度闸门 → 上报；`close cdn` 数值表 |
 | [06-变速与收尾减速.md](06-变速与收尾减速.md) | **为什么开变速前段有效、后段反而更慢；为什么关掉变速会回血**（阈值 ∝ rate 的自我判定 + close cdn + 磁盘/请求超额） |
 | [07-SVIP试用与提速.md](07-SVIP试用与提速.md) | **"试用 SVIP 几十秒"的完整实现**：提示触发条件（阈值+10% 灰度+每日 2 次）、`set_try_speedup_flag` 把 4 个令牌桶钉到 500 MB/s、结束时按快照台阶式还原 |
+| [11-242点位复核与调用栈追踪.md](11-242点位复核与调用栈追踪.md) | **纠错**：12 个点位里 10 个运行时 0 命中（真机 `stats()` 实测）；`set_rate` 的 43 个调用者多数是构造期初始化；`probe2.js` 用完整调用栈 + 速率反查定位真正下发 16384 的那一层 |
 | [10-242版本重定位.md](10-242版本重定位.md) | **3.0.20.242 全量重定位**：同一客户端 8.1.6.101 的内核热更新；12 个点位新地址 + vtable/布局/调用关系三重交叉验证；`hooks.js` 按 SizeOfImage 自动选表 |
 | [09-内核版本不匹配与重定位.md](09-内核版本不匹配与重定位.md) | **版本不匹配**：13 个点位全报"字节不匹配"的原因（SizeOfImage 42.23MB vs 43.1MB）、三条重定位路线、`PROFILES` 多版本表 |
 | [08-复核-kernel加载事实.md](08-复核-kernel加载事实.md) | **事实复核**：`kernel.dll` 只有 exe 提到（且在一个验签白名单里）、无静态依赖、日志证明是同进程多线程；并列出我之前说错的地方 |
@@ -53,6 +54,7 @@ python3 re/tools/dump_all.py          # 元数据 + 日志解密
 python3 re/tools/logsites.py bin/kernel.dll   # 反推符号表（1531 个函数名）
 python3 re/tools/funcmap.py bin/kernel.dll    # → re/out/funcmap_kernel.dll.csv
 python3 re/tools/extract_rsrc.py bin/kernel.dll  # 抽出内嵌的 3 个 PE
+python3 re/tools/audit_points.py bin/kernel.dll  # 复核 12 个 hook 点位"是否可能被执行"
 ```
 
 | 产物 | 内容 |
@@ -61,9 +63,10 @@ python3 re/tools/extract_rsrc.py bin/kernel.dll  # 抽出内嵌的 3 个 PE
 | `re/out/YunLogic_config_template.txt` | 913 条明文默认配置（限速"出厂值"） |
 | `re/out/set_param_table.txt` | `set_param` 的 147 项类型表 |
 | `re/out/logmap_limiter.txt` | 限速代码区的日志点 → 文案映射 |
-| `re/frida/hooks.js` | 10 个动态验证点 + 反反调试 |
+| `re/frida/hooks.js` | 12 个动态验证点 + 反反调试（**其中只有 `set_rate`/`consume` 实测会命中**，见 11 号文档） |
+| `re/frida/probe2.js` | 运行时全证据探针：完整调用链 + 速率反查 + 令牌桶表 + `boost()`（默认关） |
 
 ## 免责声明
 
 本文只做**静态取证与机制说明**，不含脱壳/破解/绕过工具；`re/frida/hooks.js` 里的
-`PATCH_CONSUME` 仅用于验证"令牌桶就是限速点"这一结论，默认关闭。请勿用于违反服务条款的用途。
+`PATCH_CONSUME` / `boost()` 仅用于验证"令牌桶就是限速点"这一结论，默认关闭。请勿用于违反服务条款的用途。

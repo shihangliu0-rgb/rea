@@ -326,6 +326,43 @@ kernel.dll 已加载时，日志中不得出现 `等 kernel.dll 加载` / `已�
 
 ---
 
+## 4.30 12 个 hook 都挂上了，但只有 2 个有命中（新）
+
+真机 `stats()` 实测（3.0.20.242）：
+
+```
+  bucket.set_rate : 208
+  bucket.consume : 2665
+  从未被调用：set_param, update_max_speed, set_restrict_ratio, calculate_target_speed,
+  cdn_speed_limit_dispatch, close_cdn(decided), set_try_speedup_flag, block_gate(pre),
+  download_threshold, set_download_restrict_ratio
+```
+
+**这不是脚本坏了，是那 10 个点位不在活的调用链上。**
+"字节签名在文件里唯一匹配" ≠ "运行时会执行"。用
+`python3 re/tools/audit_points.py bin/kernel.dll` 可以把判定依据摊开来看
+（函数入口 vs 函数内部 / E8 调用者 / 取地址引用 / set_rate 入参分布）。
+
+注意一个坑：**探针落在别人函数中间时，"E8 调用数 = 0" 是废话**，
+它只是说明没人调用那条指令，不能拿来判死。只有"函数入口 + 0 调用 + 0 取地址"才是可疑死代码。
+
+下一步用 `probe2.js` 拿运行时调用栈：
+
+```
+frida -p <pid> -l probe2.js
+（点下载，等 10~30 秒）
+report()          # 总览 + 一行可粘贴摘要
+why(16384)        # 谁把速率设成 16384 的完整调用链
+buckets()         # 每个令牌桶的 rate/cap
+chains()          # 原始样本（带线程号、时序）
+boost()           # 强制提速（默认关，唯一写内存的入口，不会重新 attach）
+```
+
+详见 `docs/11-242点位复核与调用栈追踪.md`。
+
+> `boost()` 里那两处写入（`+0x20` = rate、`+8` = cap）是从 `set_rate` 的反汇编确定的：
+> `mov [ecx+0x20],eax` / `mov [ecx+8],max(eax,0x4000)`。效果**尚未上真机验证**。
+
 ## 4.3 版本不匹配：13 条全报"字节不匹配"
 
 ```
