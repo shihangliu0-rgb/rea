@@ -210,6 +210,72 @@ var PROFILE = 'auto';   // 默认自动
 
 ---
 
+## 4.28 `[!] 跳过 bucket.consume(PATCH)：字节不匹配 实际=e9 bf 44 5e 8d`
+
+**这不是版本问题，是脚本 bug（已修）。**
+
+`e9 xx xx xx xx` 是 `jmp rel32` —— Frida 的 inline hook 跳板。
+旧版 `hooks.js` 在 `PATCH_RATE=true` 时对 `bucket.consume` **attach 了两次**：
+第一次把函数头改写成 `e9 ...`，第二次再做字节签名校验，读到的自然是跳板而不是
+原来的 `53 57 56 89 ce`，于是报"不匹配"并跳过。
+
+现在 PATCH 逻辑合并进同一个 `onEnter`，**不再二次 attach**：
+
+```js
+hook(RVA['bucket.consume'], 'bucket.consume', '53 57 56 89 ce',
+    function () {
+        if (PATCH_RATE) { /* 在这里写 rate */ }
+        ...
+    }, ...);
+```
+
+正确输出：
+
+```
+========== 安装完成：成功 12 个，跳过 0 个 ==========
+[!] PATCH_RATE 已生效：consume 时把 rate/cap 写成 0x1F400000 (524288000 B/s)
+```
+
+回归测试：`tests/smoke.py` 会用 `PATCH_RATE=true` 的副本再跑一遍端到端，
+要求同样 `12 成功 / 0 跳过`，并断言**没有地址被 attach 两次**。
+
+---
+
+## 4.29 已经挂满 12 个 hook，屏幕上却还留着"[i] 已注册模块观察者，等 kernel.dll 加载"
+
+**误导性提示，已修。**
+
+旧版启动顺序是"先注册观察者并打印，再处理 onAdded"。如果 `kernel.dll`
+**本来就在进程里**（attach 一个已经在下载的 `baidunetdiskhost.exe` 就是这种情况），
+观察者回调会立刻触发、12 个 hook 全部挂好，但那句"等 kernel.dll 加载"
+已经先打印出去了，永远不会被撤销 —— 看起来就像"明明在 28804 里却还在等"。
+
+现在先判断再打印：
+
+```js
+var present = getModule(KERNEL);
+if (present) {
+    log('[i] kernel.dll 已在进程内 @ ' + present.base + '，直接安装');
+    install();          // 不注册观察者，也不打印"等"
+} else {
+    /* 注册观察者并提示"还没加载，等它出现" */
+}
+```
+
+正确输出（attach 已加载的进程）：
+
+```
+[+] kernel.dll 加载了 @ 0x78100000
+[i] 使用 RVA 表: 3.0.20.242（…）
+[+] hook set_param …
+========== 安装完成：成功 12 个，跳过 0 个 ==========
+```
+
+**不会再出现"等 kernel.dll"字样。** 回归测试里有专门断言：
+kernel.dll 已加载时，日志中不得出现 `等 kernel.dll 加载` / `已注册模块观察者，等 kernel`。
+
+---
+
 ## 4.3 版本不匹配：13 条全报"字节不匹配"
 
 ```

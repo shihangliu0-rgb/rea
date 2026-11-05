@@ -182,6 +182,18 @@ origLog('   安装结果: ' + (doneLine[0] || '(未打印)'));
 check(doneLine[1] === String(EXPECT_HITS) && doneLine[2] === String(12 - EXPECT_HITS),
       EXPECT_HITS + ' 成功 / ' + (12 - EXPECT_HITS) + ' 跳过');
 
+// ── 断言：已加载时不能出现误导性的"等 kernel.dll" ──
+check(!/等 kernel\.dll 加载|已注册模块观察者，等 kernel/.test(hitLog),
+      'kernel.dll 已加载时不打印"等 kernel.dll"');
+check(/已在进程内|模块观察者触发/.test(hitLog),
+      '打印了"已在进程内/观察者触发"这类明确状态');
+
+// ── 断言：PATCH_RATE 不能二次 attach 同一地址 ──
+const dup = {};
+hits.forEach(h => { dup[h] = (dup[h] || 0) + 1; });
+const dupAddr = Object.keys(dup).filter(k => dup[k] > 1);
+check(dupAddr.length === 0, '同一地址没有被 attach 两次（重复: ' + dupAddr.length + '）');
+
 origLog('\n--- hooks.js 全部日志 ---');
 origLog(hitLog.split('\n').map(function(l){return '    | '+l;}).join('\n'));
 origLog('--- 日志结束 ---');

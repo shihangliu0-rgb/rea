@@ -116,6 +116,15 @@ else:
         tail = "\n".join(r.stdout.strip().splitlines()[:7])
         (ok if r.returncode == 0 else bad)("%s\n%s" % (label, tail))
 
+    # PATCH_RATE=true 也必须 12/12（旧版会对同一地址二次 attach，读到自己的 e9 跳板）
+    patched = os.path.join(tempfile.gettempdir(), "hooks_patch_smoke.js")
+    src = open(hooks_js, encoding="utf-8").read()
+    open(patched, "w", encoding="utf-8").write(
+        src.replace("var PATCH_RATE = false;", "var PATCH_RATE = true;"))
+    r = run(["node", harness, patched, "0x2b25000"])
+    tail = "\n".join(r.stdout.strip().splitlines()[:7])
+    (ok if r.returncode == 0 else bad)("PATCH_RATE=true（应 12/12，无 e9 冲突）\n%s" % tail)
+
 
 # ── 3. Python 侧：用假 frida 模块 import ──────────────────────────────────
 step("3. Python 脚本可 import（假 frida）")

@@ -388,6 +388,7 @@ function applyProfile(mod) {
 }
 
 var INSTALLED = false;
+var PATCHED_ONCE = false;
 
 function install() {
     if (INSTALLED) return;
@@ -455,6 +456,18 @@ function install() {
     //    ⚠️ 正确 RVA 是 0xdb170
     mark(hook(RVA['bucket.consume'], 'bucket.consume', '53 57 56 89 ce',
         function () {
+            // PATCH_RATE：在这里（onEnter）直接把令牌桶速率抬到 500MB/s
+            if (PATCH_RATE) {
+                var tb = this.thisPtr;
+                if (isTokenBucket(tb, kb)) {
+                    tb.add(0x20).writeU32(0x1F400000);
+                    tb.add(8).writeU32(0x1F400000);
+                    if (!PATCHED_ONCE) {
+                        PATCHED_ONCE = true;
+                        log('[!] PATCH_RATE 已生效：consume 时把 rate/cap 写成 0x1F400000 (524288000 B/s)');
+                    }
+                }
+            }
             // 记录 this，onLeave 时用来判断是不是真桶
             this.maybeBucket = this.thisPtr;
         },
@@ -532,16 +545,9 @@ function install() {
         }, null));
 
     // 可选：实验性解限（把 rate 顶到 500MB/s）
-    if (PATCH_RATE) {
-        log('[!] PATCH_RATE=true —— 正在修改令牌桶速率（仅用于验证机制）');
-        mark(hook(RVA['bucket.consume'], 'bucket.consume(PATCH)', '53 57 56 89 ce',
-            function () {
-                var th = this.thisPtr;
-                if (!isTokenBucket(th, kb)) return;
-                th.add(0x20).writeU32(0x1F400000);
-                th.add(8).writeU32(0x1F400000);
-            }, null));
-    }
+    // PATCH_RATE 的写入合并进上面那个 bucket.consume 的 onEnter，
+    // 不再对同一地址二次 Interceptor.attach —— Frida 第二次 attach 会读到
+    // 自己写进去的 e9（jmp rel32）跳板，字节校验必然失败。
 
     log('========== 安装完成：成功 ' + ok + ' 个，跳过 ' + bad + ' 个 ==========');
     if (ok === 0) {
@@ -679,24 +685,35 @@ setTimeout(function () {
 
 // 优先用模块观察者（事件驱动，kernel.dll 一加载立刻挂）—— Frida 17 有，16 可能没有
 var watched = false;
-try {
-    if (Process.attachModuleObserver) {
-        Process.attachModuleObserver({
-            onAdded: function (m) {
-                var n = (m.name || '').toLowerCase();
-                if (n === KERNEL.toLowerCase()) {
-                    log('[+] kernel.dll 加载了 @ ' + m.base + '（模块观察者触发）');
-                    install();
-                } else if (n === 'yundls.dll') {
-                    log('[i] YunDls.dll 已加载 → 下载内核快要初始化了');
+
+// ★ 关键顺序修复：先看 kernel.dll 在不在，再决定"要等"还是"直接装"。
+//   旧代码不管三七二十一先打"等 kernel.dll 加载"，导致 kernel.dll 明明
+//   已经加载、12 个 hook 都挂好了，屏幕上还留着这句误导性的提示。
+var present = getModule(KERNEL);
+if (present) {
+    // 已在进程里：直接安装，不注册观察者
+    log('[i] kernel.dll 已在进程内 @ ' + present.base + '，直接安装');
+    install();
+} else {
+    try {
+        if (Process.attachModuleObserver) {
+            Process.attachModuleObserver({
+                onAdded: function (m) {
+                    var n = (m.name || '').toLowerCase();
+                    if (n === KERNEL.toLowerCase()) {
+                        log('[+] kernel.dll 加载了 @ ' + m.base + '（模块观察者触发）');
+                        install();
+                    } else if (n === 'yundls.dll') {
+                        log('[i] YunDls.dll 已加载 → 下载内核快要初始化了');
+                    }
                 }
-            }
-        });
-        watched = true;
-        log('[i] 已注册模块观察者，等 kernel.dll 加载');
+            });
+            watched = true;
+            log('[i] kernel.dll 还没加载，已注册模块观察者，等它出现');
+        }
+    } catch (e) {
+        log('[i] 模块观察者不可用（' + e + '），改用轮询');
     }
-} catch (e) {
-    log('[i] 模块观察者不可用（' + e + '），改用轮询');
 }
 
 if (!watched) {
