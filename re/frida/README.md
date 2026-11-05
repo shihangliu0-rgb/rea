@@ -411,6 +411,38 @@ timeline()    ← 每个 2 秒窗口一行
 所以 `IOCP 完成` 偏大、`WSARecv 完成` 偏小 —— 看量级和趋势，别当精确值。
 详见 `docs/14-吞吐实测与瓶颈判定.md`。
 
+## 4.30.6 采了 92 秒，结果全是心跳：先确认进程对不对
+
+在 PID 28804 上跑 `throughput.js` 采 92 秒，拿到：
+
+```
+ws2 收 · 请求    总计 5.9 KiB        ← 只"愿意"收 6 KB
+ws2 收 · 完成    总计 0 B
+IOCP 完成        194.7 KiB / 18187 次  ← 平均每次 11 B
+异步 pending     收 0 次
+```
+
+若真在跑 120 KiB/s，92 秒该收 11 MB。**它只收了 195 KB，每次 IOCP 11 字节 = 心跳。**
+→ 这个 pid 根本没在下载（之前的 `consume` 2094 次是空跑限流器）。
+
+先用这个找对进程：
+
+```bat
+python active_pids.py --seconds 20
+```
+
+它同时 attach 所有百度相关进程，每个都挂 `WSARecv`/`WSARecvFrom`/
+`GetQueuedCompletionStatus`（**导出符号，不猜 RVA**），按窗口出排行：
+
+```
+★ 下载最可能在：pid=6120  BaiduNetdiskHost.exe
+  → frida -p 6120 -l throughput.js
+```
+
+所有进程都 < 100 KiB 时它会直接告诉你"这段时间根本没有下载在跑"。
+
+详见 `docs/15-下载进程定位与吞吐归因.md`。
+
 ## 4.3 版本不匹配：13 条全报"字节不匹配"
 
 ```

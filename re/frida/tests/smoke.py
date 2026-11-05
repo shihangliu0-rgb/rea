@@ -160,12 +160,20 @@ class FakeMod:
     class _Script:
         def __init__(self, body=""):
             self.body = body
+            self.exports_sync = FakeMod._Exports()
 
         def on(self, *a, **k):
             pass
 
         def load(self):
             pass
+
+    class _Exports:
+        """假 rpc.exports：返回全 0 的快照"""
+
+        def snap(self):
+            return {"recvReq": 0, "recvDone": 0, "recvPend": 0,
+                    "iocpDone": 0, "iocpCalls": 0}
 
     class _Session:
         def create_script(self, body=""):
@@ -174,7 +182,8 @@ class FakeMod:
         def detach(self):
             pass
 
-    def get_local_device(self):
+    @staticmethod
+    def get_local_device():
         s = FakeMod._Session()
 
         class Dev:
@@ -195,7 +204,7 @@ fake.__version__ = FakeMod.__version__
 fake._FakeMod = FakeMod
 sys.modules["frida"] = fake
 
-for name in ["locate", "census"]:
+for name in ["locate", "census", "active_pids"]:
     p = os.path.join(FRIDA_DIR, name + ".py")
     try:
         src = open(p, encoding="utf-8").read()
@@ -214,6 +223,41 @@ try:
     ok("locate.pick_pid 可执行，返回 %r" % (got,))
 except Exception as e:
     bad("locate.pick_pid 抛异常：%r" % (e,))
+
+
+# ── 3.5 active_pids.py 端到端（假 frida 实跑）────────────────────────────
+step("3.5 active_pids.py 端到端（假设备实跑）")
+try:
+    import importlib
+    ap_mod = importlib.import_module("active_pids")
+    ap_mod.time.sleep = lambda s: None          # 不真睡
+    old_argv = sys.argv
+    sys.argv = ["active_pids.py", "--seconds", "2", "--window", "500"]
+    buf = []
+
+    class _Cap:
+        def write(self, s):
+            buf.append(s)
+            return len(s)
+
+        def flush(self):
+            pass
+
+    old_out = sys.stdout
+    sys.stdout = _Cap()
+    try:
+        rc = ap_mod.main()
+    finally:
+        sys.stdout = old_out
+        sys.argv = old_argv
+    txt = "".join(buf)
+    (ok if rc == 0 else bad)("active_pids.main() 返回 %r" % rc)
+    (ok if "累计排行" in txt else bad)("输出里有累计排行")
+    (ok if "WSARecv" in txt or "IOCP" in txt else bad)("挂上了网络导出函数")
+    (ok if "根本没有下载在跑" in txt or "下载最可能在" in txt else bad)(
+        "给出结论（有下载 / 没下载都没关系，必须给结论）")
+except Exception as e:
+    bad("active_pids 端到端失败：%r" % (e,))
 
 
 # ── 4. hooks.js 的 PROFILES 能解析，且对样本全 OK ─────────────────────────

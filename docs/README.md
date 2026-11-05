@@ -40,6 +40,7 @@ BT/HTTP 的请求驱动模型于是自然少收数据。**限速完全在客户�
 | [04-下载速度全链路.md](04-下载速度全链路.md) | 建任务 → 取链 → 造 peer → 连 peer → 分片 → 速度闸门 → 上报；`close cdn` 数值表 |
 | [06-变速与收尾减速.md](06-变速与收尾减速.md) | **为什么开变速前段有效、后段反而更慢；为什么关掉变速会回血**（阈值 ∝ rate 的自我判定 + close cdn + 磁盘/请求超额） |
 | [07-SVIP试用与提速.md](07-SVIP试用与提速.md) | **"试用 SVIP 几十秒"的完整实现**：提示触发条件（阈值+10% 灰度+每日 2 次）、`set_try_speedup_flag` 把 4 个令牌桶钉到 500 MB/s、结束时按快照台阶式还原 |
+| [15-下载进程定位与吞吐归因.md](15-下载进程定位与吞吐归因.md) | **92 秒采样的结论**：PID 28804 九十二秒里只"愿意"收 6 KB、异步收 0 次、IOCP 每次 11 B（心跳）→ **它根本没在下载**，之前看到的 `consume` 2094 次是空跑；顺带坐实 `122880 = 120 KiB/s` 就是非会员限速的定量落点（桶 `0x795b3918`） |
 | [14-吞吐实测与瓶颈判定.md](14-吞吐实测与瓶颈判定.md) | **`throughput.js`**：全程只用**导出符号**（ws2_32/kernel32/KernelBase，一个 RVA 都不猜），把"配额 vs 真实吞吐"对照出来；异步 I/O 分 IOCP / overlapped / 同步三条路分别算；把"客户端没要"和"对面不给"区分开 |
 | [13-boost实机验证与瓶颈转移.md](13-boost实机验证与瓶颈转移.md) | **实机结论**：`boost()` 确实生效（set_rate 入参 71.5% 变 524288000、主桶 122880→524288000、consume 553→1853），**但速度不变 → 令牌桶不是瓶颈**；`+0xb4 = -1` 是"不限流"（上一版读错）；下一步去 netbase.dll / ws2_32 收实际字节数 |
 | [12-限速决策器定位.md](12-限速决策器定位.md) | **本轮突破**：真正决定限速值的是虚函数 `kernel.dll+0x19fab0`，它读对象 `+0xb0`（字节/秒）与 `+0xb4`（开关）再调 `set_rate`；`+0xb0` 在全文件里**没有任何立即数写入** → 必须运行时写，不能靠改常量 |
@@ -58,6 +59,7 @@ python3 re/tools/logsites.py bin/kernel.dll   # 反推符号表（1531 个函数
 python3 re/tools/funcmap.py bin/kernel.dll    # → re/out/funcmap_kernel.dll.csv
 python3 re/tools/extract_rsrc.py bin/kernel.dll  # 抽出内嵌的 3 个 PE
 python3 re/tools/audit_points.py bin/kernel.dll  # 复核 12 个 hook 点位"是否可能被执行"
+python re/frida/active_pids.py --seconds 20      # 多进程同时采样：谁在真正下载
 ```
 
 | 产物 | 内容 |
