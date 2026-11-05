@@ -24,7 +24,7 @@ global.clearInterval = () => {};
 global.hexdump = () => '';
 
 // ── 假指针 ────────────────────────────────────────────────────────────────
-const BUCKET = { rate: 16384, cap: 16384 };
+const BUCKET = { rate: 16384, cap: 16384, tokens: 16384 };
 function Ptr(v) {
   if (!(this instanceof Ptr)) return new Ptr(v);
   this.v = (v === undefined ? 0 : v) >>> 0;
@@ -38,6 +38,8 @@ Ptr.prototype.compare = function (o) { return this.v === o.v ? 0 : (this.v < o.v
 Ptr.prototype.isNull = function () { return this.v === 0; };
 Ptr.prototype.readPointer = function () { return new Ptr(0); };
 Ptr.prototype.readU8 = function () { return 0; };
+// 真 Frida 有 readS32；harness 缺了它会让 try/catch 把 +0xb4 静默读成 -1（踩过一次）
+Ptr.prototype.readS32 = function () { return this.readU32() | 0; };
 Ptr.prototype.writeU32 = function (v) {
   MEM['0x' + this.v.toString(16)] = v >>> 0;
   if (this.v >= LIM_ADDR && this.v < LIM_ADDR + 0x400) {
@@ -53,6 +55,7 @@ Ptr.prototype.readU32 = function () {
   if (this.v >= BUCKET_ADDR && this.v < BUCKET_ADDR + 0x100) {
     if (this.v === BUCKET_ADDR + 0x20) return BUCKET.rate;
     if (this.v === BUCKET_ADDR + 8) return BUCKET.cap;
+    if (this.v === BUCKET_ADDR + 0x10) return BUCKET.tokens;
   }
   if (this.v >= LIM_ADDR && this.v < LIM_ADDR + 0x400) {
     const off = this.v - LIM_ADDR;
@@ -197,7 +200,7 @@ check(/netbase\.dll\+0x1234/.test(out), '调用链保留并标注了非 kernel �
 // 第 4 节：桶
 check(/令牌桶（共 1 个/.test(out), '识别出 1 个令牌桶');
 check(/rate=16384\s+cap=16384/.test(out), '桶的 rate/cap 都读出来了（+0x20 / +8 布局正确）');
-check(/最后一次 set 来自 0x2e82c7/.test(out), '记录到桶的最后一次 set 来源');
+check(/set来自 0x2e82c7/.test(out), '记录到桶的最后一次 set 来源');
 // 第 5 节：可粘贴摘要
 check(/set_rate callers: /.test(out), '有可粘贴的摘要行');
 check(/buckets\s+: /.test(out), '摘要里有桶信息');
@@ -248,24 +251,56 @@ function fireSetEnabled(on, caller) {
     returnAddress: new Ptr(MODBASE + caller),
   }, [new Ptr(on)]);
 }
-// 限流器：开关=关，目标值 16384（就是用户机器上的状态）
-LIMOBJ[0xb4] = 0; LIMOBJ[0xb0] = 16384; LIMOBJ[0xb8] = 7;
+// 用户的真实状态：+0xb4 = -1（不限流）、+0xb0 = 16384
+LIMOBJ[0xb4] = -1 | 0; LIMOBJ[0xb0] = 16384; LIMOBJ[0xb8] = 120;
 fireApply(5);
-fireSetEnabled(0, 0x254df1);
+fireSetEnabled(-1, 0x23e09a);
 const lout = capture(() => report());
 check(/3.5 限速器/.test(lout), 'report() 有"3.5 限速器"这一节');
 check(/apply 共被调用 5 次/.test(lout), '限速器 apply 计数 = 5');
 check(/限流值\(\+0xb0\)=16384/.test(lout), '读到限速器的 +0xb0 = 16384');
-check(/开关\(\+0xb4\)=0/.test(lout), '读到限速器的 +0xb4 = 0（限流关闭）');
-check(/开关=0\s+对象=/.test(lout), '记录了限流开关被拨动');
-check(/是\*\*桶的构造默认值\*\*/.test(lout), '开关关闭时给出"16384 是构造默认值"的结论');
+check(/开关\(\+0xb4\)=-1/.test(lout), '+0xb4 按有符号读，-1 正常显示');
+check(/1 个限速器 = -1（不限流）/.test(lout), '判读出 1 个不限流限速器');
+check(/开关=-1\s+对象=/.test(lout), '记录了限流开关被拨动');
+check(/全部桶都在地板/.test(lout), '只有地板桶时判读为"全部在地板"');
 
-// 打开开关的情形：结论应改成"直接压 +0xb0"
-LIMOBJ[0xb4] = 1; LIMOBJ[0xb0] = 16384;
+// 反过来：真在限流的限速器（+0xb4 = 1）
+LIMOBJ[0xb4] = 1; LIMOBJ[0xb0] = 122880;
 fireApply(2);
 const lout2 = capture(() => report());
-check(/开关\(\+0xb4\)=1/.test(lout2), '开关打开时也能读到');
-check(/直接压这个限速器的 \+0xb0/.test(lout2), '开关打开时给出"压 +0xb0"的结论');
+check(/开关\(\+0xb4\)=1/.test(lout2), '+0xb4 = 1 时显示 1（限流中）');
+check(/1 个真在限流/.test(lout2), '判读出 1 个真在限流的限速器');
+
+// ── 真机场景复现：大桶 + 地板桶成对出现，大桶被抽干 ──────────────────────
+// 用第二个桶模拟 0x795b3918（rate=524288000 但一直被抽干）
+const BUCKET2_ADDR = 0x30b00000;
+const B2 = { rate: 524288000, cap: 524288000, tokens: 0 };
+const _readU32 = Ptr.prototype.readU32;
+Ptr.prototype.readU32 = function () {
+  if (this.v >= BUCKET2_ADDR && this.v < BUCKET2_ADDR + 0x100) {
+    if (this.v === BUCKET2_ADDR + 0x20) return B2.rate;
+    if (this.v === BUCKET2_ADDR + 8) return B2.cap;
+    if (this.v === BUCKET2_ADDR + 0x10) return B2.tokens;
+  }
+  return _readU32.call(this);
+};
+const B2PTR = new Ptr(BUCKET2_ADDR);
+BUCKET.rate = 16384; BUCKET.cap = 16384; BUCKET.tokens = 16384;
+B2.rate = 524288000; B2.cap = 524288000; B2.tokens = 0;
+for (let i = 0; i < 40; i++) {
+  NEXT_STACK = [MODBASE + 0xdd15e];
+  consHook.cb.onEnter.call({
+    context: { ecx: B2PTR },
+    returnAddress: new Ptr(MODBASE + 0xdd15e),
+  }, []);
+}
+const bh = capture(() => report());
+check(/4.5 黑洞检测/.test(bh), 'report() 有"4.5 黑洞检测"这一节');
+check(/最像瓶颈的桶：0x30b00000/.test(bh), '抽干率最高的桶被指认为瓶颈');
+check(/抽干率=100%/.test(bh), '抽干率算对了（40/40）');
+check(/consume 合计 50 次/.test(bh), '黑洞检测统计到全部 50 次 consume');
+check(!/没有桶的抽干率超过 50%/.test(bh), '有瓶颈时不再说"没有瓶颈"');
+check(/全进程令牌桶 consume 合计 50 次，其中 40 次发生在/.test(bh), '抽干次数 = 40');
 
 // ── boost() ──────────────────────────────────────────────────────────────
 const bmsg = capture(() => boost());

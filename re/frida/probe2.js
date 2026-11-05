@@ -308,7 +308,9 @@ function attachAll() {
                     if (th && !th.isNull()) {
                         var key = String(th);
                         var b = BUCKETS[key] || (BUCKETS[key] = { rate: 0, cap: 0,
-                                                                  consume: 0, set: 0 });
+                                                                  consume: 0, set: 0,
+                                                                  tokens: -1, empty: 0,
+                                                                  replenish: 0, lastCall: 0 });
                         b.set++;
                         b.rate = rate;
                         b.cap = th.add(8).readU32();
@@ -337,10 +339,28 @@ function attachAll() {
                         cap = th.add(8).readU32();
                         var key = String(th);
                         var b = BUCKETS[key] || (BUCKETS[key] = { rate: 0, cap: 0,
-                                                                  consume: 0, set: 0 });
+                                                                  consume: 0, set: 0,
+                                                                  tokens: -1, empty: 0,
+                                                                  replenish: 0, lastCall: 0 });
                         b.consume++;
                         b.rate = rate;
                         b.cap = cap;
+                        // 令牌余额（64 位）：consume 里 `add eax,[esi+0x10]; adc edx,[esi+0x14]`
+                        try {
+                            b.tokens = th.add(0x10).readU32();
+                            // 余额远小于 cap = 桶被抽干 = 这一刻在等令牌 → 限速生效中
+                            if (b.tokens < b.cap / 2) b.empty++;
+                            // 补充速率：距上次调用过了多久（毫秒），余额涨了多少
+                            var now = Date.now();
+                            if (b.lastCall && b.lastTokens !== undefined &&
+                                now - b.lastCall > 20) {
+                                var gain = b.tokens - b.lastTokens;
+                                var dr = gain * 1000 / (now - b.lastCall);
+                                if (dr > 0) b.replenish = Math.round(dr);
+                            }
+                            b.lastCall = now;
+                            b.lastTokens = b.tokens;
+                        } catch (e4) { }
                         // —— 强制提速：吐出去之前再写一遍（set_rate 只在瓶颈处生效一半）——
                         if (BOOST) {
                             try {
@@ -400,10 +420,11 @@ function attachAll() {
                         } catch (e3) { BOOST_STAT.err++; }
                     }
                     try {
-                        L.enabled = self.add(0xb4).readU32();
+                        // ⚠ +0xb4 是**有符号**的：-1 (4294967295) = 不限流
+                        L.enabled = self.add(0xb4).readS32();
                         // +0xb0 一直读（开关关闭时它可能是旧值/0，这本身就是证据）
                         L.want = self.add(0xb0).readU32();
-                        if (L.enabled) {
+                        if (L.enabled !== 0) {
                             BUCKET_TO_LIM[String(self.add(0x78))] = key;
                         }
                     } catch (e) { }
@@ -427,7 +448,7 @@ function attachAll() {
                         want: -1, enabled: -1, b8: -1, gate: 0, applies: 0, callers: {}
                     });
                     var on = 0;
-                    try { on = args[0].toUInt32(); } catch (e) { }
+                    try { on = args[0].toInt32(); } catch (e) { }
                     L.enabled = on;
                     if (LIM_FLAG_CALLS.length < 60) {
                         LIM_FLAG_CALLS.push({
@@ -601,21 +622,34 @@ function report() {
                 }
             }
         }
-        // 结论提示
-        var floored = 0;
+        // ── 结论判读（第一版这里读错了：-1 是"不限"，不是"关闭"）──
+        var floored = 0, bigOpen = 0;
         for (var bk2 in BUCKETS) {
-            if (BUCKETS[bk2].rate === 0x4000) floored++;
+            var bb2 = BUCKETS[bk2];
+            if (bb2.rate === 0x4000) floored++;
+            if (bb2.rate >= 0x4000000) bigOpen++;
         }
         log('');
-        if (floored && limOn === 0) {
-            log('  ⚠ 结论：有 ' + floored + ' 个桶停在 16384 地板，而限速器开关是"关"的。');
-            log('    说明这 16384 不是限速器下发的 → 是**桶的构造默认值**（没被设过）。');
-            log('    真正压速度的是那些 rate=122880 / 524288000 的桶：');
-            log('    它们是**共享桶**（rate 很大但 consume 次数极高），瓶颈在令牌补充速率。');
-            log('    想提速就对该桶开 boost()。');
-        } else if (floored && limOn > 0) {
-            log('  ⚠ 结论：有 ' + floored + ' 个桶停在 16384 地板，且有 ' + limOn +
-                ' 个限速器开着。用 boost() 直接压这个限速器的 +0xb0。');
+        var unlimited = 0, limited = 0;
+        for (var lk2 in LIMITERS) {
+            if (LIMITERS[lk2].enabled === -1) unlimited++;
+            else if (LIMITERS[lk2].enabled !== 0) limited++;
+        }
+        log('  判读：' + unlimited + ' 个限速器 = -1（不限流），' +
+            limited + ' 个真在限流；桶里 ' + bigOpen + ' 个已是大速率，' +
+            floored + ' 个还在地板。');
+
+        if (floored && floored === Object.keys(BUCKETS).length) {
+            log('  ⚠ 全部桶都在地板 → 没有任何桶被下发过速率（构造默认值）。');
+        } else if (floored) {
+            log('  ⚠ 有 ' + floored + ' 个桶停在 16384 地板，而限速器给的是 -1/大值。');
+            log('    说明这 16384 **不是限速器下发的** → 是那些桶的**构造默认值**，');
+            log('    也就是"这一路没有被设过速率"。它们 consume 次数跟旁边的大桶一样多，');
+            log('    所以它们不是瓶颈，是"配额未启用"的伴随桶。');
+        }
+        if (bigOpen && !limited) {
+            log('  ⚠ 限速器全部 -1 且桶速已经很大 → 令牌桶这一层**已经不限制你了**。');
+            log('    如果速度还是上不去，瓶颈在别处（见第 5 节）。');
         }
     }
 
@@ -628,8 +662,61 @@ function report() {
     for (var t = 0; t < bk.length && t < 10; t++) {
         var bb = bk[t][1];
         log('  ' + bk[t][0] + '  rate=' + padR(bb.rate, 10) + ' cap=' + padR(bb.cap, 10) +
-            ' set=' + pad(bb.set, 4) + ' consume=' + pad(bb.consume, 6) +
-            (bb.lastCaller ? '  最后一次 set 来自 ' + bb.lastCaller : ''));
+            ' n=' + pad(bb.consume, 6) +
+            ' 余额=' + pad(bb.tokens === undefined ? -1 : bb.tokens, 10) +
+            ' 抽干=' + pad(bb.empty || 0, 6) +
+            ' 实测补充=' + padR(bb.replenish || 0, 10) +
+            (bb.lastCaller ? ' set来自 ' + bb.lastCaller : ''));
+    }
+
+    // ── 4.5 黑洞检测：令牌去哪了 ──
+    log('');
+    log('---------- 4.5 黑洞检测：令牌被谁吃掉了 ----------');
+    var consumed = 0, drained = 0, bottleneck = null;
+    for (var hb in BUCKETS) {
+        var H = BUCKETS[hb];
+        consumed += H.consume;
+        if (H.empty) drained += H.empty;
+        // 抽干比例高 = 这个桶一直在"等令牌" = 它才是在限制你
+        var ratio = H.consume ? (H.empty / H.consume) : 0;
+        if (H.consume >= 30 && ratio > 0.5 &&
+            (!bottleneck || ratio > bottleneck.ratio)) {
+            bottleneck = { addr: hb, b: H, ratio: ratio };
+        }
+    }
+    log('  全进程令牌桶 consume 合计 ' + consumed + ' 次，其中 ' + drained +
+        ' 次发生在"余额 < cap/2"（即桶被抽干）');
+    if (bottleneck) {
+        log('  ⚠ 最像瓶颈的桶：' + bottleneck.addr +
+            '  rate=' + bottleneck.b.rate + ' cap=' + bottleneck.b.cap +
+            '  抽干率=' + (bottleneck.ratio * 100).toFixed(0) + '%' +
+            '  (' + bottleneck.b.empty + '/' + bottleneck.b.consume + ')');
+        log('    实测令牌补充速率 ' + (bottleneck.b.replenish || 0) + ' B/s' +
+            '（rate 字段写的是 ' + bottleneck.b.rate + '）');
+        if ((bottleneck.b.replenish || 0) > 0 &&
+            bottleneck.b.rate >= 0x4000000 &&
+            bottleneck.b.replenish < bottleneck.b.rate / 10) {
+            log('    ⚠ 令牌补充远低于 rate 字段 → **补充速率被别处压住了**。');
+            log('      rate 只是个标称值，真正卡人的是补充函数（consume 里的 call 0x100d17d0）。');
+        }
+    } else {
+        log('  没有桶的抽干率超过 50% → 令牌桶不是你现在的瓶颈。');
+    }
+    // 全部桶的抽干率排行
+    var rank = [];
+    for (var rb in BUCKETS) {
+        var R = BUCKETS[rb];
+        if (R.consume >= 30) rank.push([rb, R, R.empty / R.consume]);
+    }
+    rank.sort(function (x, y) { return y[2] - x[2]; });
+    if (rank.length) {
+        log('  抽干率排行（consume≥30 的桶）：');
+        for (var rk = 0; rk < rank.length && rk < 6; rk++) {
+            log('    ' + rank[rk][0] + '  ' + (rank[rk][2] * 100).toFixed(0) + '%' +
+                '  (' + rank[rk][1].empty + '/' + rank[rk][1].consume + ')' +
+                '  rate=' + rank[rk][1].rate +
+                '  实测补充=' + (rank[rk][1].replenish || 0));
+        }
     }
 
     // ── 5. 可粘贴摘要 ──
@@ -648,8 +735,17 @@ function report() {
         return x[0] + '=' + x[1];
     }).join(', '));
     log('  buckets         : ' + bk.slice(0, 6).map(function (x) {
-        return x[0] + '(rate=' + x[1].rate + ',cap=' + x[1].cap + ',n=' + x[1].consume + ')';
+        return x[0] + '(rate=' + x[1].rate + ',n=' + x[1].consume +
+               ',dup=' + (x[1].empty || 0) + ',refill=' + (x[1].replenish || 0) + ')';
     }).join(' '));
+    log('  limiter         : ' + (function () {
+        var a = [];
+        for (var q2 in LIMITERS) {
+            var Q = LIMITERS[q2];
+            a.push(q2 + '(b0=' + Q.want + ',b4=' + Q.enabled + ',n=' + Q.applies + ')');
+        }
+        return a.length ? a.slice(0, 4).join(' ') : '-';
+    })());
     log('=============================================');
     log('');
 }

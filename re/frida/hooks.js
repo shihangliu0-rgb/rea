@@ -557,7 +557,10 @@ function install() {
             } catch (e) { }
         }));
 
-    // 6) TokenBucket::consume() —— 真正扣令牌，返回 0 表示本 tick 不发请求
+    // 6) TokenBucket::consume() —— 真正扣令牌
+    //    ⚠️ 更正（242 实测）：它**没有返回值**。0xdd39d 是裸 `ret`，
+    //    eax/edx 停在"本次调用被扣掉的字节数"上，不是布尔。
+    //    所以"返回 0 = 抑制请求"这句是错的 —— 别再用 retval 判限流。
     //    ⚠️ 正确 RVA 是 0xdb170
     mark(hook(RVA['bucket.consume'], 'bucket.consume', '53 57 56 89 ce',
         function () {
@@ -578,8 +581,10 @@ function install() {
             this.maybeBucket = this.thisPtr;
         },
         function (retval) {
+            // consume 无返回值（0xdd39d 是裸 ret），eax 是"这次扣掉的字节数"。
+            // 只做观测，不做判读。
             if (!isTokenBucket(this.maybeBucket, kb)) return;
-            if (retval.toUInt32() === 0) log('[bucket] 无令牌 -> 本 tick 抑制请求');
+            if (!QUIET) log('[bucket] 本次扣令牌 ' + retval.toUInt32() + ' B');
         }));
 
     // 7) cdn_speed_limit_dispatch —— 每任务 CDN 配额
