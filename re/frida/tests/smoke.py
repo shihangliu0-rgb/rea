@@ -132,7 +132,8 @@ if not shutil_which("node"):
     print("   SKIP 没装 node")
 else:
     for js, harness, tag in (("probe.js", "harness_probe.js", "probe.js"),
-                             ("probe2.js", "harness_probe2.js", "probe2.js")):
+                             ("probe2.js", "harness_probe2.js", "probe2.js"),
+                             ("throughput.js", "harness_throughput.js", "throughput.js")):
         src_js = os.path.join(FRIDA_DIR, js)
         harness_p = os.path.join(HERE, harness)
         for size, label in ((0x2B25000, "242"), (0x2A3A000, "237")):

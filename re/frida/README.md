@@ -381,6 +381,36 @@ boost()           # 强制提速（默认关，唯一写内存的入口，不会
 > `boost()` 里那两处写入（`+0x20` = rate、`+8` = cap）是从 `set_rate` 的反汇编确定的：
 > `mov [ecx+0x20],eax` / `mov [ecx+8],max(eax,0x4000)`。效果**尚未上真机验证**。
 
+## 4.30.5 速度上不去，但桶已经放开了：用 throughput.js
+
+`probe2.js` 的 `boost()` 实测有效（`set_rate` 入参 71.5% 变 524288000、
+主桶 `122880 → 524288000`、`consume` 553→1853），**但下载速度不变**。
+说明瓶颈不在令牌桶。要确认"数据到底有没有进来"：
+
+```bat
+frida -p <pid> -l throughput.js
+（点下载，等 20~40 秒）
+report()      ← 配额 vs 真实吞吐 + 结论
+timeline()    ← 每个 2 秒窗口一行
+```
+
+它只挂**导出符号**（`ws2_32!WSARecv/WSASend/WSAGetOverlappedResult`、
+`kernel32!GetQueuedCompletionStatus/ReadFile`），**不猜任何 RVA**，
+不会重演"地址猜错 / 点位是死的"。
+
+判读：
+
+| 现象 | 含义 |
+|---|---|
+| 真实吞吐 ≈ 桶配额 | 桶确实在限制你 |
+| 真实吞吐 ≪ 桶配额 | **桶给了配额，数据没进来** → 去 netbase / 服务端 |
+| `收·请求` 也小 | 客户端没发起足够请求（并发/调度） |
+| `收·请求` 大但完成小 | 对面不给数据（网络/CDN） |
+
+⚠ `GetQueuedCompletionStatus` 是全局的，会混进非下载流量，
+所以 `IOCP 完成` 偏大、`WSARecv 完成` 偏小 —— 看量级和趋势，别当精确值。
+详见 `docs/14-吞吐实测与瓶颈判定.md`。
+
 ## 4.3 版本不匹配：13 条全报"字节不匹配"
 
 ```
