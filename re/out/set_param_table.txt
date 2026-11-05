@@ -1,0 +1,149 @@
+kernel.dll set_param(type,value) 跳转表 @0x1118dac0  (type 0..0x92 = 147 项)
+idx  target     首个字符串(键名)                         首个非序言指令
+  0  0x0010849e  None=%1%|                                      mov dword ptr [esi + 0x138], 0xb
+  1  0x00109230  TryVipToken=%1%|                               mov dword ptr [esi + 0x138], 0xb
+  2  0x00108d50  SL=%1%|                                        mov dword ptr [esi + 0x14], edi
+  3  0x00109690  UID=%1%|                                       mov dword ptr [esi + 0x14], edi
+  4  0x00109760  UserPath=%1%|                                  mov dword ptr [esi + 0x14], edi
+  5  0x00108ef0  UK=%1%|                                        mov dword ptr [esi + 0x14], edi
+  6  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+  7  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+  8  0x00109300  None                                           mov dword ptr [esi + 0x20], 0
+  9  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 10  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 11  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 12  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 13  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 14  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 15  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 16  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 17  0x0010933d  len(Cookie)=%1%|                               mov dword ptr [esi + 0x14], edi
+ 18  0x00109900  StokenPan=%1%|                                 mov dword ptr [esi + 0x14], edi
+ 19  0x00109830  StokenPcs=%1%|                                 mov dword ptr [esi + 0x14], edi
+ 20  0x00108980  MembershipType=%1%|                            mov dword ptr [esi + 0x14], edi
+ 21  0x00108fc0  UplodaSpeedLimit=%1%|                          mov dword ptr [esi + 0x14], edi
+ 22  0x00108bb0  DownloadMode=%1%|                              mov dword ptr [esi + 0x138], 0xb
+ 23  0x00108710  ServedPeerCount=%1%|                           mov dword ptr [esi + 0x14], edi
+ 24  0x00109420  UploadTaskCount=%1%|                           mov dword ptr [esi + 0x14], edi
+ 25  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 26  0x001094f0  OpenP2PUpload=%1%|                             mov dword ptr [esi + 0x14], edi
+ 27  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 28  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 29  0x00109aa0  all task fresh cdn url                         mov dword ptr [esi + 0x138], 0xb
+ 30  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 31  0x001099d0  ExtendParam=%1%|                               mov dword ptr [esi + 0x14], edi
+ 32  0x00108570  user_agent=%1%|                                mov dword ptr [esi + 0x14], edi
+ 33  0x00108c80  channel=%1%|                                   mov dword ptr [esi + 0x14], edi
+ 34  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 35  0x00109b25  queue info=%1%|                                mov dword ptr [esi + 0x138], 0xb
+ 36  0x00108640  |ndut_fmt=%1%|                                 mov dword ptr [esi + 0x14], edi
+ 37  0x00108ad5  |UserSpeedLimit=%1%|                           mov dword ptr [esi + 0x14], edi
+ 38  0x001088b0  OpenDownSpeedDetect=%1%                        mov dword ptr [esi + 0x14], edi
+ 39  0x00109160  |EnterpriseCID=%1%|                            mov dword ptr [esi + 0x14], edi
+ 40  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 41  0x001087e0  set has user uploading task=%1%|               mov dword ptr [esi + 0x14], edi
+ 42  0x00109cd0  TPL=%1%|                                       mov dword ptr [esi + 0x138], 0xb
+ 43  0x00109c00  AddPlainTextCookie=%1%|                        mov dword ptr [esi + 0x138], 0xb
+ 44  0x00108a50  VideoPreloadInfo                               mov dword ptr [esi + 0x138], 0xb
+ 45  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 46  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 47  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 48  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 49  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 50  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 51  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 52  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 53  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 54  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 55  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 56  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 57  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 58  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 59  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 60  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 61  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 62  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 63  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 64  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 65  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 66  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 67  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 68  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 69  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 70  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 71  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 72  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 73  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 74  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 75  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 76  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 77  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 78  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 79  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 80  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 81  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 82  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 83  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 84  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 85  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 86  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 87  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 88  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 89  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 90  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 91  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 92  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 93  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 94  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 95  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 96  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 97  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 98  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+ 99  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+100  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+101  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+102  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+103  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+104  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+105  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+106  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+107  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+108  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+109  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+110  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+111  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+112  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+113  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+114  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+115  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+116  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+117  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+118  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+119  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+120  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+121  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+122  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+123  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+124  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+125  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+126  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+127  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+128  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+129  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+130  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+131  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+132  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+133  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+134  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+135  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+136  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+137  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+138  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+139  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+140  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+141  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+142  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+143  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+144  0x00109090  |key=%1%|value=%2%|                            mov dword ptr [esi + 0x138], 0xb
+145  0x00108e20  SetParam|ControlDomain=%1%                     mov dword ptr [esi + 0x138], 0xb
+146  0x001095c0  SetParam|PcsControlDomain=%1%                  mov dword ptr [esi + 0x138], 0xb

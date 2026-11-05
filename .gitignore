@@ -1,0 +1,13 @@
+# 逆向产物（可由 re/tools/ 一键再生）
+re/strings/
+re/out/f_*.txt
+re/out/embedded/
+re/__pycache__/
+re/frida/__pycache__/
+re/frida/tests/__pycache__/
+__pycache__/
+*.pyc
+
+# 大样本（45MB 的 kernel.dll 等）不进仓库，用 git cat-file 从 main 取：
+#   git cat-file -p main:kernel.dll > bin/kernel.dll
+bin/
