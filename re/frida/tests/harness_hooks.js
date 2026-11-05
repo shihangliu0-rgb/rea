@@ -42,6 +42,17 @@ Ptr.prototype.readByteArray = function (len) {
   return new ArrayBuffer(want);
 };
 Ptr.prototype.isNull = function () { return this.v === 0; };
+// isTokenBucket 会读 obj->vtable 再取 [vtable+4]；这里统一返回正确的 set_rate 地址
+Ptr.prototype.readPointer = function () {
+  const t = VTABLE_FOR[SIZE];
+  if (!t) return new Ptr(0);
+  // 只要返回一个"其 +4 槽等于 set_rate"的假 vtable 基址即可
+  return new Ptr(MODBASE + t.vtRva);
+};
+Object.defineProperty(Ptr.prototype, 'equals', {
+  value: function (o) { return o && this.v === o.v; },
+  writable: true,
+});
 
 const mod = {
   name: 'kernel.dll',
@@ -65,6 +76,13 @@ const SIGS = {
   0x1b3a03: 'f2 0f 59 0d',
   0x28a0f0: '55 89 e5 53 57 56 81 ec',
 };
+// kernel.dll 里 vtable 的真实内容：对象 +0 指向它，vtable[1] = set_rate
+// 让 isTokenBucket() 在测试里能真的通过（真机上 vtable 是只读常量）
+const VTABLE_FOR = {
+  0x2b25000: { vtRva: 0x1259b24, setRateRva: 0xdd320 },   // 242
+  0x2a3a000: { vtRva: 0x118cb44, setRateRva: 0xdb150 },   // 237
+};
+
 function bytesForRva(rva) {
   const hex = REALMAP['0x' + rva.toString(16)];
   if (!hex) return null;
@@ -193,6 +211,17 @@ const dup = {};
 hits.forEach(h => { dup[h] = (dup[h] || 0) + 1; });
 const dupAddr = Object.keys(dup).filter(k => dup[k] > 1);
 check(dupAddr.length === 0, '同一地址没有被 attach 两次（重复: ' + dupAddr.length + '）');
+
+// ── 断言：源码里不得出现硬编码的 237 地址（曾导致 242 上全静默） ──
+const badHardcode = /kernelBase\.add\(0x0*db150\)|add\(0x0*db170\)/.test(src);
+check(!badHardcode, 'isTokenBucket 等过滤函数里没有硬编码 237 的 RVA');
+
+// ── 断言：stats() 存在且可调用 ──
+let statsTotal = null;
+try {
+  if (typeof stats === 'function') statsTotal = stats();
+} catch (e) { origLog('   stats() 抛异常: ' + e); }
+check(statsTotal !== null, 'stats() 可用（返回 ' + statsTotal + '）');
 
 origLog('\n--- hooks.js 全部日志 ---');
 origLog(hitLog.split('\n').map(function(l){return '    | '+l;}).join('\n'));

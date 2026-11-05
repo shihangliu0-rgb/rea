@@ -157,7 +157,12 @@ function isTokenBucket(obj, kernelBase) {
     if (!obj) return false;
     var g = vtableSlot(obj, 1);
     if (!g) return false;
-    return g.equals(kernelBase.add(0xdb150));
+    // ⚠ 这里**不能**硬编码 set_rate 的 RVA：237 是 0xdb150，242 是 0xdd320。
+    //   写死会让 242 上所有 isTokenBucket() 判断永远为 false，
+    //   表现为"12 个 hook 全部挂上，但一条日志都没有"。
+    var sr = RVA['bucket.set_rate'];
+    if (sr === undefined) return false;
+    return g.equals(kernelBase.add(sr));
 }
 
 // ---------------------------------------------------------------------------
@@ -388,6 +393,51 @@ function applyProfile(mod) {
 }
 
 var INSTALLED = false;
+
+// ---------------------------------------------------------------------------
+// 命中计数器：每个 hook 被调用都 +1。
+// 这是判断"到底有没有命中"的唯一可靠手段 ——
+// 挂了 12 个 hook 但一条日志都没有时，敲 stats() 就知道是
+// "函数没被调用" 还是 "被调用了但我的过滤条件把它挡住了"。
+// ---------------------------------------------------------------------------
+var HITS = {};
+
+function bump(label) {
+    HITS[label] = (HITS[label] || 0) + 1;
+}
+
+function stats() {
+    var total = 0, lines = [];
+    for (var k in HITS) {
+        total += HITS[k];
+        lines.push('  ' + k + ' : ' + HITS[k]);
+    }
+    log('---------- hook 命中统计（累计 ' + total + ' 次）----------');
+    if (total === 0) {
+        log('  全部为 0 —— 这些函数一次都没被调用。');
+        log('  → 最可能：客户端当前没有活跃的下载任务。');
+        log('    在客户端里点一个下载（文件 ≥5 MiB 才会走 P2P 内核路径），');
+        log('    或者暂停/继续一次已有任务，然后再敲 stats()。');
+    } else {
+        for (var i = 0; i < lines.length; i++) log(lines[i]);
+    }
+    // 没出现在 HITS 里的 hook（从来没被调用）
+    var all = ['set_param', 'update_max_speed', 'set_restrict_ratio',
+               'calculate_target_speed', 'bucket.set_rate', 'bucket.consume',
+               'cdn_speed_limit_dispatch', 'close_cdn(decided)',
+               'set_try_speedup_flag', 'block_gate(pre)',
+               'download_threshold', 'set_download_restrict_ratio'];
+    var zero = [];
+    for (var j = 0; j < all.length; j++) if (!HITS[all[j]]) zero.push(all[j]);
+    if (zero.length && total > 0) {
+        log('  从未被调用：' + zero.join(', '));
+    }
+    log('------------------------------------------------------');
+    return total;
+}
+
+// 暴露到 REPL，方便随时敲
+globalThis.stats = stats;
 var PATCHED_ONCE = false;
 
 function install() {
@@ -406,6 +456,7 @@ function install() {
     // 1) set_param(type, value)  __stdcall，服务端下发的一切参数（147 类）
     mark(hook(RVA['set_param'], 'set_param', '55 89 e5 53 57 56 83 ec 2c',
         function (args) {
+            bump('set_param');
             var type = args[0].toInt32();
             var val = cstr(args[1]);
             var show = (val && val.length > 160) ? val.substring(0, 160) + '…' : val;
@@ -415,6 +466,7 @@ function install() {
     // 2) SpeedLimitor::update_max_speed(uint64)   this = ecx
     mark(hook(RVA['update_max_speed'], 'update_max_speed', '55 89 e5 53 57 56 83 e4 f8',
         function (args) {
+            bump('update_max_speed');
             var th = this.thisPtr;
             if (!th) return;
             var old = u64(th.add(0x40));
@@ -425,6 +477,7 @@ function install() {
     // 3) SpeedLimitor::set_restrict_ratio(int)   this = ecx
     mark(hook(RVA['set_restrict_ratio'], 'set_restrict_ratio', '55 89 e5 53 57 56 81 ec',
         function (args) {
+            bump('set_restrict_ratio');
             var th = this.thisPtr;
             if (!th) return;
             log('[ratio] old=' + th.add(0x38).readS32() + '% new=' + args[0].toInt32() + '%');
@@ -446,6 +499,7 @@ function install() {
     //    ⚠️ 正确 RVA 是 0xdb150（0x118cb44 vtable: [set_rate, dtor, consume]）
     mark(hook(RVA['bucket.set_rate'], 'bucket.set_rate', '8b 44 24 04 85 c0',
         function (args) {
+            bump('bucket.set_rate');
             var th = this.thisPtr;
             if (!th) return;
             if (!isTokenBucket(th, kb)) return;      // 只认真桶，过滤误中
@@ -456,6 +510,7 @@ function install() {
     //    ⚠️ 正确 RVA 是 0xdb170
     mark(hook(RVA['bucket.consume'], 'bucket.consume', '53 57 56 89 ce',
         function () {
+            bump('bucket.consume');
             // PATCH_RATE：在这里（onEnter）直接把令牌桶速率抬到 500MB/s
             if (PATCH_RATE) {
                 var tb = this.thisPtr;
@@ -478,12 +533,14 @@ function install() {
 
     // 7) cdn_speed_limit_dispatch —— 每任务 CDN 配额
     mark(hook(RVA['cdn_speed_limit_dispatch'], 'cdn_speed_limit_dispatch', '8b 0b e8',
-        function () { if (!QUIET) log('[cdn] dispatch 进入'); }, null));
+        function () {
+            bump('cdn_speed_limit_dispatch'); if (!QUIET) log('[cdn] dispatch 进入'); }, null));
 
     // 8) close cdn 决策块内部（0x1aea38 体内 0x1aeb6d，此时 base/cdn_speed 已算好）
     //    注意这里 ecx 是 level 而不是 this，对象在 [ebp-0x30]
     mark(hook(RVA['close_cdn(decided)'], 'close_cdn(decided)', '8b 7d d0 0f af ce',
         function () {
+            bump('close_cdn(decided)');
             var ebp = this.context.ebp;
             var level = ebp.add(-0xec).readS32();
             var basev = ebp.add(-0xd8).readS32();
@@ -500,6 +557,7 @@ function install() {
     var trialStart = null;
     mark(hook(RVA['set_try_speedup_flag'], 'set_try_speedup_flag', '55 89 e5 53 57 56 81 ec',
         function (args) {
+            bump('set_try_speedup_flag');
             var on = args[0].toInt32() & 0xff;
             var th = this.thisPtr;
             var state = th ? th.add(0x1c0).readU8() : -1;
@@ -525,6 +583,7 @@ function install() {
     // ===== 10) 收尾门控：门限 ∝ rate（06 篇的核心证据）=====
     mark(hook(RVA['block_gate(pre)'], 'block_gate(pre)', '29 d8 89 86 f0 00 00 00',
         function () {
+            bump('block_gate(pre)');
             var esi = this.context.esi;
             log('[gate] left_block=' + esi.add(0xf0).readS32() +
                 ' rate=' + esi.add(0xe4).readS32() +
@@ -533,6 +592,7 @@ function install() {
 
     mark(hook(RVA['download_threshold'], 'download_threshold', 'f2 0f 59 0d',
         function () {
+            bump('download_threshold');
             var esi = this.context.esi;
             log('[threshold] download_threshold_speed=' + esi.add(0xbc).readS32() +
                 ' B/s (= 桶容量 = rate，rate 越大门槛越高)');
@@ -541,6 +601,7 @@ function install() {
     // ===== 11) restrict_ratio 的唯一外部写入口（vtable 槽 0x119c8d0）=====
     mark(hook(RVA['set_download_restrict_ratio'], 'set_download_restrict_ratio', '55 89 e5 53 57 56 81 ec',
         function (args) {
+            bump('set_download_restrict_ratio');
             log('[ratio] new=' + args[0].toInt32() + '%');
         }, null));
 

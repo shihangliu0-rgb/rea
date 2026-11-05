@@ -210,6 +210,56 @@ var PROFILE = 'auto';   // 默认自动
 
 ---
 
+## 4.27 12 个 hook 全部挂上，却一条日志都没有
+
+**先敲 `stats()`**（脚本已内置，直接在 frida REPL 里输入）：
+
+```
+[Local::PID::28804]-> stats()
+---------- hook 命中统计（累计 0 次）----------
+  全部为 0 —— 这些函数一次都没被调用。
+  → 最可能：客户端当前没有活跃的下载任务。
+    在客户端里点一个下载（文件 ≥5 MiB 才会走 P2P 内核路径），
+    或者暂停/继续一次已有任务，然后再敲 stats()。
+------------------------------------------------------
+```
+
+两种情况，含义完全不同：
+
+| `stats()` 结果 | 含义 | 处理 |
+|---|---|---|
+| 全部 0 | 函数**根本没被调用** | 开始一个真实下载；确认 attach 的是 `baidunetdiskhost.exe` |
+| 有计数但没日志 | 被脚本内部的**过滤条件**挡住了 | 见下面的 bug |
+
+### 曾经的真实 bug：`isTokenBucket()` 硬编码 237 的地址
+
+```js
+function isTokenBucket(obj, kernelBase) {
+    var g = vtableSlot(obj, 1);
+    return g.equals(kernelBase.add(0xdb150));   // ← 0xdb150 是 237 的 set_rate
+}
+```
+
+242 的 `set_rate` 是 **0xdd320**，所以这个判断在 242 上**永远返回 false**：
+
+- `bucket.set_rate` 的 `onEnter` 第一句就是 `if (!isTokenBucket(...)) return;` → 静默返回
+- `bucket.consume` 的 `onLeave` 同理 → 静默返回
+- `PATCH_RATE` 的写入也不会执行（整段在 `isTokenBucket` 判断里面）
+
+表现就是：**12 个 hook 全部 `[+] hook …` 成功，`安装完成：成功 12 个`，然后一条日志都没有，也不报错。**
+
+现在改成从当前生效的 RVA 表取：
+
+```js
+var sr = RVA['bucket.set_rate'];
+if (sr === undefined) return false;
+return g.equals(kernelBase.add(sr));
+```
+
+回归测试断言：源码里不得出现 `add(0xdb150)` / `add(0xdb170)` 这类硬编码。
+
+---
+
 ## 4.28 `[!] 跳过 bucket.consume(PATCH)：字节不匹配 实际=e9 bf 44 5e 8d`
 
 **这不是版本问题，是脚本 bug（已修）。**
