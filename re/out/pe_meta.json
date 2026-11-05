@@ -1,0 +1,5531 @@
+{
+ "BaiduNetdisk.exe": {
+  "size": 8291312,
+  "machine": "0x14c",
+  "timestamp": 1767624334,
+  "image_base": "0x400000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 2515509,
+    "raw": "0x400",
+    "rawsize": 2515968
+   },
+   {
+    "name": ".rdata",
+    "va": "0x268000",
+    "vsize": 801496,
+    "raw": "0x266800",
+    "rawsize": 801792
+   },
+   {
+    "name": ".data",
+    "va": "0x32c000",
+    "vsize": 165604,
+    "raw": "0x32a400",
+    "rawsize": 82432
+   },
+   {
+    "name": ".tls",
+    "va": "0x355000",
+    "vsize": 9,
+    "raw": "0x33e600",
+    "rawsize": 512
+   },
+   {
+    "name": ".gfids",
+    "va": "0x356000",
+    "vsize": 100,
+    "raw": "0x33e800",
+    "rawsize": 512
+   },
+   {
+    "name": "_RDATA",
+    "va": "0x357000",
+    "vsize": 2016,
+    "raw": "0x33ea00",
+    "rawsize": 2048
+   },
+   {
+    "name": ".vmp0",
+    "va": "0x358000",
+    "vsize": 1514928,
+    "raw": "0x33f200",
+    "rawsize": 1515008
+   },
+   {
+    "name": ".reloc",
+    "va": "0x4ca000",
+    "vsize": 176436,
+    "raw": "0x4b1000",
+    "rawsize": 176640
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x4f6000",
+    "vsize": 3173840,
+    "raw": "0x4dc200",
+    "rawsize": 3173888
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [],
+  "import_count": {
+   "updateagent.dll": 3,
+   "Bull140U.DLL": 19,
+   "appUtil.DLL": 35,
+   "KERNEL32.dll": 157,
+   "USER32.dll": 133,
+   "GDI32.dll": 50,
+   "COMDLG32.dll": 1,
+   "ADVAPI32.dll": 40,
+   "SHELL32.dll": 9,
+   "ole32.dll": 18,
+   "OLEAUT32.dll": 20,
+   "SHLWAPI.dll": 7,
+   "COMCTL32.dll": 1,
+   "dbghelp.dll": 5,
+   "MSVCP140.dll": 28,
+   "gdiplus.dll": 49,
+   "CRYPT32.dll": 9,
+   "WINTRUST.dll": 4,
+   "WS2_32.dll": 11,
+   "PSAPI.DLL": 2,
+   "urlmon.dll": 2,
+   "WININET.dll": 9,
+   "POWRPROF.dll": 6,
+   "VCRUNTIME140.dll": 21,
+   "api-ms-win-crt-runtime-l1-1-0.dll": 25,
+   "api-ms-win-crt-string-l1-1-0.dll": 39,
+   "api-ms-win-crt-stdio-l1-1-0.dll": 27,
+   "api-ms-win-crt-heap-l1-1-0.dll": 7,
+   "api-ms-win-crt-time-l1-1-0.dll": 7,
+   "api-ms-win-crt-multibyte-l1-1-0.dll": 4,
+   "api-ms-win-crt-environment-l1-1-0.dll": 1,
+   "api-ms-win-crt-convert-l1-1-0.dll": 7,
+   "api-ms-win-crt-locale-l1-1-0.dll": 3,
+   "api-ms-win-crt-utility-l1-1-0.dll": 7,
+   "api-ms-win-crt-filesystem-l1-1-0.dll": 7,
+   "api-ms-win-crt-math-l1-1-0.dll": 7,
+   "bcrypt.dll": 7,
+   "IMM32.dll": 3,
+   "dwmapi.dll": 1,
+   "SETUPAPI.dll": 3,
+   "MSIMG32.dll": 2
+  }
+ },
+ "Bull140U.dll": {
+  "size": 3336176,
+  "machine": "0x14c",
+  "timestamp": 1758105567,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 1814357,
+    "raw": "0x400",
+    "rawsize": 1814528
+   },
+   {
+    "name": ".rdata",
+    "va": "0x1bc000",
+    "vsize": 750026,
+    "raw": "0x1bb400",
+    "rawsize": 750080
+   },
+   {
+    "name": ".data",
+    "va": "0x274000",
+    "vsize": 117968,
+    "raw": "0x272600",
+    "rawsize": 36352
+   },
+   {
+    "name": ".tls",
+    "va": "0x291000",
+    "vsize": 9,
+    "raw": "0x27b400",
+    "rawsize": 512
+   },
+   {
+    "name": ".gfids",
+    "va": "0x292000",
+    "vsize": 76,
+    "raw": "0x27b600",
+    "rawsize": 512
+   },
+   {
+    "name": ".vmp0",
+    "va": "0x293000",
+    "vsize": 612768,
+    "raw": "0x27b800",
+    "rawsize": 612864
+   },
+   {
+    "name": ".reloc",
+    "va": "0x329000",
+    "vsize": 97592,
+    "raw": "0x311200",
+    "rawsize": 97792
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x341000",
+    "vsize": 920,
+    "raw": "0x329000",
+    "rawsize": 1024
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "??0CGeneralArrayWrapper@BULL@@QAE@PAUIGeneralArray@1@@Z",
+    "rva": "0xa0c0"
+   },
+   {
+    "ordinal": 2,
+    "name": "??0CGeneralArrayWrapper@BULL@@QAE@_N@Z",
+    "rva": "0xa100"
+   },
+   {
+    "ordinal": 3,
+    "name": "??0CGeneralBufferWrapper@BULL@@QAE@PAUIGeneralBuffer@1@@Z",
+    "rva": "0xe360"
+   },
+   {
+    "ordinal": 4,
+    "name": "??0CGeneralBufferWrapper@BULL@@QAE@_N@Z",
+    "rva": "0xe3a0"
+   },
+   {
+    "ordinal": 5,
+    "name": "??0CGeneralDataWrapper@BULL@@QAE@PAUIGeneralData@1@@Z",
+    "rva": "0x130c0"
+   },
+   {
+    "ordinal": 6,
+    "name": "??0CGeneralDataWrapper@BULL@@QAE@_N@Z",
+    "rva": "0x13100"
+   },
+   {
+    "ordinal": 7,
+    "name": "??0CXMLFSWrapper@BULL@@QAE@PAUIXMLFS@1@@Z",
+    "rva": "0x302a0"
+   },
+   {
+    "ordinal": 8,
+    "name": "??0CXMLFSWrapper@BULL@@QAE@_N@Z",
+    "rva": "0x302e0"
+   },
+   {
+    "ordinal": 9,
+    "name": "??1CGeneralArrayWrapper@BULL@@UAE@XZ",
+    "rva": "0x30360"
+   },
+   {
+    "ordinal": 10,
+    "name": "??1CGeneralBufferWrapper@BULL@@UAE@XZ",
+    "rva": "0x30360"
+   },
+   {
+    "ordinal": 11,
+    "name": "??1CGeneralDataWrapper@BULL@@UAE@XZ",
+    "rva": "0x30360"
+   },
+   {
+    "ordinal": 12,
+    "name": "??1CXMLFSWrapper@BULL@@UAE@XZ",
+    "rva": "0x30360"
+   },
+   {
+    "ordinal": 13,
+    "name": "??4CGeneralArrayWrapper@BULL@@QAEAAV01@PAUIGeneralArray@1@@Z",
+    "rva": "0xa1c0"
+   },
+   {
+    "ordinal": 14,
+    "name": "??4CGeneralBufferWrapper@BULL@@QAEAAV01@PAUIGeneralBuffer@1@@Z",
+    "rva": "0xe420"
+   },
+   {
+    "ordinal": 15,
+    "name": "??4CGeneralDataWrapper@BULL@@QAEAAV01@PAUIGeneralData@1@@Z",
+    "rva": "0x13180"
+   },
+   {
+    "ordinal": 16,
+    "name": "??8CGeneralArrayWrapper@BULL@@QAE_NPAUIGeneralArray@1@@Z",
+    "rva": "0xa200"
+   },
+   {
+    "ordinal": 17,
+    "name": "??8CGeneralBufferWrapper@BULL@@QAE_NPAUIGeneralBuffer@1@@Z",
+    "rva": "0xe450"
+   },
+   {
+    "ordinal": 18,
+    "name": "??8CGeneralDataWrapper@BULL@@QAE_NPAUIGeneralData@1@@Z",
+    "rva": "0x131c0"
+   },
+   {
+    "ordinal": 19,
+    "name": "??9CGeneralArrayWrapper@BULL@@QAE_NPAUIGeneralArray@1@@Z",
+    "rva": "0xa240"
+   },
+   {
+    "ordinal": 20,
+    "name": "??9CGeneralBufferWrapper@BULL@@QAE_NPAUIGeneralBuffer@1@@Z",
+    "rva": "0xe490"
+   },
+   {
+    "ordinal": 21,
+    "name": "??9CGeneralDataWrapper@BULL@@QAE_NPAUIGeneralData@1@@Z",
+    "rva": "0x13200"
+   },
+   {
+    "ordinal": 22,
+    "name": "??YCGeneralBufferWrapper@BULL@@QAEAAV01@PAUIGeneralBuffer@1@@Z",
+    "rva": "0xe4d0"
+   },
+   {
+    "ordinal": 23,
+    "name": "??_FCGeneralArrayWrapper@BULL@@QAEXXZ",
+    "rva": "0xa400"
+   },
+   {
+    "ordinal": 24,
+    "name": "??_FCGeneralBufferWrapper@BULL@@QAEXXZ",
+    "rva": "0xa470"
+   },
+   {
+    "ordinal": 25,
+    "name": "??_FCGeneralDataWrapper@BULL@@QAEXXZ",
+    "rva": "0xa480"
+   },
+   {
+    "ordinal": 26,
+    "name": "??_FCXMLFSWrapper@BULL@@QAEXXZ",
+    "rva": "0x303e0"
+   },
+   {
+    "ordinal": 27,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXC@Z",
+    "rva": "0xa4f0"
+   },
+   {
+    "ordinal": 28,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXD@Z",
+    "rva": "0xa4f0"
+   },
+   {
+    "ordinal": 29,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXE@Z",
+    "rva": "0xa520"
+   },
+   {
+    "ordinal": 30,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXF@Z",
+    "rva": "0xa550"
+   },
+   {
+    "ordinal": 31,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXG@Z",
+    "rva": "0xa580"
+   },
+   {
+    "ordinal": 32,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXH@Z",
+    "rva": "0xa5b0"
+   },
+   {
+    "ordinal": 33,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXI@Z",
+    "rva": "0xa5e0"
+   },
+   {
+    "ordinal": 34,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXJ@Z",
+    "rva": "0xa610"
+   },
+   {
+    "ordinal": 35,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXK@Z",
+    "rva": "0xa640"
+   },
+   {
+    "ordinal": 36,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXM@Z",
+    "rva": "0xa670"
+   },
+   {
+    "ordinal": 37,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXN@Z",
+    "rva": "0xa6b0"
+   },
+   {
+    "ordinal": 38,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXPAUIGeneralArray@2@@Z",
+    "rva": "0xa6f0"
+   },
+   {
+    "ordinal": 39,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXPAUIGeneralBuffer@2@@Z",
+    "rva": "0xa720"
+   },
+   {
+    "ordinal": 40,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXPAUIGeneralData@2@@Z",
+    "rva": "0xa750"
+   },
+   {
+    "ordinal": 41,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXPAUIUnknown@@@Z",
+    "rva": "0xa780"
+   },
+   {
+    "ordinal": 42,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xa7b0"
+   },
+   {
+    "ordinal": 43,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXU_GUID@@@Z",
+    "rva": "0xa850"
+   },
+   {
+    "ordinal": 44,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXU_SYSTEMTIME@@@Z",
+    "rva": "0xa890"
+   },
+   {
+    "ordinal": 45,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXUtagPOINT@@@Z",
+    "rva": "0xa8d0"
+   },
+   {
+    "ordinal": 46,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXUtagRECT@@@Z",
+    "rva": "0xa910"
+   },
+   {
+    "ordinal": 47,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEXUtagSIZE@@@Z",
+    "rva": "0xa950"
+   },
+   {
+    "ordinal": 48,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEX_J@Z",
+    "rva": "0xa990"
+   },
+   {
+    "ordinal": 49,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEX_K@Z",
+    "rva": "0xa9c0"
+   },
+   {
+    "ordinal": 50,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEX_N@Z",
+    "rva": "0xa9f0"
+   },
+   {
+    "ordinal": 51,
+    "name": "?Add@CGeneralArrayWrapper@BULL@@QAEX_W@Z",
+    "rva": "0xaa20"
+   },
+   {
+    "ordinal": 52,
+    "name": "?Append@CGeneralBufferWrapper@BULL@@QAEXPAEK@Z",
+    "rva": "0xaa50"
+   },
+   {
+    "ordinal": 53,
+    "name": "?AppendNode@CXMLFSWrapper@BULL@@QAEXPB_W0@Z",
+    "rva": "0x30450"
+   },
+   {
+    "ordinal": 54,
+    "name": "?AssertOut@BULL@@YAJPB_WH_N0@Z",
+    "rva": "0x4caf0"
+   },
+   {
+    "ordinal": 55,
+    "name": "?Assign@CGeneralArrayWrapper@BULL@@QAEXPAUIGeneralArray@2@@Z",
+    "rva": "0xaa80"
+   },
+   {
+    "ordinal": 56,
+    "name": "?Assign@CGeneralBufferWrapper@BULL@@QAEXPAUIGeneralBuffer@2@@Z",
+    "rva": "0xaa80"
+   },
+   {
+    "ordinal": 57,
+    "name": "?Assign@CGeneralDataWrapper@BULL@@QAEXPAUIGeneralData@2@@Z",
+    "rva": "0xaa80"
+   },
+   {
+    "ordinal": 58,
+    "name": "?Attach@CGeneralBufferWrapper@BULL@@QAEXPAEK@Z",
+    "rva": "0xaab0"
+   },
+   {
+    "ordinal": 59,
+    "name": "?AttribEnumNext@CXMLFSWrapper@BULL@@QAEXXZ",
+    "rva": "0x30520"
+   },
+   {
+    "ordinal": 60,
+    "name": "?AttribEnumRelease@CXMLFSWrapper@BULL@@QAEXXZ",
+    "rva": "0x30550"
+   },
+   {
+    "ordinal": 61,
+    "name": "?AttribEnumReset@CXMLFSWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0x30580"
+   },
+   {
+    "ordinal": 62,
+    "name": "?Base64Decode@BULL@@YAJPA_WPAPAUIGeneralBuffer@1@@Z",
+    "rva": "0x357e0"
+   },
+   {
+    "ordinal": 63,
+    "name": "?Base64Decode_s@BULL@@YA?AVCGeneralBufferWrapper@1@PB_W@Z",
+    "rva": "0x35940"
+   },
+   {
+    "ordinal": 64,
+    "name": "?Base64Encode@BULL@@YAJPAUIGeneralBuffer@1@PAPA_WK@Z",
+    "rva": "0x35c20"
+   },
+   {
+    "ordinal": 65,
+    "name": "?Base64Encode_s@BULL@@YAPB_WPAUIGeneralBuffer@1@K@Z",
+    "rva": "0x35eb0"
+   },
+   {
+    "ordinal": 66,
+    "name": "?Clear@CGeneralArrayWrapper@BULL@@QAEXXZ",
+    "rva": "0xaae0"
+   },
+   {
+    "ordinal": 67,
+    "name": "?Clear@CGeneralBufferWrapper@BULL@@QAEXXZ",
+    "rva": "0xab10"
+   },
+   {
+    "ordinal": 68,
+    "name": "?Clear@CGeneralDataWrapper@BULL@@QAEXXZ",
+    "rva": "0xab40"
+   },
+   {
+    "ordinal": 69,
+    "name": "?ClearAllBookmarks@CXMLFSWrapper@BULL@@QAEXXZ",
+    "rva": "0x30620"
+   },
+   {
+    "ordinal": 70,
+    "name": "?Compare@CGeneralBufferWrapper@BULL@@QAE_NPAEK@Z",
+    "rva": "0xab70"
+   },
+   {
+    "ordinal": 71,
+    "name": "?CompareByPY@BULL@@YAJPA_W0PAH@Z",
+    "rva": "0x59cd0"
+   },
+   {
+    "ordinal": 72,
+    "name": "?CopyFrom@CGeneralBufferWrapper@BULL@@QAEXPAEK@Z",
+    "rva": "0xabb0"
+   },
+   {
+    "ordinal": 73,
+    "name": "?CreateBookmark@CXMLFSWrapper@BULL@@QAEKXZ",
+    "rva": "0x30650"
+   },
+   {
+    "ordinal": 74,
+    "name": "?CreateGuid@BULL@@YA?AU_GUID@@XZ",
+    "rva": "0x5ebc0"
+   },
+   {
+    "ordinal": 75,
+    "name": "?CreateObjectDebug@BULL@@YAJABU_GUID@@0PAPAX@Z",
+    "rva": "0x5ec10"
+   },
+   {
+    "ordinal": 76,
+    "name": "?CreateObjectFromDLL@BULL@@YAJABU_GUID@@0PA_WPAPAX@Z",
+    "rva": "0x5ece0"
+   },
+   {
+    "ordinal": 77,
+    "name": "?CreateObjectNative@BULL@@YAJABU_GUID@@0PAPAX@Z",
+    "rva": "0x5f350"
+   },
+   {
+    "ordinal": 78,
+    "name": "?Detach@CGeneralBufferWrapper@BULL@@QAEPAEXZ",
+    "rva": "0xabe0"
+   },
+   {
+    "ordinal": 79,
+    "name": "?DisableNamedObject@BULL@@YAJPA_WABU_GUID@@@Z",
+    "rva": "0x5f400"
+   },
+   {
+    "ordinal": 80,
+    "name": "?Dump@CGeneralArrayWrapper@BULL@@QAEPB_WXZ",
+    "rva": "0xac10"
+   },
+   {
+    "ordinal": 81,
+    "name": "?Dump@CGeneralDataWrapper@BULL@@QAEPB_WXZ",
+    "rva": "0xacd0"
+   },
+   {
+    "ordinal": 82,
+    "name": "?DumpRefLeak@BULL@@YAJXZ",
+    "rva": "0x5f4d0"
+   },
+   {
+    "ordinal": 83,
+    "name": "?EnableNamedObject@BULL@@YAJPA_WABU_GUID@@@Z",
+    "rva": "0x5f720"
+   },
+   {
+    "ordinal": 84,
+    "name": "?FieldExists@CGeneralDataWrapper@BULL@@QAE_NPB_W@Z",
+    "rva": "0xad90"
+   },
+   {
+    "ordinal": 85,
+    "name": "?FindChild@CXMLFSWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0x30680"
+   },
+   {
+    "ordinal": 86,
+    "name": "?FindNextSibling@CXMLFSWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xc290"
+   },
+   {
+    "ordinal": 87,
+    "name": "?FindPrevSibling@CXMLFSWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xaf40"
+   },
+   {
+    "ordinal": 88,
+    "name": "?FlushLogFile@BULL@@YAJXZ",
+    "rva": "0x4cec0"
+   },
+   {
+    "ordinal": 89,
+    "name": "?ForEach@CXMLFSWrapper@BULL@@QAEXPB_WPAUIXMLFSJob@2@@Z",
+    "rva": "0x30720"
+   },
+   {
+    "ordinal": 90,
+    "name": "?FromDoc@CGeneralArrayWrapper@BULL@@QAEXPAUIGeneralBuffer@2@@Z",
+    "rva": "0xae40"
+   },
+   {
+    "ordinal": 91,
+    "name": "?FromDoc@CGeneralDataWrapper@BULL@@QAEXPAUIGeneralBuffer@2@@Z",
+    "rva": "0xae70"
+   },
+   {
+    "ordinal": 92,
+    "name": "?FromFile@CGeneralArrayWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xaea0"
+   },
+   {
+    "ordinal": 93,
+    "name": "?FromFile@CGeneralDataWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xaf40"
+   },
+   {
+    "ordinal": 94,
+    "name": "?FromXml@CGeneralArrayWrapper@BULL@@QAEXPAUIXMLDOMNode@@@Z",
+    "rva": "0xafe0"
+   },
+   {
+    "ordinal": 95,
+    "name": "?FromXml@CGeneralDataWrapper@BULL@@QAEXPAUIXMLDOMNode@@@Z",
+    "rva": "0xb010"
+   },
+   {
+    "ordinal": 96,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W00PA_N@Z",
+    "rva": "0x307c0"
+   },
+   {
+    "ordinal": 97,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAF@Z",
+    "rva": "0x308e0"
+   },
+   {
+    "ordinal": 98,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAG@Z",
+    "rva": "0x309b0"
+   },
+   {
+    "ordinal": 99,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAH@Z",
+    "rva": "0x30a80"
+   },
+   {
+    "ordinal": 100,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAI@Z",
+    "rva": "0x30b50"
+   },
+   {
+    "ordinal": 101,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAJ@Z",
+    "rva": "0x30c20"
+   },
+   {
+    "ordinal": 102,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAK@Z",
+    "rva": "0x30cf0"
+   },
+   {
+    "ordinal": 103,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAM@Z",
+    "rva": "0x30dc0"
+   },
+   {
+    "ordinal": 104,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAN@Z",
+    "rva": "0x30e90"
+   },
+   {
+    "ordinal": 105,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAU_GUID@@@Z",
+    "rva": "0x30f60"
+   },
+   {
+    "ordinal": 106,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAUtagPOINT@@@Z",
+    "rva": "0x31030"
+   },
+   {
+    "ordinal": 107,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAUtagRECT@@@Z",
+    "rva": "0x31100"
+   },
+   {
+    "ordinal": 108,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PAUtagSIZE@@@Z",
+    "rva": "0x311d0"
+   },
+   {
+    "ordinal": 109,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PA_J@Z",
+    "rva": "0x312a0"
+   },
+   {
+    "ordinal": 110,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PA_K@Z",
+    "rva": "0x31370"
+   },
+   {
+    "ordinal": 111,
+    "name": "?Get@CXMLFSWrapper@BULL@@QAEXPB_W0PA_N@Z",
+    "rva": "0x31440"
+   },
+   {
+    "ordinal": 112,
+    "name": "?GetArray@CGeneralArrayWrapper@BULL@@QAE?AV12@I@Z",
+    "rva": "0xb040"
+   },
+   {
+    "ordinal": 113,
+    "name": "?GetArray@CGeneralDataWrapper@BULL@@QAE?AVCGeneralArrayWrapper@2@PB_W@Z",
+    "rva": "0x13240"
+   },
+   {
+    "ordinal": 114,
+    "name": "?GetArray@CGeneralDataWrapper@BULL@@QAE?AVCGeneralArrayWrapper@2@PB_WPAUIGeneralArray@2@@Z",
+    "rva": "0x13310"
+   },
+   {
+    "ordinal": 115,
+    "name": "?GetAttrib@CXMLFSWrapper@BULL@@QAEPB_WPB_W0@Z",
+    "rva": "0x31520"
+   },
+   {
+    "ordinal": 116,
+    "name": "?GetAttribAsBoolNumber@CXMLFSWrapper@BULL@@QAE_NPB_W0@Z",
+    "rva": "0x31650"
+   },
+   {
+    "ordinal": 117,
+    "name": "?GetAttribAsBoolString@CXMLFSWrapper@BULL@@QAE_NPB_W00@Z",
+    "rva": "0x31730"
+   },
+   {
+    "ordinal": 118,
+    "name": "?GetAttribAsDWord@CXMLFSWrapper@BULL@@QAEKPB_W0@Z",
+    "rva": "0x31840"
+   },
+   {
+    "ordinal": 119,
+    "name": "?GetAttribAsDouble@CXMLFSWrapper@BULL@@QAENPB_W0@Z",
+    "rva": "0x31910"
+   },
+   {
+    "ordinal": 120,
+    "name": "?GetAttribAsFloat@CXMLFSWrapper@BULL@@QAEMPB_W0@Z",
+    "rva": "0x319f0"
+   },
+   {
+    "ordinal": 121,
+    "name": "?GetAttribAsGuid@CXMLFSWrapper@BULL@@QAE?AU_GUID@@PB_W0@Z",
+    "rva": "0x31ac0"
+   },
+   {
+    "ordinal": 122,
+    "name": "?GetAttribAsInt64@CXMLFSWrapper@BULL@@QAE_JPB_W0@Z",
+    "rva": "0x31ba0"
+   },
+   {
+    "ordinal": 123,
+    "name": "?GetAttribAsInt@CXMLFSWrapper@BULL@@QAEHPB_W0@Z",
+    "rva": "0x31c80"
+   },
+   {
+    "ordinal": 124,
+    "name": "?GetAttribAsLong@CXMLFSWrapper@BULL@@QAEJPB_W0@Z",
+    "rva": "0x31d50"
+   },
+   {
+    "ordinal": 125,
+    "name": "?GetAttribAsPoint@CXMLFSWrapper@BULL@@QAE?AUtagPOINT@@PB_W0@Z",
+    "rva": "0x31e20"
+   },
+   {
+    "ordinal": 126,
+    "name": "?GetAttribAsRect@CXMLFSWrapper@BULL@@QAE?AUtagRECT@@PB_W0@Z",
+    "rva": "0x31f00"
+   },
+   {
+    "ordinal": 127,
+    "name": "?GetAttribAsShort@CXMLFSWrapper@BULL@@QAEFPB_W0@Z",
+    "rva": "0x31fe0"
+   },
+   {
+    "ordinal": 128,
+    "name": "?GetAttribAsSize@CXMLFSWrapper@BULL@@QAE?AUtagSIZE@@PB_W0@Z",
+    "rva": "0x320c0"
+   },
+   {
+    "ordinal": 129,
+    "name": "?GetAttribAsUint64@CXMLFSWrapper@BULL@@QAE_KPB_W0@Z",
+    "rva": "0x321a0"
+   },
+   {
+    "ordinal": 130,
+    "name": "?GetAttribAsUint@CXMLFSWrapper@BULL@@QAEIPB_W0@Z",
+    "rva": "0x32280"
+   },
+   {
+    "ordinal": 131,
+    "name": "?GetAttribAsUlong@CXMLFSWrapper@BULL@@QAEKPB_W0@Z",
+    "rva": "0x32350"
+   },
+   {
+    "ordinal": 132,
+    "name": "?GetAttribAsUshort@CXMLFSWrapper@BULL@@QAEGPB_W0@Z",
+    "rva": "0x32420"
+   },
+   {
+    "ordinal": 133,
+    "name": "?GetAttribAsWord@CXMLFSWrapper@BULL@@QAEGPB_W0@Z",
+    "rva": "0x32500"
+   },
+   {
+    "ordinal": 134,
+    "name": "?GetAttribList@CXMLFSWrapper@BULL@@QAEPAUIGeneralData@2@PB_W@Z",
+    "rva": "0x325e0"
+   },
+   {
+    "ordinal": 135,
+    "name": "?GetAttribName@CXMLFSWrapper@BULL@@QAEPB_WXZ",
+    "rva": "0x32680"
+   },
+   {
+    "ordinal": 136,
+    "name": "?GetBool@CGeneralArrayWrapper@BULL@@QAE_NI@Z",
+    "rva": "0xb0e0"
+   },
+   {
+    "ordinal": 137,
+    "name": "?GetBool@CGeneralDataWrapper@BULL@@QAE_NPB_W@Z",
+    "rva": "0x13420"
+   },
+   {
+    "ordinal": 138,
+    "name": "?GetBool@CGeneralDataWrapper@BULL@@QAE_NPB_W_N@Z",
+    "rva": "0x134d0"
+   },
+   {
+    "ordinal": 139,
+    "name": "?GetBuffer@CGeneralArrayWrapper@BULL@@QAE?AVCGeneralBufferWrapper@2@I@Z",
+    "rva": "0xb120"
+   },
+   {
+    "ordinal": 140,
+    "name": "?GetBuffer@CGeneralBufferWrapper@BULL@@QAEPAEXZ",
+    "rva": "0xb1b0"
+   },
+   {
+    "ordinal": 141,
+    "name": "?GetBuffer@CGeneralDataWrapper@BULL@@QAE?AVCGeneralBufferWrapper@2@PB_W@Z",
+    "rva": "0x13580"
+   },
+   {
+    "ordinal": 142,
+    "name": "?GetBuffer@CGeneralDataWrapper@BULL@@QAE?AVCGeneralBufferWrapper@2@PB_WPAUIGeneralBuffer@2@@Z",
+    "rva": "0x13650"
+   },
+   {
+    "ordinal": 143,
+    "name": "?GetByte@CGeneralArrayWrapper@BULL@@QAEEI@Z",
+    "rva": "0xb1e0"
+   },
+   {
+    "ordinal": 144,
+    "name": "?GetByte@CGeneralDataWrapper@BULL@@QAEEPB_W@Z",
+    "rva": "0x13760"
+   },
+   {
+    "ordinal": 145,
+    "name": "?GetByte@CGeneralDataWrapper@BULL@@QAEEPB_WE@Z",
+    "rva": "0x13800"
+   },
+   {
+    "ordinal": 146,
+    "name": "?GetChar@CGeneralArrayWrapper@BULL@@QAECI@Z",
+    "rva": "0xb220"
+   },
+   {
+    "ordinal": 147,
+    "name": "?GetChar@CGeneralDataWrapper@BULL@@QAECPB_W@Z",
+    "rva": "0x13890"
+   },
+   {
+    "ordinal": 148,
+    "name": "?GetChar@CGeneralDataWrapper@BULL@@QAECPB_WC@Z",
+    "rva": "0x13930"
+   },
+   {
+    "ordinal": 149,
+    "name": "?GetChildrenCount@CXMLFSWrapper@BULL@@QAEJPB_W@Z",
+    "rva": "0x32740"
+   },
+   {
+    "ordinal": 150,
+    "name": "?GetCount@CGeneralArrayWrapper@BULL@@QAEIXZ",
+    "rva": "0xb370"
+   },
+   {
+    "ordinal": 151,
+    "name": "?GetDWord@CGeneralArrayWrapper@BULL@@QAEKI@Z",
+    "rva": "0xb260"
+   },
+   {
+    "ordinal": 152,
+    "name": "?GetDWord@CGeneralDataWrapper@BULL@@QAEKPB_W@Z",
+    "rva": "0x139c0"
+   },
+   {
+    "ordinal": 153,
+    "name": "?GetDWord@CGeneralDataWrapper@BULL@@QAEKPB_WK@Z",
+    "rva": "0x13a60"
+   },
+   {
+    "ordinal": 154,
+    "name": "?GetData@CGeneralArrayWrapper@BULL@@QAE?AVCGeneralDataWrapper@2@I@Z",
+    "rva": "0xb2a0"
+   },
+   {
+    "ordinal": 155,
+    "name": "?GetData@CGeneralDataWrapper@BULL@@QAE?AV12@PB_W@Z",
+    "rva": "0x13af0"
+   },
+   {
+    "ordinal": 156,
+    "name": "?GetData@CGeneralDataWrapper@BULL@@QAE?AV12@PB_WPAUIGeneralData@2@@Z",
+    "rva": "0x13bd0"
+   },
+   {
+    "ordinal": 157,
+    "name": "?GetData@CXMLFSWrapper@BULL@@QAEPB_WPB_W@Z",
+    "rva": "0x327e0"
+   },
+   {
+    "ordinal": 158,
+    "name": "?GetDouble@CGeneralArrayWrapper@BULL@@QAENI@Z",
+    "rva": "0xb330"
+   },
+   {
+    "ordinal": 159,
+    "name": "?GetDouble@CGeneralDataWrapper@BULL@@QAENPB_W@Z",
+    "rva": "0x13dd0"
+   },
+   {
+    "ordinal": 160,
+    "name": "?GetDouble@CGeneralDataWrapper@BULL@@QAENPB_WN@Z",
+    "rva": "0x13e80"
+   },
+   {
+    "ordinal": 161,
+    "name": "?GetFieldCount@CGeneralDataWrapper@BULL@@QAEIXZ",
+    "rva": "0xb370"
+   },
+   {
+    "ordinal": 162,
+    "name": "?GetFieldIndex@CGeneralDataWrapper@BULL@@QAEIPB_W@Z",
+    "rva": "0xb3a0"
+   },
+   {
+    "ordinal": 163,
+    "name": "?GetFieldName@CGeneralDataWrapper@BULL@@QAEPB_WI@Z",
+    "rva": "0xb440"
+   },
+   {
+    "ordinal": 164,
+    "name": "?GetFieldType@CGeneralDataWrapper@BULL@@QAE?AW4EGeneralDataType@2@PB_W@Z",
+    "rva": "0xb500"
+   },
+   {
+    "ordinal": 165,
+    "name": "?GetFieldValue@CGeneralDataWrapper@BULL@@QAE?AUtagVARIANT@@PB_W@Z",
+    "rva": "0xb5a0"
+   },
+   {
+    "ordinal": 166,
+    "name": "?GetFloat@CGeneralArrayWrapper@BULL@@QAEMI@Z",
+    "rva": "0xb640"
+   },
+   {
+    "ordinal": 167,
+    "name": "?GetFloat@CGeneralDataWrapper@BULL@@QAEMPB_W@Z",
+    "rva": "0x13f20"
+   },
+   {
+    "ordinal": 168,
+    "name": "?GetFloat@CGeneralDataWrapper@BULL@@QAEMPB_WM@Z",
+    "rva": "0x13fc0"
+   },
+   {
+    "ordinal": 169,
+    "name": "?GetGuid@CGeneralArrayWrapper@BULL@@QAE?AU_GUID@@I@Z",
+    "rva": "0xb680"
+   },
+   {
+    "ordinal": 170,
+    "name": "?GetGuid@CGeneralDataWrapper@BULL@@QAE?AU_GUID@@PB_W@Z",
+    "rva": "0x14060"
+   },
+   {
+    "ordinal": 171,
+    "name": "?GetGuid@CGeneralDataWrapper@BULL@@QAE?AU_GUID@@PB_WU3@@Z",
+    "rva": "0x14100"
+   },
+   {
+    "ordinal": 172,
+    "name": "?GetINode@CXMLFSWrapper@BULL@@QAEPAUIXMLDOMNode@@XZ",
+    "rva": "0x328e0"
+   },
+   {
+    "ordinal": 173,
+    "name": "?GetInt64@CGeneralArrayWrapper@BULL@@QAE_JI@Z",
+    "rva": "0xb6c0"
+   },
+   {
+    "ordinal": 174,
+    "name": "?GetInt64@CGeneralDataWrapper@BULL@@QAE_JPB_W@Z",
+    "rva": "0x141c0"
+   },
+   {
+    "ordinal": 175,
+    "name": "?GetInt64@CGeneralDataWrapper@BULL@@QAE_JPB_W_J@Z",
+    "rva": "0x14270"
+   },
+   {
+    "ordinal": 176,
+    "name": "?GetInt@CGeneralArrayWrapper@BULL@@QAEHI@Z",
+    "rva": "0xb700"
+   },
+   {
+    "ordinal": 177,
+    "name": "?GetInt@CGeneralDataWrapper@BULL@@QAEHPB_W@Z",
+    "rva": "0x14320"
+   },
+   {
+    "ordinal": 178,
+    "name": "?GetInt@CGeneralDataWrapper@BULL@@QAEHPB_WH@Z",
+    "rva": "0x143c0"
+   },
+   {
+    "ordinal": 179,
+    "name": "?GetLength@CGeneralBufferWrapper@BULL@@QAEKXZ",
+    "rva": "0xb740"
+   },
+   {
+    "ordinal": 180,
+    "name": "?GetLogController@BULL@@YAJPAPAUILogController@1@@Z",
+    "rva": "0x4cf60"
+   },
+   {
+    "ordinal": 181,
+    "name": "?GetLong@CGeneralArrayWrapper@BULL@@QAEJI@Z",
+    "rva": "0xb770"
+   },
+   {
+    "ordinal": 182,
+    "name": "?GetLong@CGeneralDataWrapper@BULL@@QAEJPB_W@Z",
+    "rva": "0x14450"
+   },
+   {
+    "ordinal": 183,
+    "name": "?GetLong@CGeneralDataWrapper@BULL@@QAEJPB_WJ@Z",
+    "rva": "0x144f0"
+   },
+   {
+    "ordinal": 184,
+    "name": "?GetModuleDesc@BULL@@YAJPA_W0PAPA_W@Z",
+    "rva": "0x3abf0"
+   },
+   {
+    "ordinal": 185,
+    "name": "?GetModuleName@BULL@@YAJPAUHINSTANCE__@@PAPA_W@Z",
+    "rva": "0x3ae50"
+   },
+   {
+    "ordinal": 186,
+    "name": "?GetModulePath@BULL@@YAJPAUHINSTANCE__@@PAPA_W@Z",
+    "rva": "0x3b0f0"
+   },
+   {
+    "ordinal": 187,
+    "name": "?GetModuleVer@BULL@@YAJPAUHINSTANCE__@@PAPA_W1@Z",
+    "rva": "0x3b2a0"
+   },
+   {
+    "ordinal": 188,
+    "name": "?GetModuleVer@BULL@@YAJPAUHINSTANCE__@@PA_K1@Z",
+    "rva": "0x3b320"
+   },
+   {
+    "ordinal": 189,
+    "name": "?GetModuleVer@BULL@@YAJPA_WPAPA_W1@Z",
+    "rva": "0x3b3a0"
+   },
+   {
+    "ordinal": 190,
+    "name": "?GetModuleVer@BULL@@YAJPA_WPA_K1@Z",
+    "rva": "0x3b5f0"
+   },
+   {
+    "ordinal": 191,
+    "name": "?GetNamedObject@BULL@@YAJPA_WABU_GUID@@1PAPAX@Z",
+    "rva": "0x5f880"
+   },
+   {
+    "ordinal": 192,
+    "name": "?GetNodeName@CXMLFSWrapper@BULL@@QAEPB_WXZ",
+    "rva": "0x32920"
+   },
+   {
+    "ordinal": 193,
+    "name": "?GetPoint@CGeneralArrayWrapper@BULL@@QAE?AUtagPOINT@@I@Z",
+    "rva": "0xb7b0"
+   },
+   {
+    "ordinal": 194,
+    "name": "?GetPoint@CGeneralDataWrapper@BULL@@QAE?AUtagPOINT@@PB_W@Z",
+    "rva": "0x14580"
+   },
+   {
+    "ordinal": 195,
+    "name": "?GetPoint@CGeneralDataWrapper@BULL@@QAE?AUtagPOINT@@PB_WU3@@Z",
+    "rva": "0x14620"
+   },
+   {
+    "ordinal": 196,
+    "name": "?GetRect@CGeneralArrayWrapper@BULL@@QAE?AUtagRECT@@I@Z",
+    "rva": "0xb7f0"
+   },
+   {
+    "ordinal": 197,
+    "name": "?GetRect@CGeneralDataWrapper@BULL@@QAE?AUtagRECT@@PB_W@Z",
+    "rva": "0x146c0"
+   },
+   {
+    "ordinal": 198,
+    "name": "?GetRect@CGeneralDataWrapper@BULL@@QAE?AUtagRECT@@PB_WU3@@Z",
+    "rva": "0x14760"
+   },
+   {
+    "ordinal": 199,
+    "name": "?GetShort@CGeneralArrayWrapper@BULL@@QAEFI@Z",
+    "rva": "0xb830"
+   },
+   {
+    "ordinal": 200,
+    "name": "?GetShort@CGeneralDataWrapper@BULL@@QAEFPB_W@Z",
+    "rva": "0x14820"
+   },
+   {
+    "ordinal": 201,
+    "name": "?GetShort@CGeneralDataWrapper@BULL@@QAEFPB_WF@Z",
+    "rva": "0x148c0"
+   },
+   {
+    "ordinal": 202,
+    "name": "?GetSize@CGeneralArrayWrapper@BULL@@QAE?AUtagSIZE@@I@Z",
+    "rva": "0xb870"
+   },
+   {
+    "ordinal": 203,
+    "name": "?GetSize@CGeneralDataWrapper@BULL@@QAE?AUtagSIZE@@PB_W@Z",
+    "rva": "0x14950"
+   },
+   {
+    "ordinal": 204,
+    "name": "?GetSize@CGeneralDataWrapper@BULL@@QAE?AUtagSIZE@@PB_WU3@@Z",
+    "rva": "0x149f0"
+   },
+   {
+    "ordinal": 205,
+    "name": "?GetStr@CGeneralArrayWrapper@BULL@@QAEPB_WI@Z",
+    "rva": "0xb8b0"
+   },
+   {
+    "ordinal": 206,
+    "name": "?GetStr@CGeneralDataWrapper@BULL@@QAEPB_WPB_W0@Z",
+    "rva": "0x14a90"
+   },
+   {
+    "ordinal": 207,
+    "name": "?GetStr@CGeneralDataWrapper@BULL@@QAEPB_WPB_W@Z",
+    "rva": "0x14c40"
+   },
+   {
+    "ordinal": 208,
+    "name": "?GetTime@CGeneralArrayWrapper@BULL@@QAE?AU_SYSTEMTIME@@I@Z",
+    "rva": "0xb970"
+   },
+   {
+    "ordinal": 209,
+    "name": "?GetTime@CGeneralDataWrapper@BULL@@QAE?AU_SYSTEMTIME@@PB_W@Z",
+    "rva": "0x14d40"
+   },
+   {
+    "ordinal": 210,
+    "name": "?GetTime@CGeneralDataWrapper@BULL@@QAE?AU_SYSTEMTIME@@PB_WU3@@Z",
+    "rva": "0x14de0"
+   },
+   {
+    "ordinal": 211,
+    "name": "?GetType@CGeneralArrayWrapper@BULL@@QAE?AW4EGeneralDataType@2@I@Z",
+    "rva": "0xb9b0"
+   },
+   {
+    "ordinal": 212,
+    "name": "?GetUint64@CGeneralArrayWrapper@BULL@@QAE_KI@Z",
+    "rva": "0xb9f0"
+   },
+   {
+    "ordinal": 213,
+    "name": "?GetUint64@CGeneralDataWrapper@BULL@@QAE_KPB_W@Z",
+    "rva": "0x14ea0"
+   },
+   {
+    "ordinal": 214,
+    "name": "?GetUint64@CGeneralDataWrapper@BULL@@QAE_KPB_W_K@Z",
+    "rva": "0x14f50"
+   },
+   {
+    "ordinal": 215,
+    "name": "?GetUint@CGeneralArrayWrapper@BULL@@QAEII@Z",
+    "rva": "0xba30"
+   },
+   {
+    "ordinal": 216,
+    "name": "?GetUint@CGeneralDataWrapper@BULL@@QAEIPB_W@Z",
+    "rva": "0x15000"
+   },
+   {
+    "ordinal": 217,
+    "name": "?GetUint@CGeneralDataWrapper@BULL@@QAEIPB_WI@Z",
+    "rva": "0x150a0"
+   },
+   {
+    "ordinal": 218,
+    "name": "?GetValue@CGeneralArrayWrapper@BULL@@QAE?AUtagVARIANT@@I@Z",
+    "rva": "0xba70"
+   },
+   {
+    "ordinal": 219,
+    "name": "?GetWChar@CGeneralArrayWrapper@BULL@@QAE_WI@Z",
+    "rva": "0xbaa0"
+   },
+   {
+    "ordinal": 220,
+    "name": "?GetWChar@CGeneralDataWrapper@BULL@@QAE_WPB_W@Z",
+    "rva": "0x15130"
+   },
+   {
+    "ordinal": 221,
+    "name": "?GetWChar@CGeneralDataWrapper@BULL@@QAE_WPB_W_W@Z",
+    "rva": "0x151d0"
+   },
+   {
+    "ordinal": 222,
+    "name": "?GetWord@CGeneralArrayWrapper@BULL@@QAEGI@Z",
+    "rva": "0xbae0"
+   },
+   {
+    "ordinal": 223,
+    "name": "?GetWord@CGeneralDataWrapper@BULL@@QAEGPB_W@Z",
+    "rva": "0x15260"
+   },
+   {
+    "ordinal": 224,
+    "name": "?GetWord@CGeneralDataWrapper@BULL@@QAEGPB_WG@Z",
+    "rva": "0x15300"
+   },
+   {
+    "ordinal": 225,
+    "name": "?Go@CXMLFSWrapper@BULL@@QAEXK@Z",
+    "rva": "0x329e0"
+   },
+   {
+    "ordinal": 226,
+    "name": "?GoByPath@CXMLFSWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0x32a10"
+   },
+   {
+    "ordinal": 227,
+    "name": "?GuidToString@BULL@@YA?AVCComBSTR@ATL@@ABU_GUID@@@Z",
+    "rva": "0x5fa30"
+   },
+   {
+    "ordinal": 228,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIC@Z",
+    "rva": "0xbb20"
+   },
+   {
+    "ordinal": 229,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXID@Z",
+    "rva": "0xbb20"
+   },
+   {
+    "ordinal": 230,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIE@Z",
+    "rva": "0xbb50"
+   },
+   {
+    "ordinal": 231,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIF@Z",
+    "rva": "0xbb80"
+   },
+   {
+    "ordinal": 232,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIG@Z",
+    "rva": "0xbbb0"
+   },
+   {
+    "ordinal": 233,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIH@Z",
+    "rva": "0xbbe0"
+   },
+   {
+    "ordinal": 234,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXII@Z",
+    "rva": "0xbc10"
+   },
+   {
+    "ordinal": 235,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIJ@Z",
+    "rva": "0xbc40"
+   },
+   {
+    "ordinal": 236,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIK@Z",
+    "rva": "0xbc70"
+   },
+   {
+    "ordinal": 237,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIM@Z",
+    "rva": "0xbca0"
+   },
+   {
+    "ordinal": 238,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIN@Z",
+    "rva": "0xbce0"
+   },
+   {
+    "ordinal": 239,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIPAUIGeneralArray@2@@Z",
+    "rva": "0xbd20"
+   },
+   {
+    "ordinal": 240,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIPAUIGeneralBuffer@2@@Z",
+    "rva": "0xbd50"
+   },
+   {
+    "ordinal": 241,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIPAUIGeneralData@2@@Z",
+    "rva": "0xbd80"
+   },
+   {
+    "ordinal": 242,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIPAUIUnknown@@@Z",
+    "rva": "0xbdb0"
+   },
+   {
+    "ordinal": 243,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIPB_W@Z",
+    "rva": "0xbde0"
+   },
+   {
+    "ordinal": 244,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIU_GUID@@@Z",
+    "rva": "0xbe80"
+   },
+   {
+    "ordinal": 245,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIU_SYSTEMTIME@@@Z",
+    "rva": "0xbec0"
+   },
+   {
+    "ordinal": 246,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIUtagPOINT@@@Z",
+    "rva": "0xbf00"
+   },
+   {
+    "ordinal": 247,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIUtagRECT@@@Z",
+    "rva": "0xbf40"
+   },
+   {
+    "ordinal": 248,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXIUtagSIZE@@@Z",
+    "rva": "0xbf80"
+   },
+   {
+    "ordinal": 249,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXI_J@Z",
+    "rva": "0xbfc0"
+   },
+   {
+    "ordinal": 250,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXI_K@Z",
+    "rva": "0xc000"
+   },
+   {
+    "ordinal": 251,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXI_N@Z",
+    "rva": "0xc040"
+   },
+   {
+    "ordinal": 252,
+    "name": "?Insert@CGeneralArrayWrapper@BULL@@QAEXI_W@Z",
+    "rva": "0xc070"
+   },
+   {
+    "ordinal": 253,
+    "name": "?InsertNode@CXMLFSWrapper@BULL@@QAEXPB_W00@Z",
+    "rva": "0x32ab0"
+   },
+   {
+    "ordinal": 254,
+    "name": "?KillTimer@BULL@@YAJK@Z",
+    "rva": "0x3e080"
+   },
+   {
+    "ordinal": 255,
+    "name": "?KillTimer_s@BULL@@YAXK@Z",
+    "rva": "0x3e0a0"
+   },
+   {
+    "ordinal": 256,
+    "name": "?LoadFromBSTR@CXMLFSWrapper@BULL@@QAEXPA_WPB_W@Z",
+    "rva": "0x32bb0"
+   },
+   {
+    "ordinal": 257,
+    "name": "?LoadFromFile@CXMLFSWrapper@BULL@@QAEXPB_W0@Z",
+    "rva": "0x32c50"
+   },
+   {
+    "ordinal": 258,
+    "name": "?LoadModuleInfo@BULL@@YAJPB_W@Z",
+    "rva": "0x5fae0"
+   },
+   {
+    "ordinal": 259,
+    "name": "?LoadStringTable@BULL@@YAJPA_WH@Z",
+    "rva": "0x5b8c0"
+   },
+   {
+    "ordinal": 260,
+    "name": "?LoadStringW@BULL@@YAPB_WH@Z",
+    "rva": "0x5bc30"
+   },
+   {
+    "ordinal": 261,
+    "name": "?MD5@BULL@@YAJPAUIGeneralBuffer@1@PAPAU21@@Z",
+    "rva": "0x36010"
+   },
+   {
+    "ordinal": 262,
+    "name": "?MD5@BULL@@YAJPA_WPAPAUIGeneralBuffer@1@@Z",
+    "rva": "0x360f0"
+   },
+   {
+    "ordinal": 263,
+    "name": "?MD5_s@BULL@@YA?AVCGeneralBufferWrapper@1@PAUIGeneralBuffer@1@@Z",
+    "rva": "0x363a0"
+   },
+   {
+    "ordinal": 264,
+    "name": "?MD5_s@BULL@@YA?AVCGeneralBufferWrapper@1@PB_W@Z",
+    "rva": "0x36430"
+   },
+   {
+    "ordinal": 265,
+    "name": "?MatchByPY@BULL@@YAJPA_W0PAH@Z",
+    "rva": "0x59e70"
+   },
+   {
+    "ordinal": 266,
+    "name": "?MonitorRefLeak@BULL@@YAJPAXABU_GUID@@PB_W@Z",
+    "rva": "0x5ff70"
+   },
+   {
+    "ordinal": 267,
+    "name": "?MultiByteToWideChar@BULL@@YA?AV?$CStringT@_WV?$StrTraitATL@_WV?$ChTraitsCRT@_W@ATL@@@ATL@@@ATL@@IPBD@Z",
+    "rva": "0x5bcb0"
+   },
+   {
+    "ordinal": 268,
+    "name": "?MultiByteToWideChar@BULL@@YAJIPBDPAPA_W@Z",
+    "rva": "0x5be10"
+   },
+   {
+    "ordinal": 269,
+    "name": "?ParseCmdline@BULL@@YAJPAPAUIGeneralArray@1@PA_W@Z",
+    "rva": "0x3b7d0"
+   },
+   {
+    "ordinal": 270,
+    "name": "?PrivateLog@BULL@@YAJW4TPrivateLogCmd@1@PB_W1ZZ",
+    "rva": "0x4d320"
+   },
+   {
+    "ordinal": 271,
+    "name": "?QueryObjectClsid@BULL@@YAJABU_GUID@@PAU2@@Z",
+    "rva": "0x5ffc0"
+   },
+   {
+    "ordinal": 272,
+    "name": "?RC4@BULL@@YAJPAUIGeneralBuffer@1@0PAPAU21@@Z",
+    "rva": "0x364f0"
+   },
+   {
+    "ordinal": 273,
+    "name": "?RC4Decrypt@BULL@@YAJPA_W0PAPA_W@Z",
+    "rva": "0x36670"
+   },
+   {
+    "ordinal": 274,
+    "name": "?RC4Decrypt_s@BULL@@YAPB_WPB_W0@Z",
+    "rva": "0x368e0"
+   },
+   {
+    "ordinal": 275,
+    "name": "?RC4Encrypt@BULL@@YAJPA_W0PAPA_W@Z",
+    "rva": "0x36ab0"
+   },
+   {
+    "ordinal": 276,
+    "name": "?RC4Encrypt_s@BULL@@YAPB_WPB_W0@Z",
+    "rva": "0x36d20"
+   },
+   {
+    "ordinal": 277,
+    "name": "?RC4_s@BULL@@YA?AVCGeneralBufferWrapper@1@PAUIGeneralBuffer@1@0@Z",
+    "rva": "0x36ef0"
+   },
+   {
+    "ordinal": 278,
+    "name": "?RSADecrypt@BULL@@YAJPAUIGeneralBuffer@1@0PAPAU21@@Z",
+    "rva": "0x36f80"
+   },
+   {
+    "ordinal": 279,
+    "name": "?RSADecrypt_s@BULL@@YA?AVCGeneralBufferWrapper@1@PAUIGeneralBuffer@1@0@Z",
+    "rva": "0x372a0"
+   },
+   {
+    "ordinal": 280,
+    "name": "?RSAEncrypt@BULL@@YAJPAUIGeneralBuffer@1@0PAPAU21@@Z",
+    "rva": "0x37330"
+   },
+   {
+    "ordinal": 281,
+    "name": "?RSAEncrypt_s@BULL@@YA?AVCGeneralBufferWrapper@1@PAUIGeneralBuffer@1@0@Z",
+    "rva": "0x37600"
+   },
+   {
+    "ordinal": 282,
+    "name": "?RegisterObject@BULL@@YAJABU_GUID@@0P6GJPAX0PAPAX@ZPB_W@Z",
+    "rva": "0x600c0"
+   },
+   {
+    "ordinal": 283,
+    "name": "?RegisterObject@BULL@@YAJABU_GUID@@0PB_W1@Z",
+    "rva": "0x60180"
+   },
+   {
+    "ordinal": 284,
+    "name": "?ReleaseBookmark@CXMLFSWrapper@BULL@@QAEXK@Z",
+    "rva": "0x32d20"
+   },
+   {
+    "ordinal": 285,
+    "name": "?Remove@CGeneralArrayWrapper@BULL@@QAEXI@Z",
+    "rva": "0xc0a0"
+   },
+   {
+    "ordinal": 286,
+    "name": "?RemoveAttrib@CXMLFSWrapper@BULL@@QAEXPB_W0@Z",
+    "rva": "0x32d50"
+   },
+   {
+    "ordinal": 287,
+    "name": "?RemoveField@CGeneralDataWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xc0d0"
+   },
+   {
+    "ordinal": 288,
+    "name": "?RemoveNode@CXMLFSWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0x32e20"
+   },
+   {
+    "ordinal": 289,
+    "name": "?Resize@CGeneralBufferWrapper@BULL@@QAEPAEK@Z",
+    "rva": "0xc170"
+   },
+   {
+    "ordinal": 290,
+    "name": "?SaveToBSTR@CXMLFSWrapper@BULL@@QAEPB_WPB_W@Z",
+    "rva": "0x32ec0"
+   },
+   {
+    "ordinal": 291,
+    "name": "?SaveToFile@CXMLFSWrapper@BULL@@QAEXPB_W0@Z",
+    "rva": "0x32fc0"
+   },
+   {
+    "ordinal": 292,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_W0@Z",
+    "rva": "0x15390"
+   },
+   {
+    "ordinal": 293,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WC@Z",
+    "rva": "0x15460"
+   },
+   {
+    "ordinal": 294,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WD@Z",
+    "rva": "0x15460"
+   },
+   {
+    "ordinal": 295,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WE@Z",
+    "rva": "0x15500"
+   },
+   {
+    "ordinal": 296,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WF@Z",
+    "rva": "0x155a0"
+   },
+   {
+    "ordinal": 297,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WG@Z",
+    "rva": "0x15640"
+   },
+   {
+    "ordinal": 298,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WH@Z",
+    "rva": "0x156e0"
+   },
+   {
+    "ordinal": 299,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WI@Z",
+    "rva": "0x15780"
+   },
+   {
+    "ordinal": 300,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WJ@Z",
+    "rva": "0x15820"
+   },
+   {
+    "ordinal": 301,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WK@Z",
+    "rva": "0x158c0"
+   },
+   {
+    "ordinal": 302,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WM@Z",
+    "rva": "0x15960"
+   },
+   {
+    "ordinal": 303,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WN@Z",
+    "rva": "0x15a10"
+   },
+   {
+    "ordinal": 304,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WPAUIGeneralArray@2@@Z",
+    "rva": "0x15ac0"
+   },
+   {
+    "ordinal": 305,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WPAUIGeneralBuffer@2@@Z",
+    "rva": "0x15b60"
+   },
+   {
+    "ordinal": 306,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WPAUIGeneralData@2@@Z",
+    "rva": "0x15c00"
+   },
+   {
+    "ordinal": 307,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WPAUIUnknown@@@Z",
+    "rva": "0x15ca0"
+   },
+   {
+    "ordinal": 308,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WU_GUID@@@Z",
+    "rva": "0x15d40"
+   },
+   {
+    "ordinal": 309,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WU_SYSTEMTIME@@@Z",
+    "rva": "0x15df0"
+   },
+   {
+    "ordinal": 310,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WUtagPOINT@@@Z",
+    "rva": "0x15ea0"
+   },
+   {
+    "ordinal": 311,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WUtagRECT@@@Z",
+    "rva": "0x15f40"
+   },
+   {
+    "ordinal": 312,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_WUtagSIZE@@@Z",
+    "rva": "0x15ff0"
+   },
+   {
+    "ordinal": 313,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_W_J@Z",
+    "rva": "0x16090"
+   },
+   {
+    "ordinal": 314,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_W_K@Z",
+    "rva": "0x16130"
+   },
+   {
+    "ordinal": 315,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_W_N@Z",
+    "rva": "0x161d0"
+   },
+   {
+    "ordinal": 316,
+    "name": "?Set@CGeneralDataWrapper@BULL@@QAEXPB_W_W@Z",
+    "rva": "0x16270"
+   },
+   {
+    "ordinal": 317,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_W00_N0@Z",
+    "rva": "0x33090"
+   },
+   {
+    "ordinal": 318,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WABU_GUID@@0@Z",
+    "rva": "0x33d70"
+   },
+   {
+    "ordinal": 319,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WF0@Z",
+    "rva": "0x331f0"
+   },
+   {
+    "ordinal": 320,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WG0@Z",
+    "rva": "0x332c0"
+   },
+   {
+    "ordinal": 321,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WH0@Z",
+    "rva": "0x33f10"
+   },
+   {
+    "ordinal": 322,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WI0@Z",
+    "rva": "0x340b0"
+   },
+   {
+    "ordinal": 323,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WJ0@Z",
+    "rva": "0x33390"
+   },
+   {
+    "ordinal": 324,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WK0@Z",
+    "rva": "0x34180"
+   },
+   {
+    "ordinal": 325,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WM0@Z",
+    "rva": "0x33460"
+   },
+   {
+    "ordinal": 326,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WN0@Z",
+    "rva": "0x33c90"
+   },
+   {
+    "ordinal": 327,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WUtagPOINT@@0@Z",
+    "rva": "0x33fe0"
+   },
+   {
+    "ordinal": 328,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WUtagRECT@@0@Z",
+    "rva": "0x33540"
+   },
+   {
+    "ordinal": 329,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_WUtagSIZE@@0@Z",
+    "rva": "0x33620"
+   },
+   {
+    "ordinal": 330,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_W_J0@Z",
+    "rva": "0x33e40"
+   },
+   {
+    "ordinal": 331,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_W_K0@Z",
+    "rva": "0x336f0"
+   },
+   {
+    "ordinal": 332,
+    "name": "?Set@CXMLFSWrapper@BULL@@QAEXPB_W_N0@Z",
+    "rva": "0x337c0"
+   },
+   {
+    "ordinal": 333,
+    "name": "?SetAttrib@CXMLFSWrapper@BULL@@QAEXPB_W00@Z",
+    "rva": "0x338a0"
+   },
+   {
+    "ordinal": 334,
+    "name": "?SetAttribBoolNumber@CXMLFSWrapper@BULL@@QAEXPB_WH0@Z",
+    "rva": "0x339a0"
+   },
+   {
+    "ordinal": 335,
+    "name": "?SetAttribBoolString@CXMLFSWrapper@BULL@@QAEXPB_W00H0@Z",
+    "rva": "0x33a70"
+   },
+   {
+    "ordinal": 336,
+    "name": "?SetAttribDWord@CXMLFSWrapper@BULL@@QAEXPB_WK0@Z",
+    "rva": "0x33bc0"
+   },
+   {
+    "ordinal": 337,
+    "name": "?SetAttribDouble@CXMLFSWrapper@BULL@@QAEXPB_WN0@Z",
+    "rva": "0x33c90"
+   },
+   {
+    "ordinal": 338,
+    "name": "?SetAttribFloat@CXMLFSWrapper@BULL@@QAEXPB_WM0@Z",
+    "rva": "0x33460"
+   },
+   {
+    "ordinal": 339,
+    "name": "?SetAttribGuid@CXMLFSWrapper@BULL@@QAEXPB_WABU_GUID@@0@Z",
+    "rva": "0x33d70"
+   },
+   {
+    "ordinal": 340,
+    "name": "?SetAttribInt64@CXMLFSWrapper@BULL@@QAEXPB_W_J0@Z",
+    "rva": "0x33e40"
+   },
+   {
+    "ordinal": 341,
+    "name": "?SetAttribInt@CXMLFSWrapper@BULL@@QAEXPB_WH0@Z",
+    "rva": "0x33f10"
+   },
+   {
+    "ordinal": 342,
+    "name": "?SetAttribLong@CXMLFSWrapper@BULL@@QAEXPB_WJ0@Z",
+    "rva": "0x33390"
+   },
+   {
+    "ordinal": 343,
+    "name": "?SetAttribPoint@CXMLFSWrapper@BULL@@QAEXPB_WUtagPOINT@@0@Z",
+    "rva": "0x33fe0"
+   },
+   {
+    "ordinal": 344,
+    "name": "?SetAttribRect@CXMLFSWrapper@BULL@@QAEXPB_WUtagRECT@@0@Z",
+    "rva": "0x33540"
+   },
+   {
+    "ordinal": 345,
+    "name": "?SetAttribShort@CXMLFSWrapper@BULL@@QAEXPB_WF0@Z",
+    "rva": "0x331f0"
+   },
+   {
+    "ordinal": 346,
+    "name": "?SetAttribSize@CXMLFSWrapper@BULL@@QAEXPB_WUtagSIZE@@0@Z",
+    "rva": "0x33620"
+   },
+   {
+    "ordinal": 347,
+    "name": "?SetAttribUint64@CXMLFSWrapper@BULL@@QAEXPB_W_K0@Z",
+    "rva": "0x336f0"
+   },
+   {
+    "ordinal": 348,
+    "name": "?SetAttribUint@CXMLFSWrapper@BULL@@QAEXPB_WI0@Z",
+    "rva": "0x340b0"
+   },
+   {
+    "ordinal": 349,
+    "name": "?SetAttribUlong@CXMLFSWrapper@BULL@@QAEXPB_WK0@Z",
+    "rva": "0x34180"
+   },
+   {
+    "ordinal": 350,
+    "name": "?SetAttribUshort@CXMLFSWrapper@BULL@@QAEXPB_WG0@Z",
+    "rva": "0x332c0"
+   },
+   {
+    "ordinal": 351,
+    "name": "?SetAttribWord@CXMLFSWrapper@BULL@@QAEXPB_WG0@Z",
+    "rva": "0x34250"
+   },
+   {
+    "ordinal": 352,
+    "name": "?SetData@CXMLFSWrapper@BULL@@QAEXPA_WPB_W@Z",
+    "rva": "0x34320"
+   },
+   {
+    "ordinal": 353,
+    "name": "?SetDefaultLangId@BULL@@YAJH@Z",
+    "rva": "0x5beb0"
+   },
+   {
+    "ordinal": 354,
+    "name": "?SetINode@CXMLFSWrapper@BULL@@QAEXPAUIXMLDOMNode@@@Z",
+    "rva": "0x343c0"
+   },
+   {
+    "ordinal": 355,
+    "name": "?SetLogFile@BULL@@YAJPB_W@Z",
+    "rva": "0x4db20"
+   },
+   {
+    "ordinal": 356,
+    "name": "?SetTimer@BULL@@YAJK_NPAUICallbackTimer@1@KPAK@Z",
+    "rva": "0x3e0e0"
+   },
+   {
+    "ordinal": 357,
+    "name": "?SetTimer_s@BULL@@YAIK_NPAUICallbackTimer@1@K@Z",
+    "rva": "0x3e160"
+   },
+   {
+    "ordinal": 358,
+    "name": "?Sign@BULL@@YAJPA_WPAUIGeneralArray@1@0PAUIGeneralBuffer@1@@Z",
+    "rva": "0x376e0"
+   },
+   {
+    "ordinal": 359,
+    "name": "?Sign@BULL@@YAJPA_WPAUIGeneralBuffer@1@PAPA_W@Z",
+    "rva": "0x37a80"
+   },
+   {
+    "ordinal": 360,
+    "name": "?Sign_s@BULL@@YAPB_WPB_WPAUIGeneralBuffer@1@@Z",
+    "rva": "0x37d30"
+   },
+   {
+    "ordinal": 361,
+    "name": "?Sign_s@BULL@@YAXPB_WPAUIGeneralArray@1@0PAUIGeneralBuffer@1@@Z",
+    "rva": "0x37ed0"
+   },
+   {
+    "ordinal": 362,
+    "name": "?StringToGuidA@BULL@@YA?AU_GUID@@PBD@Z",
+    "rva": "0x60270"
+   },
+   {
+    "ordinal": 363,
+    "name": "?StringToGuidW@BULL@@YA?AU_GUID@@PB_W@Z",
+    "rva": "0x60310"
+   },
+   {
+    "ordinal": 364,
+    "name": "?StringToUuidA@BULL@@YA?AU_GUID@@PAD@Z",
+    "rva": "0x603c0"
+   },
+   {
+    "ordinal": 365,
+    "name": "?StringToUuidW@BULL@@YA?AU_GUID@@PA_W@Z",
+    "rva": "0x60420"
+   },
+   {
+    "ordinal": 366,
+    "name": "?ToDoc@CGeneralArrayWrapper@BULL@@QAEPAUIGeneralBuffer@2@XZ",
+    "rva": "0xc1b0"
+   },
+   {
+    "ordinal": 367,
+    "name": "?ToDoc@CGeneralDataWrapper@BULL@@QAEPAUIGeneralBuffer@2@XZ",
+    "rva": "0x16310"
+   },
+   {
+    "ordinal": 368,
+    "name": "?ToFile@CGeneralArrayWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xc1f0"
+   },
+   {
+    "ordinal": 369,
+    "name": "?ToFile@CGeneralDataWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xc290"
+   },
+   {
+    "ordinal": 370,
+    "name": "?ToXml@CGeneralArrayWrapper@BULL@@QAEPAUIXMLDOMNode@@PAUIXMLDOMDocument@@PAU3@@Z",
+    "rva": "0xc330"
+   },
+   {
+    "ordinal": 371,
+    "name": "?ToXml@CGeneralDataWrapper@BULL@@QAEPAUIXMLDOMNode@@PAUIXMLDOMDocument@@PAU3@@Z",
+    "rva": "0x16350"
+   },
+   {
+    "ordinal": 372,
+    "name": "?TranformToPY@BULL@@YAJPA_WPAPA_W@Z",
+    "rva": "0x59f10"
+   },
+   {
+    "ordinal": 373,
+    "name": "?TransFromString@CGeneralBufferWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xc370"
+   },
+   {
+    "ordinal": 374,
+    "name": "?TransToString@CGeneralBufferWrapper@BULL@@QAEPB_WXZ",
+    "rva": "0xc410"
+   },
+   {
+    "ordinal": 375,
+    "name": "?UuidToStringW@BULL@@YA?AVCComBSTR@ATL@@AAU_GUID@@@Z",
+    "rva": "0x60480"
+   },
+   {
+    "ordinal": 376,
+    "name": "?VerifyIEVer@BULL@@YAJEK@Z",
+    "rva": "0x3bc60"
+   },
+   {
+    "ordinal": 377,
+    "name": "?VerifySign@BULL@@YAJPA_WPAUIGeneralBuffer@1@0PAH@Z",
+    "rva": "0x37fa0"
+   },
+   {
+    "ordinal": 378,
+    "name": "?VerifySign@BULL@@YAJPA_WPAUIGeneralBuffer@1@PAH@Z",
+    "rva": "0x382d0"
+   },
+   {
+    "ordinal": 379,
+    "name": "?VerifySign_s@BULL@@YA_NPB_WPAUIGeneralBuffer@1@0@Z",
+    "rva": "0x385f0"
+   },
+   {
+    "ordinal": 380,
+    "name": "?VerifySign_s@BULL@@YA_NPB_WPAUIGeneralBuffer@1@@Z",
+    "rva": "0x386d0"
+   },
+   {
+    "ordinal": 381,
+    "name": "?VerifyWinVer@BULL@@YAJEKKGG@Z",
+    "rva": "0x3bde0"
+   },
+   {
+    "ordinal": 382,
+    "name": "?VersionDecode@BULL@@YAJPAUIGeneralBuffer@1@0PAPAU21@@Z",
+    "rva": "0x38770"
+   },
+   {
+    "ordinal": 383,
+    "name": "?VersionDecode_s@BULL@@YA?AVCGeneralBufferWrapper@1@PAUIGeneralBuffer@1@0@Z",
+    "rva": "0x38920"
+   },
+   {
+    "ordinal": 384,
+    "name": "?WideCharToMultiByte@BULL@@YA?AV?$CStringT@DV?$StrTraitATL@DV?$ChTraitsCRT@D@ATL@@@ATL@@@ATL@@IPB_W@Z",
+    "rva": "0x5bec0"
+   },
+   {
+    "ordinal": 385,
+    "name": "?WideCharToMultiByte@BULL@@YAJIPB_WPAPAUIGeneralBuffer@1@@Z",
+    "rva": "0x5c020"
+   },
+   {
+    "ordinal": 386,
+    "name": "?XLog@BULL@@YAJKKPB_WZZ",
+    "rva": "0x4dee0"
+   },
+   {
+    "ordinal": 387,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W11111111111111@Z",
+    "rva": "0x24870"
+   },
+   {
+    "ordinal": 388,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W1111111111111@Z",
+    "rva": "0x24c60"
+   },
+   {
+    "ordinal": 389,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W111111111111@Z",
+    "rva": "0x25020"
+   },
+   {
+    "ordinal": 390,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W11111111111@Z",
+    "rva": "0x253a0"
+   },
+   {
+    "ordinal": 391,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W1111111111@Z",
+    "rva": "0x256e0"
+   },
+   {
+    "ordinal": 392,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W111111111@Z",
+    "rva": "0x259f0"
+   },
+   {
+    "ordinal": 393,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W11111111@Z",
+    "rva": "0x25cc0"
+   },
+   {
+    "ordinal": 394,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W1111111@Z",
+    "rva": "0x25f50"
+   },
+   {
+    "ordinal": 395,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W111111@Z",
+    "rva": "0x261a0"
+   },
+   {
+    "ordinal": 396,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W11111@Z",
+    "rva": "0x263c0"
+   },
+   {
+    "ordinal": 397,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W1111@Z",
+    "rva": "0x26590"
+   },
+   {
+    "ordinal": 398,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W111@Z",
+    "rva": "0x26730"
+   },
+   {
+    "ordinal": 399,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W11@Z",
+    "rva": "0x268e0"
+   },
+   {
+    "ordinal": 400,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W1@Z",
+    "rva": "0x26a50"
+   },
+   {
+    "ordinal": 401,
+    "name": "?XLogMonitor@BULL@@YAJ_KPB_W@Z",
+    "rva": "0x26bc0"
+   },
+   {
+    "ordinal": 402,
+    "name": "?XLogMultiline@BULL@@YAJKKPB_WZZ",
+    "rva": "0x4dfc0"
+   },
+   {
+    "ordinal": 403,
+    "name": "?XLogTagMultiline@BULL@@YAJKKPB_W0ZZ",
+    "rva": "0x4e0a0"
+   },
+   {
+    "ordinal": 404,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W1111111111@Z",
+    "rva": "0x26dd0"
+   },
+   {
+    "ordinal": 405,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W111111111@Z",
+    "rva": "0x270a0"
+   },
+   {
+    "ordinal": 406,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W11111111@Z",
+    "rva": "0x27330"
+   },
+   {
+    "ordinal": 407,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W1111111@Z",
+    "rva": "0x27590"
+   },
+   {
+    "ordinal": 408,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W111111@Z",
+    "rva": "0x277b0"
+   },
+   {
+    "ordinal": 409,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W11111@Z",
+    "rva": "0x27980"
+   },
+   {
+    "ordinal": 410,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W1111@Z",
+    "rva": "0x27b20"
+   },
+   {
+    "ordinal": 411,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W111@Z",
+    "rva": "0x27cd0"
+   },
+   {
+    "ordinal": 412,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W11@Z",
+    "rva": "0x27e40"
+   },
+   {
+    "ordinal": 413,
+    "name": "?XLogTrace@BULL@@YAJPAUILogTrace@1@KPB_W1@Z",
+    "rva": "0x27fb0"
+   },
+   {
+    "ordinal": 414,
+    "name": "?XLogV@BULL@@YAXIPB_W0PAD@Z",
+    "rva": "0x4e180"
+   },
+   {
+    "ordinal": 415,
+    "name": "?XLogWithTag@BULL@@YAJKKPB_W0ZZ",
+    "rva": "0x4e350"
+   },
+   {
+    "ordinal": 416,
+    "name": "?_atoui64@@YA_KPBD@Z",
+    "rva": "0x5c2a0"
+   },
+   {
+    "ordinal": 417,
+    "name": "?_atoui@@YAIPBD@Z",
+    "rva": "0x5c2d0"
+   },
+   {
+    "ordinal": 418,
+    "name": "?_wtoui64@@YA_KPB_W@Z",
+    "rva": "0x5c2f0"
+   },
+   {
+    "ordinal": 419,
+    "name": "?_wtoui@@YAIPB_W@Z",
+    "rva": "0x5c320"
+   },
+   {
+    "ordinal": 420,
+    "name": "?tgz@BULL@@YAJPB_WPAUIGeneralArray@1@@Z",
+    "rva": "0x4b0f0"
+   },
+   {
+    "ordinal": 421,
+    "name": "?untgz@BULL@@YAJPB_W0PAPAUIGeneralArray@1@1@Z",
+    "rva": "0x4b730"
+   },
+   {
+    "ordinal": 422,
+    "name": "DllCanUnloadNow",
+    "rva": "0x1a80"
+   },
+   {
+    "ordinal": 423,
+    "name": "DllGetClassObject",
+    "rva": "0x1aa0"
+   },
+   {
+    "ordinal": 424,
+    "name": "DllRegisterServer",
+    "rva": "0x1af0"
+   },
+   {
+    "ordinal": 425,
+    "name": "DllUnregisterServer",
+    "rva": "0x1af0"
+   },
+   {
+    "ordinal": 426,
+    "name": "curl_easy_cleanup",
+    "rva": "0x75fb0"
+   },
+   {
+    "ordinal": 427,
+    "name": "curl_easy_duphandle",
+    "rva": "0x75fd0"
+   },
+   {
+    "ordinal": 428,
+    "name": "curl_easy_escape",
+    "rva": "0x9d690"
+   },
+   {
+    "ordinal": 429,
+    "name": "curl_easy_getinfo",
+    "rva": "0x761f0"
+   },
+   {
+    "ordinal": 430,
+    "name": "curl_easy_init",
+    "rva": "0x76210"
+   },
+   {
+    "ordinal": 431,
+    "name": "curl_easy_pause",
+    "rva": "0x76250"
+   },
+   {
+    "ordinal": 432,
+    "name": "curl_easy_perform",
+    "rva": "0x763a0"
+   },
+   {
+    "ordinal": 433,
+    "name": "curl_easy_recv",
+    "rva": "0x763c0"
+   },
+   {
+    "ordinal": 434,
+    "name": "curl_easy_reset",
+    "rva": "0x76430"
+   },
+   {
+    "ordinal": 435,
+    "name": "curl_easy_send",
+    "rva": "0x764f0"
+   },
+   {
+    "ordinal": 436,
+    "name": "curl_easy_setopt",
+    "rva": "0x79270"
+   },
+   {
+    "ordinal": 437,
+    "name": "curl_easy_strerror",
+    "rva": "0xa0340"
+   },
+   {
+    "ordinal": 438,
+    "name": "curl_easy_unescape",
+    "rva": "0x9d770"
+   },
+   {
+    "ordinal": 439,
+    "name": "curl_easy_upkeep",
+    "rva": "0x76580"
+   },
+   {
+    "ordinal": 440,
+    "name": "curl_escape",
+    "rva": "0x9d7e0"
+   },
+   {
+    "ordinal": 441,
+    "name": "curl_formadd",
+    "rva": "0x75c80"
+   },
+   {
+    "ordinal": 442,
+    "name": "curl_formfree",
+    "rva": "0x75ca0"
+   },
+   {
+    "ordinal": 443,
+    "name": "curl_formget",
+    "rva": "0x75d10"
+   },
+   {
+    "ordinal": 444,
+    "name": "curl_free",
+    "rva": "0x7ff30"
+   },
+   {
+    "ordinal": 445,
+    "name": "curl_getdate",
+    "rva": "0x97330"
+   },
+   {
+    "ordinal": 446,
+    "name": "curl_getenv",
+    "rva": "0x9d4f0"
+   },
+   {
+    "ordinal": 447,
+    "name": "curl_global_cleanup",
+    "rva": "0x765c0"
+   },
+   {
+    "ordinal": 448,
+    "name": "curl_global_init",
+    "rva": "0x76600"
+   },
+   {
+    "ordinal": 449,
+    "name": "curl_global_init_mem",
+    "rva": "0x76620"
+   },
+   {
+    "ordinal": 450,
+    "name": "curl_global_sslset",
+    "rva": "0x824e0"
+   },
+   {
+    "ordinal": 451,
+    "name": "curl_maprintf",
+    "rva": "0x95a60"
+   },
+   {
+    "ordinal": 452,
+    "name": "curl_mfprintf",
+    "rva": "0x95af0"
+   },
+   {
+    "ordinal": 453,
+    "name": "curl_mime_addpart",
+    "rva": "0x7d110"
+   },
+   {
+    "ordinal": 454,
+    "name": "curl_mime_data",
+    "rva": "0x7d170"
+   },
+   {
+    "ordinal": 455,
+    "name": "curl_mime_data_cb",
+    "rva": "0x7d210"
+   },
+   {
+    "ordinal": 456,
+    "name": "curl_mime_encoder",
+    "rva": "0x7d260"
+   },
+   {
+    "ordinal": 457,
+    "name": "curl_mime_filedata",
+    "rva": "0x7d2c0"
+   },
+   {
+    "ordinal": 458,
+    "name": "curl_mime_filename",
+    "rva": "0x7d3e0"
+   },
+   {
+    "ordinal": 459,
+    "name": "curl_mime_free",
+    "rva": "0x7d430"
+   },
+   {
+    "ordinal": 460,
+    "name": "curl_mime_headers",
+    "rva": "0x7d480"
+   },
+   {
+    "ordinal": 461,
+    "name": "curl_mime_init",
+    "rva": "0x7d4d0"
+   },
+   {
+    "ordinal": 462,
+    "name": "curl_mime_name",
+    "rva": "0x7d550"
+   },
+   {
+    "ordinal": 463,
+    "name": "curl_mime_subparts",
+    "rva": "0x7d5a0"
+   },
+   {
+    "ordinal": 464,
+    "name": "curl_mime_type",
+    "rva": "0x7d5c0"
+   },
+   {
+    "ordinal": 465,
+    "name": "curl_mprintf",
+    "rva": "0x95b10"
+   },
+   {
+    "ordinal": 466,
+    "name": "curl_msnprintf",
+    "rva": "0x95b40"
+   },
+   {
+    "ordinal": 467,
+    "name": "curl_msprintf",
+    "rva": "0x95b60"
+   },
+   {
+    "ordinal": 468,
+    "name": "curl_multi_add_handle",
+    "rva": "0x79ce0"
+   },
+   {
+    "ordinal": 469,
+    "name": "curl_multi_assign",
+    "rva": "0x79e40"
+   },
+   {
+    "ordinal": 470,
+    "name": "curl_multi_cleanup",
+    "rva": "0x79e80"
+   },
+   {
+    "ordinal": 471,
+    "name": "curl_multi_fdset",
+    "rva": "0x79f70"
+   },
+   {
+    "ordinal": 472,
+    "name": "curl_multi_info_read",
+    "rva": "0x7a0f0"
+   },
+   {
+    "ordinal": 473,
+    "name": "curl_multi_init",
+    "rva": "0x7a160"
+   },
+   {
+    "ordinal": 474,
+    "name": "curl_multi_perform",
+    "rva": "0x7a170"
+   },
+   {
+    "ordinal": 475,
+    "name": "curl_multi_poll",
+    "rva": "0x7a280"
+   },
+   {
+    "ordinal": 476,
+    "name": "curl_multi_remove_handle",
+    "rva": "0x7a2a0"
+   },
+   {
+    "ordinal": 477,
+    "name": "curl_multi_resolver_handles",
+    "rva": "0x7a450"
+   },
+   {
+    "ordinal": 478,
+    "name": "curl_multi_setopt",
+    "rva": "0x7a4d0"
+   },
+   {
+    "ordinal": 479,
+    "name": "curl_multi_socket",
+    "rva": "0x7a630"
+   },
+   {
+    "ordinal": 480,
+    "name": "curl_multi_socket_action",
+    "rva": "0x7a680"
+   },
+   {
+    "ordinal": 481,
+    "name": "curl_multi_socket_all",
+    "rva": "0x7a6d0"
+   },
+   {
+    "ordinal": 482,
+    "name": "curl_multi_strerror",
+    "rva": "0xa0730"
+   },
+   {
+    "ordinal": 483,
+    "name": "curl_multi_timeout",
+    "rva": "0x7a710"
+   },
+   {
+    "ordinal": 484,
+    "name": "curl_multi_wait",
+    "rva": "0x7a750"
+   },
+   {
+    "ordinal": 485,
+    "name": "curl_mvaprintf",
+    "rva": "0x95b90"
+   },
+   {
+    "ordinal": 486,
+    "name": "curl_mvfprintf",
+    "rva": "0x95c20"
+   },
+   {
+    "ordinal": 487,
+    "name": "curl_mvprintf",
+    "rva": "0x95c40"
+   },
+   {
+    "ordinal": 488,
+    "name": "curl_mvsnprintf",
+    "rva": "0x95c70"
+   },
+   {
+    "ordinal": 489,
+    "name": "curl_mvsprintf",
+    "rva": "0x95cd0"
+   },
+   {
+    "ordinal": 490,
+    "name": "curl_share_cleanup",
+    "rva": "0x8ba50"
+   },
+   {
+    "ordinal": 491,
+    "name": "curl_share_init",
+    "rva": "0x8bb20"
+   },
+   {
+    "ordinal": 492,
+    "name": "curl_share_setopt",
+    "rva": "0x8bb60"
+   },
+   {
+    "ordinal": 493,
+    "name": "curl_share_strerror",
+    "rva": "0xa07c0"
+   },
+   {
+    "ordinal": 494,
+    "name": "curl_slist_append",
+    "rva": "0x75ef0"
+   },
+   {
+    "ordinal": 495,
+    "name": "curl_slist_free_all",
+    "rva": "0x75f30"
+   },
+   {
+    "ordinal": 496,
+    "name": "curl_strequal",
+    "rva": "0x8ae60"
+   },
+   {
+    "ordinal": 497,
+    "name": "curl_strnequal",
+    "rva": "0x8ae70"
+   },
+   {
+    "ordinal": 498,
+    "name": "curl_unescape",
+    "rva": "0x9d800"
+   },
+   {
+    "ordinal": 499,
+    "name": "curl_url",
+    "rva": "0x9e0e0"
+   },
+   {
+    "ordinal": 500,
+    "name": "curl_url_cleanup",
+    "rva": "0x9e0f0"
+   },
+   {
+    "ordinal": 501,
+    "name": "curl_url_dup",
+    "rva": "0x9e110"
+   },
+   {
+    "ordinal": 502,
+    "name": "curl_url_get",
+    "rva": "0x9e230"
+   },
+   {
+    "ordinal": 503,
+    "name": "curl_url_set",
+    "rva": "0x9e740"
+   },
+   {
+    "ordinal": 504,
+    "name": "curl_version",
+    "rva": "0x8a3c0"
+   },
+   {
+    "ordinal": 505,
+    "name": "curl_version_info",
+    "rva": "0x8a460"
+   }
+  ],
+  "import_count": {
+   "minosagent.dll": 10,
+   "WS2_32.dll": 28,
+   "KERNEL32.dll": 138,
+   "USER32.dll": 20,
+   "GDI32.dll": 1,
+   "ADVAPI32.dll": 23,
+   "SHELL32.dll": 2,
+   "ole32.dll": 13,
+   "OLEAUT32.dll": 19,
+   "MSVCP140.dll": 3,
+   "dbghelp.dll": 1,
+   "WININET.dll": 16,
+   "WINMM.dll": 2,
+   "RPCRT4.dll": 4,
+   "bcrypt.dll": 1,
+   "VCRUNTIME140.dll": 20,
+   "api-ms-win-crt-heap-l1-1-0.dll": 6,
+   "api-ms-win-crt-runtime-l1-1-0.dll": 21,
+   "api-ms-win-crt-convert-l1-1-0.dll": 9,
+   "api-ms-win-crt-string-l1-1-0.dll": 23,
+   "api-ms-win-crt-stdio-l1-1-0.dll": 39,
+   "api-ms-win-crt-time-l1-1-0.dll": 6,
+   "api-ms-win-crt-locale-l1-1-0.dll": 1,
+   "api-ms-win-crt-filesystem-l1-1-0.dll": 8,
+   "api-ms-win-crt-utility-l1-1-0.dll": 2,
+   "api-ms-win-crt-multibyte-l1-1-0.dll": 6,
+   "api-ms-win-crt-environment-l1-1-0.dll": 1,
+   "api-ms-win-crt-math-l1-1-0.dll": 1,
+   "CRYPT32.dll": 7
+  }
+ },
+ "KernelCom.dll": {
+  "size": 2299104,
+  "machine": "0x14c",
+  "timestamp": 1609151762,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 1690075,
+    "raw": "0x400",
+    "rawsize": 1690112
+   },
+   {
+    "name": ".rdata",
+    "va": "0x19e000",
+    "vsize": 446586,
+    "raw": "0x19ce00",
+    "rawsize": 446976
+   },
+   {
+    "name": ".data",
+    "va": "0x20c000",
+    "vsize": 71304,
+    "raw": "0x20a000",
+    "rawsize": 55296
+   },
+   {
+    "name": ".gfids",
+    "va": "0x21e000",
+    "vsize": 3088,
+    "raw": "0x217800",
+    "rawsize": 3584
+   },
+   {
+    "name": ".tls",
+    "va": "0x21f000",
+    "vsize": 17,
+    "raw": "0x218600",
+    "rawsize": 512
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x220000",
+    "vsize": 1344,
+    "raw": "0x218800",
+    "rawsize": 1536
+   },
+   {
+    "name": ".reloc",
+    "va": "0x221000",
+    "vsize": 83884,
+    "raw": "0x218e00",
+    "rawsize": 83968
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "edge_init",
+    "rva": "0xb440"
+   },
+   {
+    "ordinal": 2,
+    "name": "edge_set_callback_function",
+    "rva": "0xc3c0"
+   },
+   {
+    "ordinal": 3,
+    "name": "edge_set_file_info",
+    "rva": "0xc2f0"
+   },
+   {
+    "ordinal": 4,
+    "name": "edge_set_message",
+    "rva": "0xbd50"
+   },
+   {
+    "ordinal": 5,
+    "name": "edge_set_param",
+    "rva": "0xba00"
+   },
+   {
+    "ordinal": 6,
+    "name": "edge_unit",
+    "rva": "0xb990"
+   }
+  ],
+  "import_count": {
+   "KERNEL32.dll": 186,
+   "USER32.dll": 4,
+   "IPHLPAPI.DLL": 1,
+   "pdh.dll": 6,
+   "WS2_32.dll": 31,
+   "WLDAP32.dll": 0,
+   "CRYPT32.dll": 7,
+   "ADVAPI32.dll": 15
+  }
+ },
+ "YunDls.dll": {
+  "size": 2303984,
+  "machine": "0x14c",
+  "timestamp": 1767624216,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 1686132,
+    "raw": "0x400",
+    "rawsize": 1686528
+   },
+   {
+    "name": ".rdata",
+    "va": "0x19d000",
+    "vsize": 482076,
+    "raw": "0x19c000",
+    "rawsize": 482304
+   },
+   {
+    "name": ".data",
+    "va": "0x213000",
+    "vsize": 38172,
+    "raw": "0x211c00",
+    "rawsize": 22016
+   },
+   {
+    "name": ".tls",
+    "va": "0x21d000",
+    "vsize": 9,
+    "raw": "0x217200",
+    "rawsize": 512
+   },
+   {
+    "name": ".gfids",
+    "va": "0x21e000",
+    "vsize": 76,
+    "raw": "0x217400",
+    "rawsize": 512
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x21f000",
+    "vsize": 10400,
+    "raw": "0x217600",
+    "rawsize": 10752
+   },
+   {
+    "name": ".reloc",
+    "va": "0x222000",
+    "vsize": 78568,
+    "raw": "0x21a000",
+    "rawsize": 78848
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "??_FCGeneralBufferWrapper@BULL@@QAEXXZ",
+    "rva": "0xac9e0"
+   },
+   {
+    "ordinal": 2,
+    "name": "?Append@CGeneralBufferWrapper@BULL@@QAEXPAEK@Z",
+    "rva": "0xad230"
+   },
+   {
+    "ordinal": 3,
+    "name": "?Attach@CGeneralBufferWrapper@BULL@@QAEXPAEK@Z",
+    "rva": "0xad420"
+   },
+   {
+    "ordinal": 4,
+    "name": "?Clear@CGeneralBufferWrapper@BULL@@QAEXXZ",
+    "rva": "0xad600"
+   },
+   {
+    "ordinal": 5,
+    "name": "?Compare@CGeneralBufferWrapper@BULL@@QAE_NPAEK@Z",
+    "rva": "0xad630"
+   },
+   {
+    "ordinal": 6,
+    "name": "?CopyFrom@CGeneralBufferWrapper@BULL@@QAEXPAEK@Z",
+    "rva": "0xad6a0"
+   },
+   {
+    "ordinal": 7,
+    "name": "?Detach@CGeneralBufferWrapper@BULL@@QAEPAEXZ",
+    "rva": "0xad6d0"
+   },
+   {
+    "ordinal": 8,
+    "name": "?GetBuffer@CGeneralBufferWrapper@BULL@@QAEPAEXZ",
+    "rva": "0xad9e0"
+   },
+   {
+    "ordinal": 9,
+    "name": "?GetLength@CGeneralBufferWrapper@BULL@@QAEKXZ",
+    "rva": "0xae590"
+   },
+   {
+    "ordinal": 10,
+    "name": "?Resize@CGeneralBufferWrapper@BULL@@QAEPAEK@Z",
+    "rva": "0xaf8e0"
+   },
+   {
+    "ordinal": 11,
+    "name": "?TransFromString@CGeneralBufferWrapper@BULL@@QAEXPB_W@Z",
+    "rva": "0xafc70"
+   },
+   {
+    "ordinal": 12,
+    "name": "?TransToString@CGeneralBufferWrapper@BULL@@QAEPB_WXZ",
+    "rva": "0xafd10"
+   },
+   {
+    "ordinal": 13,
+    "name": "DllCanUnloadNow",
+    "rva": "0xc97b0"
+   },
+   {
+    "ordinal": 14,
+    "name": "DllGetClassObject",
+    "rva": "0xc97d0"
+   },
+   {
+    "ordinal": 15,
+    "name": "DllInstall",
+    "rva": "0xc97f0"
+   },
+   {
+    "ordinal": 16,
+    "name": "DllRegisterServer",
+    "rva": "0xc9890"
+   },
+   {
+    "ordinal": 17,
+    "name": "DllUnregisterServer",
+    "rva": "0xc98a0"
+   }
+  ],
+  "import_count": {
+   "updateagent.dll": 5,
+   "Bull140U.DLL": 13,
+   "WS2_32.dll": 6,
+   "CRYPT32.dll": 8,
+   "KERNEL32.dll": 149,
+   "USER32.dll": 27,
+   "ADVAPI32.dll": 24,
+   "SHELL32.dll": 3,
+   "ole32.dll": 8,
+   "OLEAUT32.dll": 20,
+   "MSVCP140.dll": 3,
+   "WINTRUST.dll": 4,
+   "appUtil.DLL": 16,
+   "WINMM.dll": 3,
+   "PSAPI.DLL": 1,
+   "WININET.dll": 12,
+   "bcrypt.dll": 1,
+   "VCRUNTIME140.dll": 20,
+   "api-ms-win-crt-runtime-l1-1-0.dll": 20,
+   "api-ms-win-crt-string-l1-1-0.dll": 19,
+   "api-ms-win-crt-stdio-l1-1-0.dll": 25,
+   "api-ms-win-crt-heap-l1-1-0.dll": 7,
+   "api-ms-win-crt-convert-l1-1-0.dll": 5,
+   "api-ms-win-crt-time-l1-1-0.dll": 4,
+   "api-ms-win-crt-multibyte-l1-1-0.dll": 1,
+   "api-ms-win-crt-math-l1-1-0.dll": 2,
+   "api-ms-win-crt-filesystem-l1-1-0.dll": 2,
+   "api-ms-win-crt-utility-l1-1-0.dll": 2,
+   "api-ms-win-crt-environment-l1-1-0.dll": 1
+  }
+ },
+ "YunLogic.dll": {
+  "size": 4316144,
+  "machine": "0x14c",
+  "timestamp": 1767624273,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 1724558,
+    "raw": "0x400",
+    "rawsize": 1724928
+   },
+   {
+    "name": ".rdata",
+    "va": "0x1a7000",
+    "vsize": 686088,
+    "raw": "0x1a5600",
+    "rawsize": 686592
+   },
+   {
+    "name": ".data",
+    "va": "0x24f000",
+    "vsize": 79028,
+    "raw": "0x24d000",
+    "rawsize": 64512
+   },
+   {
+    "name": ".tls",
+    "va": "0x263000",
+    "vsize": 9,
+    "raw": "0x25cc00",
+    "rawsize": 512
+   },
+   {
+    "name": ".gfids",
+    "va": "0x264000",
+    "vsize": 56,
+    "raw": "0x25ce00",
+    "rawsize": 512
+   },
+   {
+    "name": ".vmp0",
+    "va": "0x265000",
+    "vsize": 1277552,
+    "raw": "0x25d000",
+    "rawsize": 1277952
+   },
+   {
+    "name": ".reloc",
+    "va": "0x39d000",
+    "vsize": 110492,
+    "raw": "0x395000",
+    "rawsize": 110592
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x3b8000",
+    "vsize": 427812,
+    "raw": "0x3b0000",
+    "rawsize": 428032
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "DllCanUnloadNow",
+    "rva": "0x711a0"
+   },
+   {
+    "ordinal": 2,
+    "name": "DllGetClassObject",
+    "rva": "0x711c0"
+   },
+   {
+    "ordinal": 3,
+    "name": "DllRegisterServer",
+    "rva": "0x71210"
+   },
+   {
+    "ordinal": 4,
+    "name": "DllUnregisterServer",
+    "rva": "0x71220"
+   }
+  ],
+  "import_count": {
+   "Bull140U.DLL": 18,
+   "WS2_32.dll": 20,
+   "CRYPT32.dll": 8,
+   "KERNEL32.dll": 122,
+   "USER32.dll": 34,
+   "ADVAPI32.dll": 30,
+   "SHELL32.dll": 2,
+   "ole32.dll": 7,
+   "OLEAUT32.dll": 20,
+   "MSVCP140.dll": 94,
+   "appUtil.DLL": 27,
+   "WINTRUST.dll": 4,
+   "IPHLPAPI.DLL": 2,
+   "PSAPI.DLL": 1,
+   "WININET.dll": 1,
+   "WINMM.dll": 3,
+   "bcrypt.dll": 1,
+   "VCRUNTIME140.dll": 22,
+   "api-ms-win-crt-runtime-l1-1-0.dll": 19,
+   "api-ms-win-crt-stdio-l1-1-0.dll": 21,
+   "api-ms-win-crt-string-l1-1-0.dll": 26,
+   "api-ms-win-crt-heap-l1-1-0.dll": 6,
+   "api-ms-win-crt-time-l1-1-0.dll": 4,
+   "api-ms-win-crt-convert-l1-1-0.dll": 7,
+   "api-ms-win-crt-multibyte-l1-1-0.dll": 3,
+   "api-ms-win-crt-utility-l1-1-0.dll": 3,
+   "api-ms-win-crt-math-l1-1-0.dll": 2,
+   "api-ms-win-crt-environment-l1-1-0.dll": 1,
+   "api-ms-win-crt-filesystem-l1-1-0.dll": 2
+  }
+ },
+ "channelpcsdk.dll": {
+  "size": 408560,
+  "machine": "0x14c",
+  "timestamp": 1587709947,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 280569,
+    "raw": "0x400",
+    "rawsize": 280576
+   },
+   {
+    "name": ".rdata",
+    "va": "0x46000",
+    "vsize": 82902,
+    "raw": "0x44c00",
+    "rawsize": 82944
+   },
+   {
+    "name": ".data",
+    "va": "0x5b000",
+    "vsize": 8676,
+    "raw": "0x59000",
+    "rawsize": 5120
+   },
+   {
+    "name": ".gfids",
+    "va": "0x5e000",
+    "vsize": 580,
+    "raw": "0x5a400",
+    "rawsize": 1024
+   },
+   {
+    "name": ".tls",
+    "va": "0x5f000",
+    "vsize": 9,
+    "raw": "0x5a800",
+    "rawsize": 512
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x60000",
+    "vsize": 1304,
+    "raw": "0x5aa00",
+    "rawsize": 1536
+   },
+   {
+    "name": ".reloc",
+    "va": "0x61000",
+    "vsize": 14228,
+    "raw": "0x5b000",
+    "rawsize": 14336
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "Bind",
+    "rva": "0x12a20"
+   },
+   {
+    "ordinal": 2,
+    "name": "DisableHttpProxy",
+    "rva": "0x12580"
+   },
+   {
+    "ordinal": 3,
+    "name": "DisableIEHttpProxy",
+    "rva": "0x12920"
+   },
+   {
+    "ordinal": 4,
+    "name": "EnableHttpProxy",
+    "rva": "0x12100"
+   },
+   {
+    "ordinal": 5,
+    "name": "EnableIEHttpProxy",
+    "rva": "0x125e0"
+   },
+   {
+    "ordinal": 6,
+    "name": "GetBindUserId",
+    "rva": "0x143b0"
+   },
+   {
+    "ordinal": 7,
+    "name": "GetChannelId",
+    "rva": "0x14220"
+   },
+   {
+    "ordinal": 8,
+    "name": "GroupBind",
+    "rva": "0x13420"
+   },
+   {
+    "ordinal": 9,
+    "name": "GroupInfo",
+    "rva": "0x13b80"
+   },
+   {
+    "ordinal": 10,
+    "name": "GroupList",
+    "rva": "0x13f30"
+   },
+   {
+    "ordinal": 11,
+    "name": "GroupUnbind",
+    "rva": "0x137d0"
+   },
+   {
+    "ordinal": 12,
+    "name": "ReceiveResponse",
+    "rva": "0x141a0"
+   },
+   {
+    "ordinal": 13,
+    "name": "SetAccessControlMode",
+    "rva": "0x120e0"
+   },
+   {
+    "ordinal": 14,
+    "name": "Token",
+    "rva": "0x12930"
+   },
+   {
+    "ordinal": 15,
+    "name": "Unbind",
+    "rva": "0x13120"
+   }
+  ],
+  "import_count": {
+   "KERNEL32.dll": 101,
+   "USER32.dll": 1,
+   "ADVAPI32.dll": 6,
+   "IPHLPAPI.DLL": 1,
+   "WS2_32.dll": 17,
+   "WINHTTP.dll": 13
+  }
+ },
+ "kernel.dll": {
+  "size": 44170496,
+  "machine": "0x14c",
+  "timestamp": 1788347401,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 18367783,
+    "raw": "0x400",
+    "rawsize": 18368000
+   },
+   {
+    "name": ".rdata",
+    "va": "0x1186000",
+    "vsize": 2108548,
+    "raw": "0x1184a00",
+    "rawsize": 2108928
+   },
+   {
+    "name": ".data",
+    "va": "0x1389000",
+    "vsize": 389444,
+    "raw": "0x1387800",
+    "rawsize": 285696
+   },
+   {
+    "name": ".00cfg",
+    "va": "0x13e9000",
+    "vsize": 4,
+    "raw": "0x13cd400",
+    "rawsize": 512
+   },
+   {
+    "name": ".tls",
+    "va": "0x13ea000",
+    "vsize": 133,
+    "raw": "0x13cd600",
+    "rawsize": 512
+   },
+   {
+    "name": ".voltbl",
+    "va": "0x13eb000",
+    "vsize": 192,
+    "raw": "0x13cd800",
+    "rawsize": 512
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x13ec000",
+    "vsize": 22817536,
+    "raw": "0x13cda00",
+    "rawsize": 22817792
+   },
+   {
+    "name": ".reloc",
+    "va": "0x29af000",
+    "vsize": 565464,
+    "raw": "0x2990600",
+    "rawsize": 565760
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "GetHandleVerifier",
+    "rva": "0x9a78e0"
+   },
+   {
+    "ordinal": 2,
+    "name": "add_rapid_upload_file",
+    "rva": "0x1225d0"
+   },
+   {
+    "ordinal": 3,
+    "name": "control_task",
+    "rva": "0x107cb0"
+   },
+   {
+    "ordinal": 4,
+    "name": "create_p2sp_task",
+    "rva": "0x107820"
+   },
+   {
+    "ordinal": 5,
+    "name": "get_param_async",
+    "rva": "0x122750"
+   },
+   {
+    "ordinal": 6,
+    "name": "get_param_length",
+    "rva": "0x122730"
+   },
+   {
+    "ordinal": 7,
+    "name": "get_param_sync",
+    "rva": "0x122740"
+   },
+   {
+    "ordinal": 8,
+    "name": "get_task_info",
+    "rva": "0x107d50"
+   },
+   {
+    "ordinal": 9,
+    "name": "get_task_param_async",
+    "rva": "0x16b0"
+   },
+   {
+    "ordinal": 10,
+    "name": "get_task_param_length",
+    "rva": "0x4cc0"
+   },
+   {
+    "ordinal": 11,
+    "name": "get_task_param_sync",
+    "rva": "0x4cc0"
+   },
+   {
+    "ordinal": 12,
+    "name": "load_btsdk",
+    "rva": "0x122760"
+   },
+   {
+    "ordinal": 13,
+    "name": "release_btsdk",
+    "rva": "0x1231f0"
+   },
+   {
+    "ordinal": 14,
+    "name": "set_param",
+    "rva": "0x1225f0"
+   },
+   {
+    "ordinal": 15,
+    "name": "set_task_finish_callback",
+    "rva": "0x1081b0"
+   },
+   {
+    "ordinal": 16,
+    "name": "set_task_param",
+    "rva": "0x107de0"
+   },
+   {
+    "ordinal": 17,
+    "name": "yunp2p_init",
+    "rva": "0x11d270"
+   },
+   {
+    "ordinal": 18,
+    "name": "yunp2p_unit",
+    "rva": "0x1202f0"
+   }
+  ],
+  "import_count": {
+   "WS2_32.dll": 49,
+   "KERNEL32.dll": 248,
+   "SHLWAPI.dll": 3,
+   "ADVAPI32.dll": 31,
+   "IPHLPAPI.DLL": 5,
+   "SensApi.dll": 1,
+   "SHELL32.dll": 5,
+   "WINTRUST.dll": 4,
+   "CRYPT32.dll": 11,
+   "WINMM.dll": 3,
+   "USER32.dll": 21,
+   "bcrypt.dll": 13,
+   "ole32.dll": 5,
+   "MSWSOCK.dll": 2,
+   "USERENV.dll": 2,
+   "WLDAP32.dll": 0,
+   "Normaliz.dll": 1
+  }
+ },
+ "kernel_btsdk.dll": {
+  "size": 4440056,
+  "machine": "0x14c",
+  "timestamp": 1735126734,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 3432700,
+    "raw": "0x400",
+    "rawsize": 3432960
+   },
+   {
+    "name": ".rdata",
+    "va": "0x348000",
+    "vsize": 779860,
+    "raw": "0x346600",
+    "rawsize": 780288
+   },
+   {
+    "name": ".data",
+    "va": "0x407000",
+    "vsize": 101440,
+    "raw": "0x404e00",
+    "rawsize": 61952
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x420000",
+    "vsize": 480,
+    "raw": "0x414000",
+    "rawsize": 512
+   },
+   {
+    "name": ".reloc",
+    "va": "0x421000",
+    "vsize": 141412,
+    "raw": "0x414200",
+    "rawsize": 141824
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "btsdk_add_torrent",
+    "rva": "0x136b0"
+   },
+   {
+    "ordinal": 2,
+    "name": "btsdk_add_torrent0",
+    "rva": "0x136e0"
+   },
+   {
+    "ordinal": 3,
+    "name": "btsdk_add_torrent2",
+    "rva": "0x13710"
+   },
+   {
+    "ordinal": 4,
+    "name": "btsdk_cleanup",
+    "rva": "0x8cb0"
+   },
+   {
+    "ordinal": 5,
+    "name": "btsdk_get_param",
+    "rva": "0x9180"
+   },
+   {
+    "ordinal": 6,
+    "name": "btsdk_get_torrent",
+    "rva": "0x13740"
+   },
+   {
+    "ordinal": 7,
+    "name": "btsdk_get_torrent_file",
+    "rva": "0xb170"
+   },
+   {
+    "ordinal": 8,
+    "name": "btsdk_get_torrent_files",
+    "rva": "0xb280"
+   },
+   {
+    "ordinal": 9,
+    "name": "btsdk_get_torrents",
+    "rva": "0x13780"
+   },
+   {
+    "ordinal": 10,
+    "name": "btsdk_init",
+    "rva": "0x94b0"
+   },
+   {
+    "ordinal": 11,
+    "name": "btsdk_priority_torrent_file",
+    "rva": "0xb380"
+   },
+   {
+    "ordinal": 12,
+    "name": "btsdk_remove_torrent",
+    "rva": "0x138c0"
+   },
+   {
+    "ordinal": 13,
+    "name": "btsdk_remove_torrent_file",
+    "rva": "0xb450"
+   },
+   {
+    "ordinal": 14,
+    "name": "btsdk_set_param",
+    "rva": "0x9cb0"
+   },
+   {
+    "ordinal": 15,
+    "name": "btsdk_start_torrent",
+    "rva": "0x13940"
+   },
+   {
+    "ordinal": 16,
+    "name": "btsdk_stop_torrent",
+    "rva": "0x13a10"
+   },
+   {
+    "ordinal": 17,
+    "name": "btsdk_test_torrent",
+    "rva": "0x9fe0"
+   },
+   {
+    "ordinal": 18,
+    "name": "btsdk_want_torrent_file",
+    "rva": "0xb7e0"
+   }
+  ],
+  "import_count": {
+   "WSOCK32.dll": 31,
+   "WS2_32.dll": 16,
+   "CRYPT32.dll": 17,
+   "WLDAP32.dll": 0,
+   "Normaliz.dll": 2,
+   "IPHLPAPI.DLL": 3,
+   "KERNEL32.dll": 206,
+   "USER32.dll": 3,
+   "SHELL32.dll": 3,
+   "ole32.dll": 1,
+   "ADVAPI32.dll": 14,
+   "bcrypt.dll": 1
+  }
+ },
+ "kernel_o.dll": {
+  "size": 43927024,
+  "machine": "0x14c",
+  "timestamp": 1777388949,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 18149607,
+    "raw": "0x400",
+    "rawsize": 18149888
+   },
+   {
+    "name": ".rdata",
+    "va": "0x1151000",
+    "vsize": 2091132,
+    "raw": "0x114f600",
+    "rawsize": 2091520
+   },
+   {
+    "name": ".data",
+    "va": "0x1350000",
+    "vsize": 387380,
+    "raw": "0x134e000",
+    "rawsize": 284160
+   },
+   {
+    "name": ".00cfg",
+    "va": "0x13af000",
+    "vsize": 4,
+    "raw": "0x1393600",
+    "rawsize": 512
+   },
+   {
+    "name": ".tls",
+    "va": "0x13b0000",
+    "vsize": 133,
+    "raw": "0x1393800",
+    "rawsize": 512
+   },
+   {
+    "name": ".voltbl",
+    "va": "0x13b1000",
+    "vsize": 192,
+    "raw": "0x1393a00",
+    "rawsize": 512
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x13b2000",
+    "vsize": 22816512,
+    "raw": "0x1393c00",
+    "rawsize": 22816768
+   },
+   {
+    "name": ".reloc",
+    "va": "0x2975000",
+    "vsize": 560212,
+    "raw": "0x2956400",
+    "rawsize": 560640
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "GetHandleVerifier",
+    "rva": "0x984fe0"
+   },
+   {
+    "ordinal": 2,
+    "name": "add_rapid_upload_file",
+    "rva": "0x11b8a0"
+   },
+   {
+    "ordinal": 3,
+    "name": "control_task",
+    "rva": "0x101d10"
+   },
+   {
+    "ordinal": 4,
+    "name": "create_p2sp_task",
+    "rva": "0x101880"
+   },
+   {
+    "ordinal": 5,
+    "name": "get_param_async",
+    "rva": "0x11ba20"
+   },
+   {
+    "ordinal": 6,
+    "name": "get_param_length",
+    "rva": "0x11ba00"
+   },
+   {
+    "ordinal": 7,
+    "name": "get_param_sync",
+    "rva": "0x11ba10"
+   },
+   {
+    "ordinal": 8,
+    "name": "get_task_info",
+    "rva": "0x101db0"
+   },
+   {
+    "ordinal": 9,
+    "name": "get_task_param_async",
+    "rva": "0x16b0"
+   },
+   {
+    "ordinal": 10,
+    "name": "get_task_param_length",
+    "rva": "0x4cc0"
+   },
+   {
+    "ordinal": 11,
+    "name": "get_task_param_sync",
+    "rva": "0x4cc0"
+   },
+   {
+    "ordinal": 12,
+    "name": "load_btsdk",
+    "rva": "0x11ba30"
+   },
+   {
+    "ordinal": 13,
+    "name": "release_btsdk",
+    "rva": "0x11c4c0"
+   },
+   {
+    "ordinal": 14,
+    "name": "set_param",
+    "rva": "0x11b8c0"
+   },
+   {
+    "ordinal": 15,
+    "name": "set_task_finish_callback",
+    "rva": "0x102210"
+   },
+   {
+    "ordinal": 16,
+    "name": "set_task_param",
+    "rva": "0x101e40"
+   },
+   {
+    "ordinal": 17,
+    "name": "yunp2p_init",
+    "rva": "0x116d20"
+   },
+   {
+    "ordinal": 18,
+    "name": "yunp2p_unit",
+    "rva": "0x1195c0"
+   }
+  ],
+  "import_count": {
+   "WS2_32.dll": 49,
+   "KERNEL32.dll": 248,
+   "SHLWAPI.dll": 4,
+   "ADVAPI32.dll": 31,
+   "IPHLPAPI.DLL": 5,
+   "SensApi.dll": 1,
+   "SHELL32.dll": 5,
+   "WINTRUST.dll": 4,
+   "CRYPT32.dll": 11,
+   "WINMM.dll": 3,
+   "USER32.dll": 21,
+   "bcrypt.dll": 13,
+   "ole32.dll": 5,
+   "MSWSOCK.dll": 2,
+   "USERENV.dll": 2,
+   "WLDAP32.dll": 0,
+   "Normaliz.dll": 1
+  }
+ },
+ "netbase.dll": {
+  "size": 12470256,
+  "machine": "0x14c",
+  "timestamp": 1765083600,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 9603778,
+    "raw": "0x400",
+    "rawsize": 9604096
+   },
+   {
+    "name": ".rdata",
+    "va": "0x92a000",
+    "vsize": 2462348,
+    "raw": "0x929000",
+    "rawsize": 2462720
+   },
+   {
+    "name": ".data",
+    "va": "0xb84000",
+    "vsize": 195304,
+    "raw": "0xb82400",
+    "rawsize": 31744
+   },
+   {
+    "name": ".fptable",
+    "va": "0xbb4000",
+    "vsize": 128,
+    "raw": "0xb8a000",
+    "rawsize": 512
+   },
+   {
+    "name": ".tls",
+    "va": "0xbb5000",
+    "vsize": 477,
+    "raw": "0xb8a200",
+    "rawsize": 512
+   },
+   {
+    "name": "malloc_h",
+    "va": "0xbb6000",
+    "vsize": 243,
+    "raw": "0xb8a400",
+    "rawsize": 512
+   },
+   {
+    "name": "prot",
+    "va": "0xbb7000",
+    "vsize": 116,
+    "raw": "0xb8a600",
+    "rawsize": 512
+   },
+   {
+    "name": ".reloc",
+    "va": "0xbb8000",
+    "vsize": 346660,
+    "raw": "0xb8a800",
+    "rawsize": 347136
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "Cronet_BufferCallback_CreateWith",
+    "rva": "0x1e5e0"
+   },
+   {
+    "ordinal": 2,
+    "name": "Cronet_BufferCallback_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 3,
+    "name": "Cronet_BufferCallback_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 4,
+    "name": "Cronet_BufferCallback_OnDestroy",
+    "rva": "0x1e5b0"
+   },
+   {
+    "ordinal": 5,
+    "name": "Cronet_BufferCallback_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 6,
+    "name": "Cronet_Buffer_Create",
+    "rva": "0x14690"
+   },
+   {
+    "ordinal": 7,
+    "name": "Cronet_Buffer_CreateWith",
+    "rva": "0x1e580"
+   },
+   {
+    "ordinal": 8,
+    "name": "Cronet_Buffer_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 9,
+    "name": "Cronet_Buffer_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 10,
+    "name": "Cronet_Buffer_GetData",
+    "rva": "0x1e560"
+   },
+   {
+    "ordinal": 11,
+    "name": "Cronet_Buffer_GetSize",
+    "rva": "0x1e540"
+   },
+   {
+    "ordinal": 12,
+    "name": "Cronet_Buffer_InitWithAlloc",
+    "rva": "0x1e510"
+   },
+   {
+    "ordinal": 13,
+    "name": "Cronet_Buffer_InitWithDataAndCallback",
+    "rva": "0x1e4e0"
+   },
+   {
+    "ordinal": 14,
+    "name": "Cronet_Buffer_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 15,
+    "name": "Cronet_DateTime_Create",
+    "rva": "0x20570"
+   },
+   {
+    "ordinal": 16,
+    "name": "Cronet_DateTime_Destroy",
+    "rva": "0x20590"
+   },
+   {
+    "ordinal": 17,
+    "name": "Cronet_DateTime_value_get",
+    "rva": "0x205d0"
+   },
+   {
+    "ordinal": 18,
+    "name": "Cronet_DateTime_value_set",
+    "rva": "0x205b0"
+   },
+   {
+    "ordinal": 19,
+    "name": "Cronet_EngineParams_Create",
+    "rva": "0x1f600"
+   },
+   {
+    "ordinal": 20,
+    "name": "Cronet_EngineParams_Destroy",
+    "rva": "0x1f660"
+   },
+   {
+    "ordinal": 21,
+    "name": "Cronet_EngineParams_accept_language_get",
+    "rva": "0x1f8b0"
+   },
+   {
+    "ordinal": 22,
+    "name": "Cronet_EngineParams_accept_language_set",
+    "rva": "0x1f690"
+   },
+   {
+    "ordinal": 23,
+    "name": "Cronet_EngineParams_enable_brotli_get",
+    "rva": "0x1f910"
+   },
+   {
+    "ordinal": 24,
+    "name": "Cronet_EngineParams_enable_brotli_set",
+    "rva": "0x1f710"
+   },
+   {
+    "ordinal": 25,
+    "name": "Cronet_EngineParams_enable_check_result_get",
+    "rva": "0x1f8a0"
+   },
+   {
+    "ordinal": 26,
+    "name": "Cronet_EngineParams_enable_check_result_set",
+    "rva": "0x1f680"
+   },
+   {
+    "ordinal": 27,
+    "name": "Cronet_EngineParams_enable_http2_get",
+    "rva": "0x1f900"
+   },
+   {
+    "ordinal": 28,
+    "name": "Cronet_EngineParams_enable_http2_set",
+    "rva": "0x1f700"
+   },
+   {
+    "ordinal": 29,
+    "name": "Cronet_EngineParams_enable_public_key_pinning_bypass_for_local_trust_anchors_get",
+    "rva": "0x1fab0"
+   },
+   {
+    "ordinal": 30,
+    "name": "Cronet_EngineParams_enable_public_key_pinning_bypass_for_local_trust_anchors_set",
+    "rva": "0x1f840"
+   },
+   {
+    "ordinal": 31,
+    "name": "Cronet_EngineParams_enable_quic_get",
+    "rva": "0x1f8f0"
+   },
+   {
+    "ordinal": 32,
+    "name": "Cronet_EngineParams_enable_quic_set",
+    "rva": "0x1f6f0"
+   },
+   {
+    "ordinal": 33,
+    "name": "Cronet_EngineParams_experimental_options_get",
+    "rva": "0x1fad0"
+   },
+   {
+    "ordinal": 34,
+    "name": "Cronet_EngineParams_experimental_options_set",
+    "rva": "0x1f870"
+   },
+   {
+    "ordinal": 35,
+    "name": "Cronet_EngineParams_http_cache_max_size_get",
+    "rva": "0x1f930"
+   },
+   {
+    "ordinal": 36,
+    "name": "Cronet_EngineParams_http_cache_max_size_set",
+    "rva": "0x1f730"
+   },
+   {
+    "ordinal": 37,
+    "name": "Cronet_EngineParams_http_cache_mode_get",
+    "rva": "0x1f920"
+   },
+   {
+    "ordinal": 38,
+    "name": "Cronet_EngineParams_http_cache_mode_set",
+    "rva": "0x1f720"
+   },
+   {
+    "ordinal": 39,
+    "name": "Cronet_EngineParams_network_thread_priority_get",
+    "rva": "0x1fac0"
+   },
+   {
+    "ordinal": 40,
+    "name": "Cronet_EngineParams_network_thread_priority_set",
+    "rva": "0x1f850"
+   },
+   {
+    "ordinal": 41,
+    "name": "Cronet_EngineParams_public_key_pins_add",
+    "rva": "0x1f7c0"
+   },
+   {
+    "ordinal": 42,
+    "name": "Cronet_EngineParams_public_key_pins_at",
+    "rva": "0x1fa20"
+   },
+   {
+    "ordinal": 43,
+    "name": "Cronet_EngineParams_public_key_pins_clear",
+    "rva": "0x1fa60"
+   },
+   {
+    "ordinal": 44,
+    "name": "Cronet_EngineParams_public_key_pins_size",
+    "rva": "0x1fa00"
+   },
+   {
+    "ordinal": 45,
+    "name": "Cronet_EngineParams_quic_hints_add",
+    "rva": "0x1f750"
+   },
+   {
+    "ordinal": 46,
+    "name": "Cronet_EngineParams_quic_hints_at",
+    "rva": "0x1f960"
+   },
+   {
+    "ordinal": 47,
+    "name": "Cronet_EngineParams_quic_hints_clear",
+    "rva": "0x1f9a0"
+   },
+   {
+    "ordinal": 48,
+    "name": "Cronet_EngineParams_quic_hints_size",
+    "rva": "0x1f940"
+   },
+   {
+    "ordinal": 49,
+    "name": "Cronet_EngineParams_storage_path_get",
+    "rva": "0x1f8d0"
+   },
+   {
+    "ordinal": 50,
+    "name": "Cronet_EngineParams_storage_path_set",
+    "rva": "0x1f6c0"
+   },
+   {
+    "ordinal": 51,
+    "name": "Cronet_EngineParams_user_agent_get",
+    "rva": "0x1f040"
+   },
+   {
+    "ordinal": 52,
+    "name": "Cronet_EngineParams_user_agent_set",
+    "rva": "0x1efd0"
+   },
+   {
+    "ordinal": 53,
+    "name": "Cronet_Engine_AddRequestFinishedListener",
+    "rva": "0x1e6d0"
+   },
+   {
+    "ordinal": 54,
+    "name": "Cronet_Engine_Create",
+    "rva": "0x166d0"
+   },
+   {
+    "ordinal": 55,
+    "name": "Cronet_Engine_CreateWith",
+    "rva": "0x1e730"
+   },
+   {
+    "ordinal": 56,
+    "name": "Cronet_Engine_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 57,
+    "name": "Cronet_Engine_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 58,
+    "name": "Cronet_Engine_GetDefaultUserAgent",
+    "rva": "0x1e6b0"
+   },
+   {
+    "ordinal": 59,
+    "name": "Cronet_Engine_GetStreamEngine",
+    "rva": "0x167c0"
+   },
+   {
+    "ordinal": 60,
+    "name": "Cronet_Engine_GetVersionString",
+    "rva": "0x1e690"
+   },
+   {
+    "ordinal": 61,
+    "name": "Cronet_Engine_RemoveRequestFinishedListener",
+    "rva": "0x1e700"
+   },
+   {
+    "ordinal": 62,
+    "name": "Cronet_Engine_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 63,
+    "name": "Cronet_Engine_SetMockCertVerifierForTesting",
+    "rva": "0x16750"
+   },
+   {
+    "ordinal": 64,
+    "name": "Cronet_Engine_Shutdown",
+    "rva": "0x1e560"
+   },
+   {
+    "ordinal": 65,
+    "name": "Cronet_Engine_StartNetLogToFile",
+    "rva": "0x1e660"
+   },
+   {
+    "ordinal": 66,
+    "name": "Cronet_Engine_StartWithParams",
+    "rva": "0x1e5b0"
+   },
+   {
+    "ordinal": 67,
+    "name": "Cronet_Engine_StopNetLog",
+    "rva": "0x1e540"
+   },
+   {
+    "ordinal": 68,
+    "name": "Cronet_Error_Create",
+    "rva": "0x1ef50"
+   },
+   {
+    "ordinal": 69,
+    "name": "Cronet_Error_Destroy",
+    "rva": "0x1ef80"
+   },
+   {
+    "ordinal": 70,
+    "name": "Cronet_Error_error_code_get",
+    "rva": "0x1f030"
+   },
+   {
+    "ordinal": 71,
+    "name": "Cronet_Error_error_code_set",
+    "rva": "0x1efc0"
+   },
+   {
+    "ordinal": 72,
+    "name": "Cronet_Error_immediately_retryable_get",
+    "rva": "0x1f070"
+   },
+   {
+    "ordinal": 73,
+    "name": "Cronet_Error_immediately_retryable_set",
+    "rva": "0x1f010"
+   },
+   {
+    "ordinal": 74,
+    "name": "Cronet_Error_internal_error_code_get",
+    "rva": "0x1f060"
+   },
+   {
+    "ordinal": 75,
+    "name": "Cronet_Error_internal_error_code_set",
+    "rva": "0x1f000"
+   },
+   {
+    "ordinal": 76,
+    "name": "Cronet_Error_message_get",
+    "rva": "0x1f040"
+   },
+   {
+    "ordinal": 77,
+    "name": "Cronet_Error_message_set",
+    "rva": "0x1efd0"
+   },
+   {
+    "ordinal": 78,
+    "name": "Cronet_Error_quic_detailed_error_code_get",
+    "rva": "0x1f080"
+   },
+   {
+    "ordinal": 79,
+    "name": "Cronet_Error_quic_detailed_error_code_set",
+    "rva": "0x1f020"
+   },
+   {
+    "ordinal": 80,
+    "name": "Cronet_Executor_CreateWith",
+    "rva": "0x1e5e0"
+   },
+   {
+    "ordinal": 81,
+    "name": "Cronet_Executor_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 82,
+    "name": "Cronet_Executor_Execute",
+    "rva": "0x1e5b0"
+   },
+   {
+    "ordinal": 83,
+    "name": "Cronet_Executor_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 84,
+    "name": "Cronet_Executor_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 85,
+    "name": "Cronet_HttpHeader_Create",
+    "rva": "0x1fbb0"
+   },
+   {
+    "ordinal": 86,
+    "name": "Cronet_HttpHeader_Destroy",
+    "rva": "0x1fbd0"
+   },
+   {
+    "ordinal": 87,
+    "name": "Cronet_HttpHeader_name_get",
+    "rva": "0x1f130"
+   },
+   {
+    "ordinal": 88,
+    "name": "Cronet_HttpHeader_name_set",
+    "rva": "0x1f0f0"
+   },
+   {
+    "ordinal": 89,
+    "name": "Cronet_HttpHeader_value_get",
+    "rva": "0x1fc60"
+   },
+   {
+    "ordinal": 90,
+    "name": "Cronet_HttpHeader_value_set",
+    "rva": "0x1fc30"
+   },
+   {
+    "ordinal": 91,
+    "name": "Cronet_Metrics_Create",
+    "rva": "0x208c0"
+   },
+   {
+    "ordinal": 92,
+    "name": "Cronet_Metrics_Destroy",
+    "rva": "0x20970"
+   },
+   {
+    "ordinal": 93,
+    "name": "Cronet_Metrics_connect_end_get",
+    "rva": "0x20e00"
+   },
+   {
+    "ordinal": 94,
+    "name": "Cronet_Metrics_connect_end_set",
+    "rva": "0x20a90"
+   },
+   {
+    "ordinal": 95,
+    "name": "Cronet_Metrics_connect_start_get",
+    "rva": "0x20de0"
+   },
+   {
+    "ordinal": 96,
+    "name": "Cronet_Metrics_connect_start_set",
+    "rva": "0x20a50"
+   },
+   {
+    "ordinal": 97,
+    "name": "Cronet_Metrics_dns_end_get",
+    "rva": "0x20dc0"
+   },
+   {
+    "ordinal": 98,
+    "name": "Cronet_Metrics_dns_end_set",
+    "rva": "0x20a10"
+   },
+   {
+    "ordinal": 99,
+    "name": "Cronet_Metrics_dns_start_get",
+    "rva": "0x20da0"
+   },
+   {
+    "ordinal": 100,
+    "name": "Cronet_Metrics_dns_start_set",
+    "rva": "0x209d0"
+   },
+   {
+    "ordinal": 101,
+    "name": "Cronet_Metrics_push_end_get",
+    "rva": "0x20ec0"
+   },
+   {
+    "ordinal": 102,
+    "name": "Cronet_Metrics_push_end_set",
+    "rva": "0x20c30"
+   },
+   {
+    "ordinal": 103,
+    "name": "Cronet_Metrics_push_start_get",
+    "rva": "0x20ea0"
+   },
+   {
+    "ordinal": 104,
+    "name": "Cronet_Metrics_push_start_set",
+    "rva": "0x20be0"
+   },
+   {
+    "ordinal": 105,
+    "name": "Cronet_Metrics_received_byte_count_get",
+    "rva": "0x20f50"
+   },
+   {
+    "ordinal": 106,
+    "name": "Cronet_Metrics_received_byte_count_set",
+    "rva": "0x20d60"
+   },
+   {
+    "ordinal": 107,
+    "name": "Cronet_Metrics_request_end_get",
+    "rva": "0x20f00"
+   },
+   {
+    "ordinal": 108,
+    "name": "Cronet_Metrics_request_end_set",
+    "rva": "0x20cd0"
+   },
+   {
+    "ordinal": 109,
+    "name": "Cronet_Metrics_request_start_get",
+    "rva": "0x20d80"
+   },
+   {
+    "ordinal": 110,
+    "name": "Cronet_Metrics_request_start_set",
+    "rva": "0x20990"
+   },
+   {
+    "ordinal": 111,
+    "name": "Cronet_Metrics_response_start_get",
+    "rva": "0x20ee0"
+   },
+   {
+    "ordinal": 112,
+    "name": "Cronet_Metrics_response_start_set",
+    "rva": "0x20c80"
+   },
+   {
+    "ordinal": 113,
+    "name": "Cronet_Metrics_sending_end_get",
+    "rva": "0x20e80"
+   },
+   {
+    "ordinal": 114,
+    "name": "Cronet_Metrics_sending_end_set",
+    "rva": "0x20b90"
+   },
+   {
+    "ordinal": 115,
+    "name": "Cronet_Metrics_sending_start_get",
+    "rva": "0x20e60"
+   },
+   {
+    "ordinal": 116,
+    "name": "Cronet_Metrics_sending_start_set",
+    "rva": "0x20b50"
+   },
+   {
+    "ordinal": 117,
+    "name": "Cronet_Metrics_sent_byte_count_get",
+    "rva": "0x20f30"
+   },
+   {
+    "ordinal": 118,
+    "name": "Cronet_Metrics_sent_byte_count_set",
+    "rva": "0x20d40"
+   },
+   {
+    "ordinal": 119,
+    "name": "Cronet_Metrics_socket_reused_get",
+    "rva": "0x20f20"
+   },
+   {
+    "ordinal": 120,
+    "name": "Cronet_Metrics_socket_reused_set",
+    "rva": "0x20d20"
+   },
+   {
+    "ordinal": 121,
+    "name": "Cronet_Metrics_ssl_end_get",
+    "rva": "0x20e40"
+   },
+   {
+    "ordinal": 122,
+    "name": "Cronet_Metrics_ssl_end_set",
+    "rva": "0x20b10"
+   },
+   {
+    "ordinal": 123,
+    "name": "Cronet_Metrics_ssl_start_get",
+    "rva": "0x20e20"
+   },
+   {
+    "ordinal": 124,
+    "name": "Cronet_Metrics_ssl_start_set",
+    "rva": "0x20ad0"
+   },
+   {
+    "ordinal": 125,
+    "name": "Cronet_PublicKeyPins_Create",
+    "rva": "0x1f2b0"
+   },
+   {
+    "ordinal": 126,
+    "name": "Cronet_PublicKeyPins_Destroy",
+    "rva": "0x1f2e0"
+   },
+   {
+    "ordinal": 127,
+    "name": "Cronet_PublicKeyPins_expiration_date_get",
+    "rva": "0x1f4b0"
+   },
+   {
+    "ordinal": 128,
+    "name": "Cronet_PublicKeyPins_expiration_date_set",
+    "rva": "0x1f3c0"
+   },
+   {
+    "ordinal": 129,
+    "name": "Cronet_PublicKeyPins_host_get",
+    "rva": "0x1f130"
+   },
+   {
+    "ordinal": 130,
+    "name": "Cronet_PublicKeyPins_host_set",
+    "rva": "0x1f0f0"
+   },
+   {
+    "ordinal": 131,
+    "name": "Cronet_PublicKeyPins_include_subdomains_get",
+    "rva": "0x1f4a0"
+   },
+   {
+    "ordinal": 132,
+    "name": "Cronet_PublicKeyPins_include_subdomains_set",
+    "rva": "0x1f3b0"
+   },
+   {
+    "ordinal": 133,
+    "name": "Cronet_PublicKeyPins_pins_sha256_add",
+    "rva": "0x1f300"
+   },
+   {
+    "ordinal": 134,
+    "name": "Cronet_PublicKeyPins_pins_sha256_at",
+    "rva": "0x1f400"
+   },
+   {
+    "ordinal": 135,
+    "name": "Cronet_PublicKeyPins_pins_sha256_clear",
+    "rva": "0x1f440"
+   },
+   {
+    "ordinal": 136,
+    "name": "Cronet_PublicKeyPins_pins_sha256_size",
+    "rva": "0x1f3e0"
+   },
+   {
+    "ordinal": 137,
+    "name": "Cronet_QuicHint_Create",
+    "rva": "0x1f090"
+   },
+   {
+    "ordinal": 138,
+    "name": "Cronet_QuicHint_Destroy",
+    "rva": "0x1f0b0"
+   },
+   {
+    "ordinal": 139,
+    "name": "Cronet_QuicHint_alternate_port_get",
+    "rva": "0x1f060"
+   },
+   {
+    "ordinal": 140,
+    "name": "Cronet_QuicHint_alternate_port_set",
+    "rva": "0x1f000"
+   },
+   {
+    "ordinal": 141,
+    "name": "Cronet_QuicHint_host_get",
+    "rva": "0x1f130"
+   },
+   {
+    "ordinal": 142,
+    "name": "Cronet_QuicHint_host_set",
+    "rva": "0x1f0f0"
+   },
+   {
+    "ordinal": 143,
+    "name": "Cronet_QuicHint_port_get",
+    "rva": "0x1f150"
+   },
+   {
+    "ordinal": 144,
+    "name": "Cronet_QuicHint_port_set",
+    "rva": "0x1f120"
+   },
+   {
+    "ordinal": 145,
+    "name": "Cronet_RequestFinishedInfoListener_CreateWith",
+    "rva": "0x1ea80"
+   },
+   {
+    "ordinal": 146,
+    "name": "Cronet_RequestFinishedInfoListener_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 147,
+    "name": "Cronet_RequestFinishedInfoListener_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 148,
+    "name": "Cronet_RequestFinishedInfoListener_OnRequestFinished",
+    "rva": "0x1e760"
+   },
+   {
+    "ordinal": 149,
+    "name": "Cronet_RequestFinishedInfoListener_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 150,
+    "name": "Cronet_RequestFinishedInfo_Create",
+    "rva": "0x20ff0"
+   },
+   {
+    "ordinal": 151,
+    "name": "Cronet_RequestFinishedInfo_Destroy",
+    "rva": "0x21020"
+   },
+   {
+    "ordinal": 152,
+    "name": "Cronet_RequestFinishedInfo_annotations_add",
+    "rva": "0x210e0"
+   },
+   {
+    "ordinal": 153,
+    "name": "Cronet_RequestFinishedInfo_annotations_at",
+    "rva": "0x211d0"
+   },
+   {
+    "ordinal": 154,
+    "name": "Cronet_RequestFinishedInfo_annotations_clear",
+    "rva": "0x21210"
+   },
+   {
+    "ordinal": 155,
+    "name": "Cronet_RequestFinishedInfo_annotations_size",
+    "rva": "0x211b0"
+   },
+   {
+    "ordinal": 156,
+    "name": "Cronet_RequestFinishedInfo_finished_reason_get",
+    "rva": "0x21250"
+   },
+   {
+    "ordinal": 157,
+    "name": "Cronet_RequestFinishedInfo_finished_reason_set",
+    "rva": "0x21170"
+   },
+   {
+    "ordinal": 158,
+    "name": "Cronet_RequestFinishedInfo_metrics_get",
+    "rva": "0x21190"
+   },
+   {
+    "ordinal": 159,
+    "name": "Cronet_RequestFinishedInfo_metrics_set",
+    "rva": "0x21090"
+   },
+   {
+    "ordinal": 160,
+    "name": "Cronet_Runnable_CreateWith",
+    "rva": "0x1e630"
+   },
+   {
+    "ordinal": 161,
+    "name": "Cronet_Runnable_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 162,
+    "name": "Cronet_Runnable_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 163,
+    "name": "Cronet_Runnable_Run",
+    "rva": "0x1e610"
+   },
+   {
+    "ordinal": 164,
+    "name": "Cronet_Runnable_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 165,
+    "name": "Cronet_UploadDataProvider_Close",
+    "rva": "0x1e560"
+   },
+   {
+    "ordinal": 166,
+    "name": "Cronet_UploadDataProvider_CreateWith",
+    "rva": "0x1e990"
+   },
+   {
+    "ordinal": 167,
+    "name": "Cronet_UploadDataProvider_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 168,
+    "name": "Cronet_UploadDataProvider_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 169,
+    "name": "Cronet_UploadDataProvider_GetLength",
+    "rva": "0x1e610"
+   },
+   {
+    "ordinal": 170,
+    "name": "Cronet_UploadDataProvider_Read",
+    "rva": "0x1e510"
+   },
+   {
+    "ordinal": 171,
+    "name": "Cronet_UploadDataProvider_Rewind",
+    "rva": "0x1e960"
+   },
+   {
+    "ordinal": 172,
+    "name": "Cronet_UploadDataProvider_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 173,
+    "name": "Cronet_UploadDataSink_CreateWith",
+    "rva": "0x1e930"
+   },
+   {
+    "ordinal": 174,
+    "name": "Cronet_UploadDataSink_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 175,
+    "name": "Cronet_UploadDataSink_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 176,
+    "name": "Cronet_UploadDataSink_OnReadError",
+    "rva": "0x1e8d0"
+   },
+   {
+    "ordinal": 177,
+    "name": "Cronet_UploadDataSink_OnReadSucceeded",
+    "rva": "0x1e8a0"
+   },
+   {
+    "ordinal": 178,
+    "name": "Cronet_UploadDataSink_OnRewindError",
+    "rva": "0x1e900"
+   },
+   {
+    "ordinal": 179,
+    "name": "Cronet_UploadDataSink_OnRewindSucceeded",
+    "rva": "0x1e540"
+   },
+   {
+    "ordinal": 180,
+    "name": "Cronet_UploadDataSink_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 181,
+    "name": "Cronet_UrlRequestCallback_CreateWith",
+    "rva": "0x1e860"
+   },
+   {
+    "ordinal": 182,
+    "name": "Cronet_UrlRequestCallback_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 183,
+    "name": "Cronet_UrlRequestCallback_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 184,
+    "name": "Cronet_UrlRequestCallback_OnCanceled",
+    "rva": "0x1e830"
+   },
+   {
+    "ordinal": 185,
+    "name": "Cronet_UrlRequestCallback_OnFailed",
+    "rva": "0x1e800"
+   },
+   {
+    "ordinal": 186,
+    "name": "Cronet_UrlRequestCallback_OnReadCompleted",
+    "rva": "0x1e790"
+   },
+   {
+    "ordinal": 187,
+    "name": "Cronet_UrlRequestCallback_OnRedirectReceived",
+    "rva": "0x1e760"
+   },
+   {
+    "ordinal": 188,
+    "name": "Cronet_UrlRequestCallback_OnResponseStarted",
+    "rva": "0x1e510"
+   },
+   {
+    "ordinal": 189,
+    "name": "Cronet_UrlRequestCallback_OnSucceeded",
+    "rva": "0x1e7d0"
+   },
+   {
+    "ordinal": 190,
+    "name": "Cronet_UrlRequestCallback_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 191,
+    "name": "Cronet_UrlRequestParams_Create",
+    "rva": "0x20150"
+   },
+   {
+    "ordinal": 192,
+    "name": "Cronet_UrlRequestParams_Destroy",
+    "rva": "0x20190"
+   },
+   {
+    "ordinal": 193,
+    "name": "Cronet_UrlRequestParams_allow_direct_executor_get",
+    "rva": "0x1f8f0"
+   },
+   {
+    "ordinal": 194,
+    "name": "Cronet_UrlRequestParams_allow_direct_executor_set",
+    "rva": "0x1f6f0"
+   },
+   {
+    "ordinal": 195,
+    "name": "Cronet_UrlRequestParams_annotations_add",
+    "rva": "0x202a0"
+   },
+   {
+    "ordinal": 196,
+    "name": "Cronet_UrlRequestParams_annotations_at",
+    "rva": "0x204a0"
+   },
+   {
+    "ordinal": 197,
+    "name": "Cronet_UrlRequestParams_annotations_clear",
+    "rva": "0x204d0"
+   },
+   {
+    "ordinal": 198,
+    "name": "Cronet_UrlRequestParams_annotations_size",
+    "rva": "0x20480"
+   },
+   {
+    "ordinal": 199,
+    "name": "Cronet_UrlRequestParams_disable_cache_get",
+    "rva": "0x1f4a0"
+   },
+   {
+    "ordinal": 200,
+    "name": "Cronet_UrlRequestParams_disable_cache_set",
+    "rva": "0x1f3b0"
+   },
+   {
+    "ordinal": 201,
+    "name": "Cronet_UrlRequestParams_disable_proxy_set",
+    "rva": "0x20260"
+   },
+   {
+    "ordinal": 202,
+    "name": "Cronet_UrlRequestParams_http_method_get",
+    "rva": "0x1f130"
+   },
+   {
+    "ordinal": 203,
+    "name": "Cronet_UrlRequestParams_http_method_set",
+    "rva": "0x1f0f0"
+   },
+   {
+    "ordinal": 204,
+    "name": "Cronet_UrlRequestParams_idempotency_get",
+    "rva": "0x20520"
+   },
+   {
+    "ordinal": 205,
+    "name": "Cronet_UrlRequestParams_idempotency_set",
+    "rva": "0x20350"
+   },
+   {
+    "ordinal": 206,
+    "name": "Cronet_UrlRequestParams_priority_get",
+    "rva": "0x20450"
+   },
+   {
+    "ordinal": 207,
+    "name": "Cronet_UrlRequestParams_priority_set",
+    "rva": "0x20270"
+   },
+   {
+    "ordinal": 208,
+    "name": "Cronet_UrlRequestParams_request_finished_executor_get",
+    "rva": "0x20510"
+   },
+   {
+    "ordinal": 209,
+    "name": "Cronet_UrlRequestParams_request_finished_executor_set",
+    "rva": "0x20340"
+   },
+   {
+    "ordinal": 210,
+    "name": "Cronet_UrlRequestParams_request_finished_listener_get",
+    "rva": "0x20500"
+   },
+   {
+    "ordinal": 211,
+    "name": "Cronet_UrlRequestParams_request_finished_listener_set",
+    "rva": "0x20330"
+   },
+   {
+    "ordinal": 212,
+    "name": "Cronet_UrlRequestParams_request_headers_add",
+    "rva": "0x20240"
+   },
+   {
+    "ordinal": 213,
+    "name": "Cronet_UrlRequestParams_request_headers_at",
+    "rva": "0x20380"
+   },
+   {
+    "ordinal": 214,
+    "name": "Cronet_UrlRequestParams_request_headers_clear",
+    "rva": "0x203c0"
+   },
+   {
+    "ordinal": 215,
+    "name": "Cronet_UrlRequestParams_request_headers_size",
+    "rva": "0x20360"
+   },
+   {
+    "ordinal": 216,
+    "name": "Cronet_UrlRequestParams_upload_data_provider_executor_get",
+    "rva": "0x20470"
+   },
+   {
+    "ordinal": 217,
+    "name": "Cronet_UrlRequestParams_upload_data_provider_executor_set",
+    "rva": "0x20290"
+   },
+   {
+    "ordinal": 218,
+    "name": "Cronet_UrlRequestParams_upload_data_provider_get",
+    "rva": "0x20460"
+   },
+   {
+    "ordinal": 219,
+    "name": "Cronet_UrlRequestParams_upload_data_provider_set",
+    "rva": "0x20280"
+   },
+   {
+    "ordinal": 220,
+    "name": "Cronet_UrlRequestStatusListener_CreateWith",
+    "rva": "0x1e5e0"
+   },
+   {
+    "ordinal": 221,
+    "name": "Cronet_UrlRequestStatusListener_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 222,
+    "name": "Cronet_UrlRequestStatusListener_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 223,
+    "name": "Cronet_UrlRequestStatusListener_OnStatus",
+    "rva": "0x1e5b0"
+   },
+   {
+    "ordinal": 224,
+    "name": "Cronet_UrlRequestStatusListener_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 225,
+    "name": "Cronet_UrlRequest_Cancel",
+    "rva": "0x1e690"
+   },
+   {
+    "ordinal": 226,
+    "name": "Cronet_UrlRequest_Create",
+    "rva": "0x1d4b0"
+   },
+   {
+    "ordinal": 227,
+    "name": "Cronet_UrlRequest_CreateWith",
+    "rva": "0x1ea40"
+   },
+   {
+    "ordinal": 228,
+    "name": "Cronet_UrlRequest_Destroy",
+    "rva": "0x1e490"
+   },
+   {
+    "ordinal": 229,
+    "name": "Cronet_UrlRequest_FollowRedirect",
+    "rva": "0x1e540"
+   },
+   {
+    "ordinal": 230,
+    "name": "Cronet_UrlRequest_GetClientContext",
+    "rva": "0x1e4d0"
+   },
+   {
+    "ordinal": 231,
+    "name": "Cronet_UrlRequest_GetStatus",
+    "rva": "0x1e700"
+   },
+   {
+    "ordinal": 232,
+    "name": "Cronet_UrlRequest_InitWithParams",
+    "rva": "0x1e9c0"
+   },
+   {
+    "ordinal": 233,
+    "name": "Cronet_UrlRequest_IsDone",
+    "rva": "0x1e6b0"
+   },
+   {
+    "ordinal": 234,
+    "name": "Cronet_UrlRequest_IsFailed",
+    "rva": "0x1ea20"
+   },
+   {
+    "ordinal": 235,
+    "name": "Cronet_UrlRequest_Read",
+    "rva": "0x1e900"
+   },
+   {
+    "ordinal": 236,
+    "name": "Cronet_UrlRequest_SetClientContext",
+    "rva": "0x1e4c0"
+   },
+   {
+    "ordinal": 237,
+    "name": "Cronet_UrlRequest_Start",
+    "rva": "0x1ea00"
+   },
+   {
+    "ordinal": 238,
+    "name": "Cronet_UrlResponseInfo_Create",
+    "rva": "0x1fe10"
+   },
+   {
+    "ordinal": 239,
+    "name": "Cronet_UrlResponseInfo_Destroy",
+    "rva": "0x1fe50"
+   },
+   {
+    "ordinal": 240,
+    "name": "Cronet_UrlResponseInfo_all_headers_list_add",
+    "rva": "0x1fe70"
+   },
+   {
+    "ordinal": 241,
+    "name": "Cronet_UrlResponseInfo_all_headers_list_at",
+    "rva": "0x1ffd0"
+   },
+   {
+    "ordinal": 242,
+    "name": "Cronet_UrlResponseInfo_all_headers_list_clear",
+    "rva": "0x20010"
+   },
+   {
+    "ordinal": 243,
+    "name": "Cronet_UrlResponseInfo_all_headers_list_size",
+    "rva": "0x1ffb0"
+   },
+   {
+    "ordinal": 244,
+    "name": "Cronet_UrlResponseInfo_did_use_quic",
+    "rva": "0x20140"
+   },
+   {
+    "ordinal": 245,
+    "name": "Cronet_UrlResponseInfo_http_status_code_get",
+    "rva": "0x1f080"
+   },
+   {
+    "ordinal": 246,
+    "name": "Cronet_UrlResponseInfo_http_status_code_set",
+    "rva": "0x1f020"
+   },
+   {
+    "ordinal": 247,
+    "name": "Cronet_UrlResponseInfo_http_status_text_get",
+    "rva": "0x1f8d0"
+   },
+   {
+    "ordinal": 248,
+    "name": "Cronet_UrlResponseInfo_http_status_text_set",
+    "rva": "0x1f6c0"
+   },
+   {
+    "ordinal": 249,
+    "name": "Cronet_UrlResponseInfo_negotiated_protocol_get",
+    "rva": "0x200b0"
+   },
+   {
+    "ordinal": 250,
+    "name": "Cronet_UrlResponseInfo_negotiated_protocol_set",
+    "rva": "0x1ff30"
+   },
+   {
+    "ordinal": 251,
+    "name": "Cronet_UrlResponseInfo_proxy_server_get",
+    "rva": "0x200d0"
+   },
+   {
+    "ordinal": 252,
+    "name": "Cronet_UrlResponseInfo_proxy_server_set",
+    "rva": "0x1ff60"
+   },
+   {
+    "ordinal": 253,
+    "name": "Cronet_UrlResponseInfo_received_byte_count_get",
+    "rva": "0x200f0"
+   },
+   {
+    "ordinal": 254,
+    "name": "Cronet_UrlResponseInfo_received_byte_count_set",
+    "rva": "0x1ff90"
+   },
+   {
+    "ordinal": 255,
+    "name": "Cronet_UrlResponseInfo_remote_addr_family",
+    "rva": "0x20130"
+   },
+   {
+    "ordinal": 256,
+    "name": "Cronet_UrlResponseInfo_remote_address",
+    "rva": "0x20100"
+   },
+   {
+    "ordinal": 257,
+    "name": "Cronet_UrlResponseInfo_remote_port",
+    "rva": "0x20120"
+   },
+   {
+    "ordinal": 258,
+    "name": "Cronet_UrlResponseInfo_url_chain_add",
+    "rva": "0x1f300"
+   },
+   {
+    "ordinal": 259,
+    "name": "Cronet_UrlResponseInfo_url_chain_at",
+    "rva": "0x1f400"
+   },
+   {
+    "ordinal": 260,
+    "name": "Cronet_UrlResponseInfo_url_chain_clear",
+    "rva": "0x1f440"
+   },
+   {
+    "ordinal": 261,
+    "name": "Cronet_UrlResponseInfo_url_chain_size",
+    "rva": "0x1f3e0"
+   },
+   {
+    "ordinal": 262,
+    "name": "Cronet_UrlResponseInfo_url_get",
+    "rva": "0x1f130"
+   },
+   {
+    "ordinal": 263,
+    "name": "Cronet_UrlResponseInfo_url_set",
+    "rva": "0x1f0f0"
+   },
+   {
+    "ordinal": 264,
+    "name": "Cronet_UrlResponseInfo_was_cached_get",
+    "rva": "0x200a0"
+   },
+   {
+    "ordinal": 265,
+    "name": "Cronet_UrlResponseInfo_was_cached_set",
+    "rva": "0x1ff20"
+   },
+   {
+    "ordinal": 266,
+    "name": "GetHandleVerifier",
+    "rva": "0x305090"
+   },
+   {
+    "ordinal": 267,
+    "name": "bidirectional_stream_cancel",
+    "rva": "0xf0cc0"
+   },
+   {
+    "ordinal": 268,
+    "name": "bidirectional_stream_create",
+    "rva": "0xf0850"
+   },
+   {
+    "ordinal": 269,
+    "name": "bidirectional_stream_delay_request_headers_until_flush",
+    "rva": "0xf0a50"
+   },
+   {
+    "ordinal": 270,
+    "name": "bidirectional_stream_destroy",
+    "rva": "0xf0940"
+   },
+   {
+    "ordinal": 271,
+    "name": "bidirectional_stream_disable_auto_flush",
+    "rva": "0xf0a30"
+   },
+   {
+    "ordinal": 272,
+    "name": "bidirectional_stream_flush",
+    "rva": "0xf0ca0"
+   },
+   {
+    "ordinal": 273,
+    "name": "bidirectional_stream_read",
+    "rva": "0xf0c60"
+   },
+   {
+    "ordinal": 274,
+    "name": "bidirectional_stream_start",
+    "rva": "0xf0a70"
+   },
+   {
+    "ordinal": 275,
+    "name": "bidirectional_stream_write",
+    "rva": "0xf0c80"
+   },
+   {
+    "ordinal": 276,
+    "name": "sqlite3_dbdata_init",
+    "rva": "0x6bef20"
+   }
+  ],
+  "import_count": {
+   "KERNEL32.dll": 211,
+   "ADVAPI32.dll": 22,
+   "dbghelp.dll": 7,
+   "WS2_32.dll": 36,
+   "IPHLPAPI.DLL": 2,
+   "SHELL32.dll": 3,
+   "WINMM.dll": 3,
+   "SHLWAPI.dll": 1,
+   "ole32.dll": 5,
+   "WINHTTP.dll": 5,
+   "USER32.dll": 14,
+   "Secur32.dll": 7,
+   "CRYPT32.dll": 9,
+   "api-ms-win-core-winrt-l1-1-0.dll": 2,
+   "api-ms-win-core-synch-l1-2-0.dll": 3,
+   "ntdll.dll": 2,
+   "ncrypt.dll": 10
+  }
+ },
+ "speedtest.dll": {
+  "size": 5905408,
+  "machine": "0x14c",
+  "timestamp": 1769063437,
+  "image_base": "0x10000000",
+  "sections": [
+   {
+    "name": ".text",
+    "va": "0x1000",
+    "vsize": 4330396,
+    "raw": "0x400",
+    "rawsize": 4330496
+   },
+   {
+    "name": ".rdata",
+    "va": "0x423000",
+    "vsize": 1166748,
+    "raw": "0x421800",
+    "rawsize": 1166848
+   },
+   {
+    "name": ".data",
+    "va": "0x540000",
+    "vsize": 2895940,
+    "raw": "0x53e600",
+    "rawsize": 206336
+   },
+   {
+    "name": ".rsrc",
+    "va": "0x804000",
+    "vsize": 480,
+    "raw": "0x570c00",
+    "rawsize": 512
+   },
+   {
+    "name": ".reloc",
+    "va": "0x805000",
+    "vsize": 200080,
+    "raw": "0x570e00",
+    "rawsize": 200192
+   }
+  ],
+  "has_pdb_pe": false,
+  "exports": [
+   {
+    "ordinal": 1,
+    "name": "speedtest_add_node",
+    "rva": "0x5a650"
+   },
+   {
+    "ordinal": 2,
+    "name": "speedtest_add_nodes_str",
+    "rva": "0x5a6c0"
+   },
+   {
+    "ordinal": 3,
+    "name": "speedtest_alloc",
+    "rva": "0x5aa80"
+   },
+   {
+    "ordinal": 4,
+    "name": "speedtest_auth",
+    "rva": "0x5aab0"
+   },
+   {
+    "ordinal": 5,
+    "name": "speedtest_commit_version",
+    "rva": "0x5ad60"
+   },
+   {
+    "ordinal": 6,
+    "name": "speedtest_free",
+    "rva": "0x5ad70"
+   },
+   {
+    "ordinal": 7,
+    "name": "speedtest_get_isp",
+    "rva": "0x5ada0"
+   },
+   {
+    "ordinal": 8,
+    "name": "speedtest_get_isp_city",
+    "rva": "0x5ae70"
+   },
+   {
+    "ordinal": 9,
+    "name": "speedtest_get_isp_ip",
+    "rva": "0x5aea0"
+   },
+   {
+    "ordinal": 10,
+    "name": "speedtest_get_isp_name",
+    "rva": "0x5aed0"
+   },
+   {
+    "ordinal": 11,
+    "name": "speedtest_get_isp_province",
+    "rva": "0x5af00"
+   },
+   {
+    "ordinal": 12,
+    "name": "speedtest_isp_free",
+    "rva": "0x5af30"
+   },
+   {
+    "ordinal": 13,
+    "name": "speedtest_node_add_test_node_by_id",
+    "rva": "0x5af60"
+   },
+   {
+    "ordinal": 14,
+    "name": "speedtest_node_free",
+    "rva": "0x5b080"
+   },
+   {
+    "ordinal": 15,
+    "name": "speedtest_node_get",
+    "rva": "0x5b0b0"
+   },
+   {
+    "ordinal": 16,
+    "name": "speedtest_node_get_node_city",
+    "rva": "0x5b0e0"
+   },
+   {
+    "ordinal": 17,
+    "name": "speedtest_node_get_node_distance",
+    "rva": "0x5b150"
+   },
+   {
+    "ordinal": 18,
+    "name": "speedtest_node_get_node_id",
+    "rva": "0x5b1a0"
+   },
+   {
+    "ordinal": 19,
+    "name": "speedtest_node_get_node_isp",
+    "rva": "0x5b210"
+   },
+   {
+    "ordinal": 20,
+    "name": "speedtest_node_get_node_name",
+    "rva": "0x5b280"
+   },
+   {
+    "ordinal": 21,
+    "name": "speedtest_node_search",
+    "rva": "0x5b2f0"
+   },
+   {
+    "ordinal": 22,
+    "name": "speedtest_run",
+    "rva": "0x5b4d0"
+   },
+   {
+    "ordinal": 23,
+    "name": "speedtest_set_add_test_callback",
+    "rva": "0x5b4f0"
+   },
+   {
+    "ordinal": 24,
+    "name": "speedtest_set_auth_true",
+    "rva": "0x5b5d0"
+   },
+   {
+    "ordinal": 25,
+    "name": "speedtest_set_config",
+    "rva": "0x5b5e0"
+   },
+   {
+    "ordinal": 26,
+    "name": "speedtest_set_current_node_callback",
+    "rva": "0x5b610"
+   },
+   {
+    "ordinal": 27,
+    "name": "speedtest_set_download_callback",
+    "rva": "0x5b6e0"
+   },
+   {
+    "ordinal": 28,
+    "name": "speedtest_set_download_ping_callback",
+    "rva": "0x5b770"
+   },
+   {
+    "ordinal": 29,
+    "name": "speedtest_set_download_result_callback",
+    "rva": "0x5b830"
+   },
+   {
+    "ordinal": 30,
+    "name": "speedtest_set_loss_callback",
+    "rva": "0x5b8d0"
+   },
+   {
+    "ordinal": 31,
+    "name": "speedtest_set_max_download_duration",
+    "rva": "0x5b960"
+   },
+   {
+    "ordinal": 32,
+    "name": "speedtest_set_max_upload_duration",
+    "rva": "0x5ba90"
+   },
+   {
+    "ordinal": 33,
+    "name": "speedtest_set_ping_callback",
+    "rva": "0x5bbc0"
+   },
+   {
+    "ordinal": 34,
+    "name": "speedtest_set_report_data_callback",
+    "rva": "0x5bc80"
+   },
+   {
+    "ordinal": 35,
+    "name": "speedtest_set_status_callback",
+    "rva": "0x5bd50"
+   },
+   {
+    "ordinal": 36,
+    "name": "speedtest_set_test_nodes",
+    "rva": "0x5be20"
+   },
+   {
+    "ordinal": 37,
+    "name": "speedtest_set_test_type",
+    "rva": "0x5be90"
+   },
+   {
+    "ordinal": 38,
+    "name": "speedtest_set_unit",
+    "rva": "0x5bfb0"
+   },
+   {
+    "ordinal": 39,
+    "name": "speedtest_set_upload_callback",
+    "rva": "0x5bfd0"
+   },
+   {
+    "ordinal": 40,
+    "name": "speedtest_set_upload_ping_callback",
+    "rva": "0x5c060"
+   },
+   {
+    "ordinal": 41,
+    "name": "speedtest_set_upload_result_callback",
+    "rva": "0x5c120"
+   },
+   {
+    "ordinal": 42,
+    "name": "speedtest_set_ws_timeout",
+    "rva": "0x5c1c0"
+   },
+   {
+    "ordinal": 43,
+    "name": "speedtest_start_ping",
+    "rva": "0x5c1e0"
+   },
+   {
+    "ordinal": 44,
+    "name": "speedtest_start_speed",
+    "rva": "0x5c200"
+   },
+   {
+    "ordinal": 45,
+    "name": "speedtest_stop",
+    "rva": "0x5c220"
+   },
+   {
+    "ordinal": 46,
+    "name": "speedtest_version",
+    "rva": "0x5c240"
+   }
+  ],
+  "import_count": {
+   "USER32.dll": 8,
+   "IPHLPAPI.DLL": 1,
+   "WS2_32.dll": 50,
+   "bcrypt.dll": 1,
+   "CRYPT32.dll": 19,
+   "ADVAPI32.dll": 24,
+   "KERNEL32.dll": 186
+  }
+ }
+}

@@ -1,0 +1,20 @@
+|2026-10-28T04:03:09.639194 1 [8276] {network} OnStart:52 NetworkService started
+|2026-10-28T04:03:09.641768 3 [34148] {Update} main:66 ******** 3.0.20.5 kernel update from 3.0.20.237 ********
+|2026-10-28T04:03:09.641768 3 [34148] {Update} main:68 service load time=1
+|2026-10-28T04:03:09.641768 3 [34148] {Update} main:74 start
+
+|2026-10-28T04:03:09.641768 3 [35636] {netio} set_internel_thread_name:63 sdk_NetioService
+|2026-10-28T04:03:09.641768 3 [34148] {Update} start:228 start D:\Wang_Pan\BaiduNetdisk http://pan.baidu.com/api/version/getlatestversion?
+
+|2026-10-28T04:03:09.641768 3 [34148] {Update} start:234 target arch|arch=x86|from_client=1|arg=x86|exe_arch=x86|
+|2026-10-28T04:03:09.642778 3 [34148] {Update} general_file_update_info:114 version, file=kernel.dll|version=3.0.20.237|
+|2026-10-28T04:03:09.642778 3 [34148] {Update} general_file_update_info:114 version, file=kernelUpdate.exe|version=3.0.20.5|
+|2026-10-28T04:03:09.643781 1 [34148] {Update} get_current_version_from_json_file:194 version info|cur=3.0.20.237|default=3.0.20.0|cur_int=50337005|default_int=50336768
+|2026-10-28T04:03:09.643781 1 [19304] {Update} get_update_white_black_info:249 get update white black info https://pan.baidu.com/api/getsyscfg?clienttype=8&channel=0&version=3.0.20.237
+|2026-10-28T04:03:09.643781 1 [19304] {netio} url_connect:264 build|scheme=https|url=https://pan.baidu.com/api/getsyscfg?clienttype=8&channel=0&version=3.0.20.237
+|2026-10-28T04:03:09.645781 1 [19304] {serverProxy} post_resolve:271 start resolve|host=pan.baidu.com|port=443|is_host_ip=0
+|2026-10-28T04:03:09.646783 1 [19304] {netio} add_stat:97 https_stat|add type https_stat tried
+|2026-10-28T04:03:09.646783 1 [19304] {netio} reg_stat:41 https_stat|add_type=https_stat|interval=1800
+|2026-10-28T04:03:09.649780 1 [35636] {netio} on_resolver:424 use http dns|host=pan.baidu.com|port=443|locale err=11001
+|2026-10-28T04:03:10.656560 1 [35636] {netio} http_dns_timer:317 start http dns timer, host=pan.baidu.com|port=443|use_http_dns=1|err=system:0
+|2026-10-28T04:03:10.656560 1 [35636] {netio} http_dns_timer:333 http dns timer fail, time no up

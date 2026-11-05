@@ -1,0 +1,331 @@
+|2026-11-19T20:00:54.937639 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118454@#logid=661525542921462@#ret=0
+|2026-11-19T20:00:54.937639 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:01:05.141056 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:01:22.903996 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=54|recv_cnt=54|max_cnt=64|
+|2026-11-19T20:01:22.903996 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:01:22.903996 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118482@#logid=661529837888786
+|2026-11-19T20:01:22.942838 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:01:22.942838 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118482@#logid=661529837888786@#ret=0
+|2026-11-19T20:01:22.942838 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:01:25.146463 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:01:38.851172 1 [27668] {serverProxy} report_live_statistic:874 |send_cnt=0|max=6|
+|2026-11-19T20:01:38.851172 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:01:38.851172 1 [27668] {serverProxy} on_alive_timer:721 |OnlineServer|on_alive_timer|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:01:45.157148 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:01:48.853380 1 [27668] {serverProxy} on_send_timer:623 |OnlineServer|on_send_timer|try_count=1|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:01:48.853380 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:01:50.905623 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=55|recv_cnt=55|max_cnt=64|
+|2026-11-19T20:01:50.905623 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:01:50.905623 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118510@#logid=661534132856110
+|2026-11-19T20:01:50.948953 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:01:50.950287 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118510@#logid=661534132856110@#ret=0
+|2026-11-19T20:01:50.950287 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:01:58.868321 1 [27668] {serverProxy} on_send_timer:623 |OnlineServer|on_send_timer|try_count=2|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:01:58.868321 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:02:05.171150 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:02:08.881123 1 [27668] {serverProxy} async_query_server_address:454 |worker=07F0B6B0|last_query=0|
+|2026-11-19T20:02:08.881123 1 [27668] {serverProxy} on_send_timer:640 |on_send_timer|try_count=3|ONLINE_HTTP_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:02:08.881123 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:02:18.911093 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=56|recv_cnt=56|max_cnt=64|
+|2026-11-19T20:02:18.911093 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:02:18.911093 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118538@#logid=661538427823434
+|2026-11-19T20:02:18.950935 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:02:18.950935 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118538@#logid=661538427823434@#ret=0
+|2026-11-19T20:02:18.950935 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:02:25.181252 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:02:45.191893 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:02:46.913666 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=57|recv_cnt=57|max_cnt=64|
+|2026-11-19T20:02:46.913666 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:02:46.913666 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118566@#logid=661542722790758
+|2026-11-19T20:02:46.954332 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:02:46.954332 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118566@#logid=661542722790758@#ret=0
+|2026-11-19T20:02:46.954332 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:03:05.202853 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:03:14.923304 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=58|recv_cnt=58|max_cnt=64|
+|2026-11-19T20:03:14.923304 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:03:14.924277 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118594@#logid=661547017758082
+|2026-11-19T20:03:14.964152 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:03:14.964152 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118594@#logid=661547017758082@#ret=0
+|2026-11-19T20:03:14.964152 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:03:25.206031 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:03:42.933723 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=59|recv_cnt=59|max_cnt=64|
+|2026-11-19T20:03:42.933723 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:03:42.933723 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118622@#logid=661551312725406
+|2026-11-19T20:03:42.976594 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:03:42.976594 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118622@#logid=661551312725406@#ret=0
+|2026-11-19T20:03:42.976594 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:03:45.208890 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:04:05.223801 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:04:10.935956 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=60|recv_cnt=60|max_cnt=64|
+|2026-11-19T20:04:10.935956 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:04:10.936937 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118650@#logid=661555607692730
+|2026-11-19T20:04:10.975804 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:04:10.976932 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118650@#logid=661555607692730@#ret=0
+|2026-11-19T20:04:10.976932 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:04:25.226797 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:04:38.941926 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=61|recv_cnt=61|max_cnt=64|
+|2026-11-19T20:04:38.941926 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:04:38.941926 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118678@#logid=661559902660054
+|2026-11-19T20:04:38.976556 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:04:38.976556 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118678@#logid=661559902660054@#ret=0
+|2026-11-19T20:04:38.977549 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:04:45.229720 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:05:05.235882 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:05:06.946999 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=62|recv_cnt=62|max_cnt=64|
+|2026-11-19T20:05:06.946999 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:05:06.946999 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118706@#logid=661564197627378
+|2026-11-19T20:05:06.986435 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:05:06.986435 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118706@#logid=661564197627378@#ret=0
+|2026-11-19T20:05:06.986435 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:05:25.239911 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:05:34.956535 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=63|recv_cnt=63|max_cnt=64|
+|2026-11-19T20:05:34.956535 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:05:34.956535 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118734@#logid=661568492594702
+|2026-11-19T20:05:35.000654 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:05:35.000654 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118735@#logid=661568492594702@#ret=0
+|2026-11-19T20:05:35.000654 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:05:45.241421 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:06:02.969734 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=64|recv_cnt=64|max_cnt=64|
+|2026-11-19T20:06:02.969734 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:06:02.969734 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118762@#logid=661572787562026
+|2026-11-19T20:06:03.008191 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:06:03.008191 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118763@#logid=661572787562026@#ret=0
+|2026-11-19T20:06:03.008191 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:06:05.243987 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:06:25.258178 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:06:30.981327 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=65|recv_cnt=65|max_cnt=64|
+|2026-11-19T20:06:30.981327 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:06:30.981327 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118790@#logid=661577082529350
+|2026-11-19T20:06:31.020386 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:06:31.020386 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118791@#logid=661577082529350@#ret=0
+|2026-11-19T20:06:31.020386 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:06:38.854890 1 [27668] {serverProxy} report_live_statistic:874 |send_cnt=0|max=6|
+|2026-11-19T20:06:38.854890 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:06:38.854890 1 [27668] {serverProxy} on_alive_timer:721 |OnlineServer|on_alive_timer|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:06:45.265565 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:06:48.863609 1 [27668] {serverProxy} on_send_timer:623 |OnlineServer|on_send_timer|try_count=1|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:06:48.863609 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:06:58.875869 1 [27668] {serverProxy} on_send_timer:623 |OnlineServer|on_send_timer|try_count=2|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:06:58.875869 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:06:58.985343 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=66|recv_cnt=66|max_cnt=64|
+|2026-11-19T20:06:58.985343 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:06:58.985343 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118818@#logid=661581377496674
+|2026-11-19T20:06:59.020580 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:06:59.020580 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118819@#logid=661581377496674@#ret=0
+|2026-11-19T20:06:59.020580 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:07:05.270462 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:07:08.887464 1 [27668] {serverProxy} async_query_server_address:454 |worker=07F0B6B0|last_query=0|
+|2026-11-19T20:07:08.887464 1 [27668] {serverProxy} on_send_timer:640 |on_send_timer|try_count=3|ONLINE_HTTP_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:07:08.887464 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:07:25.274710 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:07:26.986566 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=67|recv_cnt=67|max_cnt=64|
+|2026-11-19T20:07:26.986566 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:07:26.986566 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118846@#logid=661585672463998
+|2026-11-19T20:07:27.030181 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:07:27.030181 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118847@#logid=661585672463998@#ret=0
+|2026-11-19T20:07:27.030181 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:07:45.284330 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:07:54.988303 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=68|recv_cnt=68|max_cnt=64|
+|2026-11-19T20:07:54.988821 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:07:54.988821 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118874@#logid=661589967431322
+|2026-11-19T20:07:55.030827 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:07:55.030827 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118875@#logid=661589967431322@#ret=0
+|2026-11-19T20:07:55.030827 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:08:05.291965 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:08:22.992352 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=69|recv_cnt=69|max_cnt=64|
+|2026-11-19T20:08:22.992352 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:08:22.992352 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118902@#logid=661594262398646
+|2026-11-19T20:08:23.035545 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:08:23.035545 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118903@#logid=661594262398646@#ret=0
+|2026-11-19T20:08:23.035545 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:08:25.306294 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:08:45.313195 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:08:51.007122 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=70|recv_cnt=70|max_cnt=64|
+|2026-11-19T20:08:51.007122 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:08:51.008097 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118931@#logid=661598557365971
+|2026-11-19T20:08:51.044788 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:08:51.044788 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118931@#logid=661598557365971@#ret=0
+|2026-11-19T20:08:51.044788 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:09:05.322931 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:09:19.013219 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=71|recv_cnt=71|max_cnt=64|
+|2026-11-19T20:09:19.013219 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:09:19.013219 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118959@#logid=661602852333295
+|2026-11-19T20:09:19.054781 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:09:19.054781 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118959@#logid=661602852333295@#ret=0
+|2026-11-19T20:09:19.054781 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:09:25.328963 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:09:45.336949 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:09:47.015975 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=72|recv_cnt=72|max_cnt=64|
+|2026-11-19T20:09:47.015975 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:09:47.015975 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118987@#logid=661607147300619
+|2026-11-19T20:09:47.059771 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:09:47.059771 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795118987@#logid=661607147300619@#ret=0
+|2026-11-19T20:09:47.060773 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:10:05.340823 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:10:15.017877 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=73|recv_cnt=73|max_cnt=64|
+|2026-11-19T20:10:15.017877 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:10:15.018539 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119015@#logid=661611442267943
+|2026-11-19T20:10:15.061860 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:10:15.061860 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119015@#logid=661611442267943@#ret=0
+|2026-11-19T20:10:15.062881 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:10:25.348973 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:10:42.186850 1 [28908] {netio} on_control_timer:98 on_control_timer
+|2026-11-19T20:10:42.186850 1 [28908] {netio} upload_condition_satisfied:330 condition=01111011
+|2026-11-19T20:10:42.186850 1 [28908] {netio} on_control_timer:103 can not running
+|2026-11-19T20:10:43.027680 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=74|recv_cnt=74|max_cnt=64|
+|2026-11-19T20:10:43.027680 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:10:43.027680 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119043@#logid=661615737235267
+|2026-11-19T20:10:43.064702 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:10:43.064702 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119043@#logid=661615737235267@#ret=0
+|2026-11-19T20:10:43.064702 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:10:45.361758 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:11:05.375339 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:11:11.041952 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=75|recv_cnt=75|max_cnt=64|
+|2026-11-19T20:11:11.041952 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:11:11.041952 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119071@#logid=661620032202591
+|2026-11-19T20:11:11.082844 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:11:11.082844 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119071@#logid=661620032202591@#ret=0
+|2026-11-19T20:11:11.082844 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:11:25.389731 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:11:38.868669 1 [27668] {serverProxy} report_live_statistic:874 |send_cnt=0|max=6|
+|2026-11-19T20:11:38.868669 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:11:38.868669 1 [27668] {serverProxy} on_alive_timer:721 |OnlineServer|on_alive_timer|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:11:39.056492 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=76|recv_cnt=76|max_cnt=64|
+|2026-11-19T20:11:39.056492 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:11:39.057465 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119099@#logid=661624327169915
+|2026-11-19T20:11:39.100491 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:11:39.100491 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119099@#logid=661624327169915@#ret=0
+|2026-11-19T20:11:39.100491 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:11:45.403062 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:11:48.880175 1 [27668] {serverProxy} on_send_timer:623 |OnlineServer|on_send_timer|try_count=1|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:11:48.880175 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:11:58.888369 1 [27668] {serverProxy} on_send_timer:623 |OnlineServer|on_send_timer|try_count=2|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:11:58.888369 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:12:05.407555 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:12:07.067878 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=77|recv_cnt=77|max_cnt=64|
+|2026-11-19T20:12:07.067878 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:12:07.067878 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119127@#logid=661628622137239
+|2026-11-19T20:12:07.108310 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:12:07.108310 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119127@#logid=661628622137239@#ret=0
+|2026-11-19T20:12:07.108310 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:12:08.893548 1 [27668] {serverProxy} async_query_server_address:454 |worker=07F0B6B0|last_query=0|
+|2026-11-19T20:12:08.893548 1 [27668] {serverProxy} on_send_timer:640 |on_send_timer|try_count=3|ONLINE_HTTP_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:12:08.893548 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:12:25.415714 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:12:35.080780 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=78|recv_cnt=78|max_cnt=64|
+|2026-11-19T20:12:35.080780 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:12:35.080780 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119155@#logid=661632917104563
+|2026-11-19T20:12:35.115734 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:12:35.115734 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119155@#logid=661632917104563@#ret=0
+|2026-11-19T20:12:35.115734 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:12:45.430291 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:13:03.084373 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=79|recv_cnt=79|max_cnt=64|
+|2026-11-19T20:13:03.084373 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:13:03.084373 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119183@#logid=661637212071887
+|2026-11-19T20:13:03.125522 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:13:03.125522 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119183@#logid=661637212071887@#ret=0
+|2026-11-19T20:13:03.126522 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:13:05.437181 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:13:25.441563 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:13:31.088435 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=80|recv_cnt=80|max_cnt=64|
+|2026-11-19T20:13:31.088435 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:13:31.088435 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119211@#logid=661641507039211
+|2026-11-19T20:13:31.130292 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:13:31.131301 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119211@#logid=661641507039211@#ret=0
+|2026-11-19T20:13:31.131301 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:13:45.442327 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:13:59.095446 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=81|recv_cnt=81|max_cnt=64|
+|2026-11-19T20:13:59.095446 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:13:59.095446 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119239@#logid=661645802006535
+|2026-11-19T20:13:59.133302 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:13:59.133302 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119239@#logid=661645802006535@#ret=0
+|2026-11-19T20:13:59.133302 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:14:05.454109 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:14:17.985963 3 [27668] {serverProxy} create_a_query_operation:131 |fid=00000000000000000000000000000000|url=http://pan.baidu.com/cms/config?method=query&clienttype=9&version=3.0.20.237&time=1792954545&rand=65a98f84b2b7ddffef6cc01464902c5f2e095e01&devuid=BDIMXV2-O_3CB4E26C65204082BA3DFCF9F309A441-C_0-D_00A0_7501_2E4F_F199.-M_900F0CC7FDB5-V_EA9E986D&channel=00000000000000000000000040000001&version_app=8.1.6.101&uk=1102105392945&cfg=p2p_switch_param|cfg_type=0
+|2026-11-19T20:14:17.985963 1 [27668] {cronet} use_cronet:283 reset disable cronet|time=2164713425
+|2026-11-19T20:14:17.985963 1 [27668] {netio} send:73 encrypt cookie failed|url=https://pan.baidu.com/cms/config?method=query&clienttype=9&version=3.0.20.237&time=1792954545&rand=65a98f84b2b7ddffef6cc01464902c5f2e095e01&devuid=BDIMXV2-O_3CB4E26C65204082BA3DFCF9F309A441-C_0-D_00A0_7501_2E4F_F199.-M_900F0CC7FDB5-V_EA9E986D&channel=00000000000000000000000040000001&version_app=8.1.6.101&uk=1102105392945&cfg=p2p_switch_param|original_cookie=652|error_code=-1
+|2026-11-19T20:14:18.161792 1 [22356] {netio} handle_request_callback:192 url connect|url=https://pan.baidu.com/cms/config?method=query&clienttype=9&version=3.0.20.237&time=1792954545&rand=65a98f84b2b7ddffef6cc01464902c5f2e095e01&devuid=BDIMXV2-O_3CB4E26C65204082BA3DFCF9F309A441-C_0-D_00A0_7501_2E4F_F199.-M_900F0CC7FDB5-V_EA9E986D&channel=00000000000000000000000040000001&version_app=8.1.6.101&uk=1102105392945&cfg=p2p_switch_param|remote_address=112.34.111.107|remote_port=443
+|2026-11-19T20:14:18.162791 1 [27668] {serverProxy} handle_p2p_switch_param_recv:411 |task_handle=0|data={"cfg":{"p2p_switch_param":{"basic_speed":122880,"p2pu_percent":40,"spup_peer":100000,"spup_percent":860,"ss_strategy":0,"ss_strategy_version":2}},"error_code":0,"error_msg":"success","newno":"","request_id":73476329039355856,"server_time":1793240324}|
+|2026-11-19T20:14:18.162791 1 [18180] {Task} operator():214 get p2p switch|spup_peer=100000|p2pu_percent=40|spup_percent=860|basic_speed=122880
+|2026-11-19T20:14:25.459280 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:14:27.099634 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=82|recv_cnt=82|max_cnt=64|
+|2026-11-19T20:14:27.099634 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:14:27.099634 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119267@#logid=661650096973859
+|2026-11-19T20:14:27.138458 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:14:27.138458 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119267@#logid=661650096973859@#ret=0
+|2026-11-19T20:14:27.138458 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:14:45.462291 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:14:55.103122 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=83|recv_cnt=83|max_cnt=64|
+|2026-11-19T20:14:55.103122 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:14:55.103122 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119295@#logid=661654391941183
+|2026-11-19T20:14:55.139931 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:14:55.139931 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119295@#logid=661654391941183@#ret=0
+|2026-11-19T20:14:55.140931 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:15:05.475138 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:15:23.108690 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=84|recv_cnt=84|max_cnt=64|
+|2026-11-19T20:15:23.108690 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:15:23.108690 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119323@#logid=661658686908507
+|2026-11-19T20:15:23.146091 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:15:23.146091 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119323@#logid=661658686908507@#ret=0
+|2026-11-19T20:15:23.146091 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:15:25.480976 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:15:45.482253 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:15:51.114205 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=85|recv_cnt=85|max_cnt=64|
+|2026-11-19T20:15:51.114205 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:15:51.114205 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119351@#logid=661662981875831
+|2026-11-19T20:15:51.151987 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:15:51.152991 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119351@#logid=661662981875831@#ret=0
+|2026-11-19T20:15:51.152991 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:16:05.491022 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:16:19.124277 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=86|recv_cnt=86|max_cnt=64|
+|2026-11-19T20:16:19.124277 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:16:19.125249 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119379@#logid=661667276843155
+|2026-11-19T20:16:19.164745 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:16:19.164745 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119379@#logid=661667276843155@#ret=0
+|2026-11-19T20:16:19.164745 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:16:25.494802 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:16:38.878904 1 [27668] {serverProxy} report_live_statistic:874 |send_cnt=0|max=6|
+|2026-11-19T20:16:38.878904 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:16:38.878904 1 [27668] {serverProxy} on_alive_timer:721 |OnlineServer|on_alive_timer|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:16:45.499373 3 [24656] {uTP} on_timer:168 |socket_nr=0|handle=0|imp=0|PeerIoPkt=1|UdpIoData=300|uTPSendItem=0|
+|2026-11-19T20:16:47.133057 1 [27668] {serverProxy} report_live_statistic:1256 |send_cnt=87|recv_cnt=87|max_cnt=64|
+|2026-11-19T20:16:47.133057 1 [27668] {serverProxy} send_live_request_message:569 HoleNode Alive|hole_ip=111.20.4.14:8829|self_public_addr_v4=36.143.3.41:9070|self_public_addr_v6=[::]:0
+|2026-11-19T20:16:47.133057 1 [27668] {Kernel} send_live_request_message:585 type=p2p_log@#op=report_live_hole@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119407@#logid=661671571810479
+|2026-11-19T20:16:47.172619 1 [27668] {serverProxy} on_recv:770 HoleNodeServer Response|result=0|command=1064967|pub_addr_v4=36.143.3.41:9070|pub_addr_v6=[]:0
+|2026-11-19T20:16:47.172619 1 [27668] {Kernel} on_recv:783 type=p2p_log@#op=report_live_hole_resp@#myid=4CE05511685783CE0DC96AFD94977F28@#localtime=1795119407@#logid=661671571810479@#ret=0
+|2026-11-19T20:16:47.172619 1 [27668] {serverProxy} add_nat_info:559 add nat info|src_address=111.20.4.14:8829|nat_address=36.143.3.41:9070|src_type=2|
+|2026-11-19T20:16:48.879759 1 [27668] {serverProxy} on_send_timer:623 |OnlineServer|on_send_timer|try_count=1|ONLINE_REPORT_ALIVE_REQUEST|
+|2026-11-19T20:16:48.879759 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:16:56.393925 1 [18884] {upload} do_set_parameter:227 key=8|value=|key_int=8
+|2026-11-19T20:16:56.392926 1 [23904] {Kernel} set_parameter:138 TryVipToken=|
+|2026-11-19T20:16:56.393925 1 [18180] {Task} operator():3786 set try vip speed up|cur flag=0|set flag=0|membership=1
+|2026-11-19T20:16:56.393925 1 [18180] {Kernel} operator():3811 token = 
+|2026-11-19T20:16:56.393925 1 [23904] {Kernel} set_parameter:264 |UserSpeedLimit={"p2s_s":"0","total_s":"0","tm":"1793240482","rnd":"111b881b24af47e7ae548f071fc39132"}
+|
+|2026-11-19T20:16:56.394927 1 [18884] {upload} do_set_parameter:227 key=37|value={"p2s_s":"0","total_s":"0","tm":"1793240482","rnd":"111b881b24af47e7ae548f071fc39132"}
+|key_int=37
+|2026-11-19T20:16:56.395928 1 [9708] {upload} set_user_info:372 type=8|value=0
+|2026-11-19T20:16:56.395928 1 [9708] {upload} set_bussiness_parameter:351 type=0|value=|changed=0
+|2026-11-19T20:16:56.418696 3 [23904] {Kernel} p2psdk_unit_internel:263 position yunp2p_unit stop...2164871858
+|2026-11-19T20:16:56.421340 1 [23904] {upload} stop:50 stop UploadTaskAdapter|last_task=0
+|2026-11-19T20:16:56.423523 3 [23904] {Task} stop:80 exit
+|2026-11-19T20:16:56.424068 2 [30016] {network_detector} stop_network_detect:67 
+|2026-11-19T20:16:56.424610 3 [18180] {Task} release_all_vod:111 stopped
+|2026-11-19T20:16:56.424610 1 [18180] {Task} stop_all:3091 yunp2p_unit|instance=05525AD8|
+|2026-11-19T20:16:56.424610 3 [13156] {filesystem} on_stop:70 FileHandlePool::on_stop
+|2026-11-19T20:16:56.425218 2 [30016] {network_detector} on_disconnect:31 
+|2026-11-19T20:16:56.425218 1 [23904] {serverProxy} interface_net_type_detect_server_stop:239 net_type_server_detect_stop
+|2026-11-19T20:16:56.425218 3 [18180] {Kernel} stop_task:774 |fgid=00000000000000000000000000000000|status=1|mode=4096|upload_count=0|download=3965917648/3965917648|task_error=0|file_handle=0|path=D:\Wang_Pan\BaiduNetdiskDownload\阿尔法开发版\【正点原子】阿尔法Linux开发板（A盘）-基础资料\【正点原子】阿尔法Linux开发板（A盘）-基础资料\【正点原子】阿尔法Linux开发板（A盘）-基础资料\03、软件\Qt5.12.9\qt-opensource-windows-x86-5.12.9.exe |
+|2026-11-19T20:16:56.425772 1 [27668] {serverProxy} enable_p2p:132 upload_flag=0|enbale_qingluan_netdisk_p2p=0|has_user_uploading_task=0|
+|2026-11-19T20:16:56.426788 1 [28908] {netio} operator():590 stop_upload
+|2026-11-19T20:16:56.426788 3 [27668] {Task} unRegistorServer:234 unregistor Server|addr=111.20.4.14:8829|
+|2026-11-19T20:16:56.429333 1 [23904] {netio} stop_upload_bandwidth_detect:213 |join thread|tid=5d60|
+|2026-11-19T20:16:56.430338 3 [24656] {uTP} operator():65 |stop utp|tid=6050|
+|2026-11-19T20:16:56.431112 3 [23904] {Kernel} p2psdk_unit_internel:347 join...2164871870
+|2026-11-19T20:16:56.431112 1 [23904] {Task} join_thread:33 |tid=5d60|
+|2026-11-19T20:16:56.431112 1 [23904] {uTP} join_thread:91 |join UTPManager thread|tid=5d60|
+|2026-11-19T20:16:56.431112 1 [23904] {uTP} join_thread:67 |join AdapterChecker thread|tid=5d60|
+|2026-11-19T20:16:56.431112 1 [23904] {filesystem} join_thread:41 |join thread|tid=5d60|
+|2026-11-19T20:16:56.431112 1 [23904] {uTP} join_thread:106 |join NetworkDetector thread|tid=5d60|
+|2026-11-19T20:16:56.431112 3 [23904] {Kernel} p2psdk_unit_internel:366 release...2164871870
+|2026-11-19T20:16:56.431626 4 [28568] {netio} handle_accept:107 pipeerror|accept.err=system:995|
